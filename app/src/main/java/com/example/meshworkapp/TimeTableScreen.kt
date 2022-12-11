@@ -73,6 +73,11 @@ fun DayChipComposable(currentDay: String) {
     }
 }
 
+@Composable
+fun sampleComposable(){
+    Text(text = "sahil")
+}
+
 
 @Preview(showBackground = true)
 @Composable
