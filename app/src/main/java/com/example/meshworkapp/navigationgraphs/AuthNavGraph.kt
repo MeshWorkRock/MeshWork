@@ -8,8 +8,17 @@ import androidx.navigation.navigation
 fun NavGraphBuilder.authNavGraph(
     navHostController: NavHostController
 ){
-//    navigation(
-//        route = TopLevelNavGraph.authenticationGraph,
-//        startDestination =
-//    )
+    navigation(
+        route = TopLevelNavGraph.authenticationGraph,
+        startDestination = AuthScreen.UserSelect.route
+    ){
+
+    }
+}
+
+sealed class AuthScreen(
+    val route: String
+){
+    object UserSelect:AuthScreen("user_select")
+    object Login:AuthScreen("login")
 }
