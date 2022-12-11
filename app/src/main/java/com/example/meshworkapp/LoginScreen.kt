@@ -23,7 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun LoginScreenStudent(name : String) {
+fun LoginScreenStudentComposable(name : String) {
     val loginId = name
     var uidTextState by remember {
         mutableStateOf("")
@@ -95,7 +95,7 @@ fun LoginScreenStudent(name : String) {
 
 
 @Composable
-fun LoginScreenFaculty(name : String){
+fun LoginScreenFacultyComposable(name : String){
     val loginId = name
     var uidTextState by remember {
         mutableStateOf("")
@@ -168,5 +168,5 @@ fun LoginScreenFaculty(name : String){
 @Composable
 @Preview(showBackground = true)
 fun LoginScreenPreview() {
-    LoginScreenFaculty(name = "Faculty")
+    LoginScreenFacultyComposable(name = "Faculty")
 }
