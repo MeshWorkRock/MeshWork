@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.toSize
 
 
 @Composable
-fun NewAnnouncementFilterScreenComposable() {
+fun AnnouncementFilterScreenComposable() {
     val batchList = listOf("2018", "2019", "2020", "2021", "2022")
     val courseList = listOf("BCA", "MCA", "BSC")
     val sectionlist = listOf("1", "2", "3", "4", "5", "6", "7")
@@ -185,5 +185,5 @@ fun BatchFilterBlockComposable(modifier: Modifier, list: List<String>) {
 @Preview(showBackground = true)
 @Composable
 fun NewAnnouncementPreview() {
-    NewAnnouncementFilterScreenComposable()
+    AnnouncementFilterScreenComposable()
 }
