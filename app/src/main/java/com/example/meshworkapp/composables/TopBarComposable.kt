@@ -1,4 +1,4 @@
-package com.example.meshworkapp
+package com.example.meshworkapp.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

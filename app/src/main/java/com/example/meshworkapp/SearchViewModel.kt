@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class SearchViewModel : ViewModel() {
+class SearchViewModel() : ViewModel() {
 
     //    Don't Declare variables between these three variables
     private var _liveMutableStudentsList = MutableLiveData<List<StudentsDataClass>>()

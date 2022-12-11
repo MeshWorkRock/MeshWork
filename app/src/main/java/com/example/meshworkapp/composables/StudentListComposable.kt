@@ -1,7 +1,8 @@
-package com.example.meshworkapp
+package com.example.meshworkapp.composables
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -20,10 +21,16 @@ import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import com.example.meshworkapp.SearchViewModel
+import com.example.meshworkapp.StudentsDataClass
 
 // It will show list of students
 @Composable
-fun StudentListComposable(viewModel: SearchViewModel) {
+fun StudentListComposable(
+    viewModel: SearchViewModel,
+//    onClick: () -> Unit
+
+) {
     val studentList: List<StudentsDataClass>? = viewModel.liveStudentsList.observeAsState().value
 
     LazyColumn(
@@ -32,7 +39,11 @@ fun StudentListComposable(viewModel: SearchViewModel) {
         if (!studentList.isNullOrEmpty()) {
             items(items = studentList) { student ->
                 val studentDesignationBadge = student.studentDesignation
-                StudentListCardComposable(student = student, studentDesignationBadge = studentDesignationBadge)
+                StudentListCardComposable(
+                    student = student,
+                    studentDesignationBadge = studentDesignationBadge
+//                    onClick = { onClick }
+                )
             }
         }
     }
@@ -41,9 +52,14 @@ fun StudentListComposable(viewModel: SearchViewModel) {
 // Card which contains student profile composable,
 // student UID composable, student designation badge composable
 @Composable
-fun StudentListCardComposable(student: StudentsDataClass, studentDesignationBadge: String?) {
+fun StudentListCardComposable(
+    student: StudentsDataClass,
+    studentDesignationBadge: String?,
+//    onClick: () -> Unit
+) {
     Card(modifier = Modifier
         .padding(10.dp),
+//        .clickable{ onClick() },
         elevation = 8.dp
     ) {
         Row(

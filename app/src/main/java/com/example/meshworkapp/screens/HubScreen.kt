@@ -8,19 +8,20 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import com.example.meshworkapp.navigationgraphs.HubBottomNavigationItems
 import com.example.meshworkapp.navigationgraphs.HubNavGraph
 
 @Composable
 fun HubScreen(
-    navHostController: NavHostController
+    navHostController: NavHostController = rememberNavController()
 ) {
     Scaffold(
         bottomBar = {
             BottomNavigationBarComposable(navHostController = navHostController)
         }
-    ) { 
-            HubNavGraph(navHostController = navHostController)
+    ) {
+        HubNavGraph(navHostController = navHostController)
     }
 }
 
@@ -29,8 +30,10 @@ fun BottomNavigationBarComposable(
     navHostController: NavHostController
 ) {
     val bottomNavigationItems = listOf(
-        HubBottomNavigationItems.Home,
         HubBottomNavigationItems.Chats,
+        HubBottomNavigationItems.Home,
+        HubBottomNavigationItems.Announcements,
+        HubBottomNavigationItems.TimeTable,
     )
 
     val backStackEntry by navHostController.currentBackStackEntryAsState()
@@ -43,7 +46,11 @@ fun BottomNavigationBarComposable(
     if (isHubScreen) {
         BottomNavigation {
             bottomNavigationItems.forEach { item ->
-
+                AddItem(
+                    item = item,
+                    currentDestination = currentDestination,
+                    navHostController = navHostController
+                )
             }
         }
     }
@@ -67,6 +74,7 @@ fun RowScope.AddItem(
         onClick = {
             navHostController.navigate(item.route) {
                 popUpTo(navHostController.graph.findStartDestination().id)
+                launchSingleTop = true
             }
         }
     )

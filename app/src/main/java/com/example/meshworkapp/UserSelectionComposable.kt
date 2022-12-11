@@ -1,4 +1,4 @@
-package com.example.meshworkapp.ui.theme
+package com.example.meshworkapp
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -11,11 +11,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.example.meshworkapp.Screen
 
 @Composable
-fun UserSelectionComposable(navController: NavController) {
+fun UserSelectionComposable(
+    navController: NavHostController,
+    onClick: () -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -33,7 +36,7 @@ fun UserSelectionComposable(navController: NavController) {
                 .width(200.dp)
                 .padding(horizontal = 15.dp, vertical = 10.dp)
                 .clickable {
-                    navController.navigate(Screen.LoginScreenFaculty.route)
+                    onClick()
                 }
         )
         Spacer(modifier = Modifier.height(5.dp))

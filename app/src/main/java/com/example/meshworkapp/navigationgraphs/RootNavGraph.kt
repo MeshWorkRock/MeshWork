@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.meshworkapp.screens.HomeScreen
 import com.example.meshworkapp.screens.HubScreen
 
 @Composable
@@ -13,20 +12,20 @@ fun RootNavGraph(
 ){
     NavHost(
         navController = navHostController,
-        route = TopLevelNavGraph.rootGraph,
-        startDestination = TopLevelNavGraph.hubGraph
+        route = TopLevelGraph.rootGraph,
+        startDestination = TopLevelGraph.authenticationGraph
     ){
         authNavGraph(navHostController = navHostController)
-        composable(route = TopLevelNavGraph.hubGraph){
-            HubScreen(navHostController)
+        composable(route = TopLevelGraph.hubGraph){
+            HubScreen()
         }
     }
 }
 
-object TopLevelNavGraph{
+object TopLevelGraph{
     const val rootGraph = "root_graph"
     const val authenticationGraph = "authentication_graph"
     const val hubGraph = "home_graph"
-    const val chatsGraph = "chats_graph"
+    const val studentListGraph = "student_list_graph"
     const val announcementGraph = "announcements_graph"
 }

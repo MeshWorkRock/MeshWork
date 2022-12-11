@@ -1,4 +1,4 @@
-package com.example.meshworkapp
+package com.example.meshworkapp.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -13,9 +13,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.meshworkapp.AnnouncementDataClass
 
 @Composable
-fun AnnouncementComposable() {
+fun AnnouncementScreen() {
     val announcementMessages = listOf(
         AnnouncementDataClass(
             "Sahil",
@@ -77,5 +78,5 @@ fun AnnouncementComposable() {
 @Preview(showBackground = true)
 @Composable
 fun AnnouncementPreview() {
-    AnnouncementComposable()
+    AnnouncementScreen()
 }
