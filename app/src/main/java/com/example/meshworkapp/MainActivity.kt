@@ -12,20 +12,20 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MeshWorkAppTheme {
-                StudentListScreen()
+                TimeTableScreen(TimeTableViewModel())
             }
         }
     }
 }
 
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    MeshWorkAppTheme {
-
-        StudentListScreen()
-
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun DefaultPreview() {
+//    MeshWorkAppTheme {
+//
+//
+//
+//    }
+//}
 
