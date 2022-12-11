@@ -1,4 +1,4 @@
-package com.example.meshworkapp
+package com.example.meshworkapp.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -21,6 +21,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.meshworkapp.R
 
 @Composable
 fun LoginScreenStudentComposable(name : String) {
@@ -95,7 +96,10 @@ fun LoginScreenStudentComposable(name : String) {
 
 
 @Composable
-fun LoginScreenFacultyComposable(name : String){
+fun LoginScreenFacultyComposable(
+    name: String,
+    onSubmit: () -> Unit
+){
     val loginId = name
     var uidTextState by remember {
         mutableStateOf("")
@@ -156,7 +160,7 @@ fun LoginScreenFacultyComposable(name : String){
 
             Spacer(modifier = Modifier.height(20.dp))
             Button(
-                onClick = { },
+                onClick = { onSubmit() },
                 modifier = Modifier.width(150.dp),
             ) {
                 Text(text = "LOG IN")
@@ -168,5 +172,5 @@ fun LoginScreenFacultyComposable(name : String){
 @Composable
 @Preview(showBackground = true)
 fun LoginScreenPreview() {
-    LoginScreenFacultyComposable(name = "Faculty")
+    LoginScreenFacultyComposable(name = "Faculty", onSubmit = {})
 }

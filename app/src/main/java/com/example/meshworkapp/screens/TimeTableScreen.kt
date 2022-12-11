@@ -1,6 +1,5 @@
-package com.example.meshworkapp
+package com.example.meshworkapp.screens
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.*

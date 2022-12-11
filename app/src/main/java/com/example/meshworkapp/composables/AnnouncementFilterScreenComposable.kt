@@ -1,4 +1,4 @@
-package com.example.meshworkapp
+package com.example.meshworkapp.composables
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
