@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 
 class SearchViewModel() : ViewModel() {
 
-    //    Don't Declare variables between these three variables
+    //    Don't Declare anything between these three variables
     private var _liveMutableStudentsList = MutableLiveData<List<StudentsDataClass>>()
     val liveStudentsList: LiveData<List<StudentsDataClass>>
         get() = this._liveMutableStudentsList
@@ -23,13 +23,14 @@ class SearchViewModel() : ViewModel() {
     fun loadStudents(studentDataList: List<StudentsDataClass>) {
 
         initializeStudentList(studentDataList)
+        this._liveMutableStudentsList = MutableLiveData<List<StudentsDataClass>>()
         this._liveMutableStudentsList.postValue(studentList)
     }
 
     fun performQuery(
         query: String
     ) {
-        Log.i("queryn7", ":1")
+//        Log.i("queryn7", ":1")
         val filteredList = ArrayList<StudentsDataClass>()
         studentList.forEach { student ->
             if (student.studentName.lowercase()

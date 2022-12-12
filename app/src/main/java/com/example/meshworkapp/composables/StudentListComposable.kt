@@ -1,5 +1,6 @@
 package com.example.meshworkapp.composables
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -18,6 +19,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import com.example.meshworkapp.R
@@ -33,16 +35,16 @@ fun StudentListComposable(
 ) {
 
 
-
     searchViewModel.loadStudents(studentDataList)
 
-    val studentList: List<StudentsDataClass>? = searchViewModel.liveStudentsList.observeAsState().value
+    val studentList = searchViewModel.liveStudentsList.observeAsState().value
+//    Toast.makeText(LocalContext.current, "list count = ${studentList?.size}", Toast.LENGTH_SHORT).show()
 
     LazyColumn(
         modifier = Modifier.padding(bottom = 48.dp)
     ) {
         if (!studentList.isNullOrEmpty()) {
-            items(items = studentList) { student ->
+            items(items = studentList.distinct()) { student ->                            //TODO Optimise By using Other than List.distinct()
                 val studentDesignationBadge = student.studentDesignation
                 StudentListCardComposable(
                     student = student,

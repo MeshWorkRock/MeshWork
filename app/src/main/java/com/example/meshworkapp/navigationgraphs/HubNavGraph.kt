@@ -22,61 +22,6 @@ fun HubNavGraph(
     navHostController: NavHostController
 ) {
 
-    val data by remember {
-        mutableStateOf(
-            listOf(
-                StudentsDataClass(
-                    studentName = "Pankaj Singh",
-                    studentUID = "22MCC20049",
-                    studentProfile = R.drawable.dummy_profile_pic,
-                    studentDesignation = "CR"
-                ),
-                StudentsDataClass(
-                    studentName = "Sahil Vishwakarma",
-                    studentUID = "22MCC20030",
-                    studentProfile = R.drawable.dummy_profile_pic,
-                    studentDesignation = null
-                ),
-                StudentsDataClass(
-                    studentName = "Amandeep Singh",
-                    studentUID = "22MCC20050",
-                    studentProfile = R.drawable.dummy_profile_pic,
-                    studentDesignation = null
-                ),
-                StudentsDataClass(
-                    studentName = "Mrinal Sahni",
-                    studentUID = "22MCC20059",
-                    studentProfile = R.drawable.dummy_profile_pic,
-                    studentDesignation = null
-                ),
-                StudentsDataClass(
-                    studentName = "Mercy",
-                    studentUID = "22MCC20090",
-                    studentProfile = R.drawable.dummy_profile_pic,
-                    studentDesignation = null
-                ),
-                StudentsDataClass(
-                    studentName = "Tejas",
-                    studentUID = "22MCC20088",
-                    studentProfile = R.drawable.dummy_profile_pic,
-                    studentDesignation = "CR"
-                ),
-                StudentsDataClass(
-                    studentName = "Tejveer",
-                    studentUID = "22MCC20072",
-                    studentProfile = R.drawable.dummy_profile_pic,
-                    studentDesignation = null
-                ),
-                StudentsDataClass(
-                    studentName = "Isha Nagpal",
-                    studentUID = "22MCC20066",
-                    studentProfile = R.drawable.dummy_profile_pic,
-                    studentDesignation = null
-                )
-            )
-        )
-    }
-
     NavHost(
         navController = navHostController,
         route = TopLevelGraph.hubGraph,
@@ -90,7 +35,7 @@ fun HubNavGraph(
         composable(
             route = HubBottomNavigationItems.Chats.route
         ) {
-            StudentListScreen(studentDataList = data)
+            StudentListScreen(studentDataList = fetchStudentsList())
         }
         composable(
             route = HubBottomNavigationItems.TimeTable.route
@@ -133,4 +78,62 @@ sealed class HubBottomNavigationItems(
         label = "Announcements",
         icon = Icons.Default.Person
     )
+}
+
+
+fun fetchStudentsList(): List<StudentsDataClass> {
+
+    //    Toast.makeText(LocalContext.current, "list count = ${studentList.size}", Toast.LENGTH_SHORT).show()
+
+    return listOf(
+        StudentsDataClass(
+            studentName = "Pankaj Singh",
+            studentUID = "22MCC20049",
+            studentProfile = R.drawable.dummy_profile_pic,
+            studentDesignation = "CR"
+        ),
+        StudentsDataClass(
+            studentName = "Sahil Vishwakarma",
+            studentUID = "22MCC20030",
+            studentProfile = R.drawable.dummy_profile_pic,
+            studentDesignation = null
+        ),
+        StudentsDataClass(
+            studentName = "Amandeep Singh",
+            studentUID = "22MCC20050",
+            studentProfile = R.drawable.dummy_profile_pic,
+            studentDesignation = null
+        ),
+        StudentsDataClass(
+            studentName = "Mrinal Sahni",
+            studentUID = "22MCC20059",
+            studentProfile = R.drawable.dummy_profile_pic,
+            studentDesignation = null
+        ),
+        StudentsDataClass(
+            studentName = "Mercy",
+            studentUID = "22MCC20090",
+            studentProfile = R.drawable.dummy_profile_pic,
+            studentDesignation = null
+        ),
+        StudentsDataClass(
+            studentName = "Tejas",
+            studentUID = "22MCC20088",
+            studentProfile = R.drawable.dummy_profile_pic,
+            studentDesignation = "CR"
+        ),
+        StudentsDataClass(
+            studentName = "Tejveer",
+            studentUID = "22MCC20072",
+            studentProfile = R.drawable.dummy_profile_pic,
+            studentDesignation = null
+        ),
+        StudentsDataClass(
+            studentName = "Isha Nagpal",
+            studentUID = "22MCC20066",
+            studentProfile = R.drawable.dummy_profile_pic,
+            studentDesignation = null
+        )
+    )
+
 }
