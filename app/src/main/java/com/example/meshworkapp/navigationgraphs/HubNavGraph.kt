@@ -12,10 +12,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.meshworkapp.R
 import com.example.meshworkapp.StudentsDataClass
-import com.example.meshworkapp.screens.StudentListScreen
-import com.example.meshworkapp.screens.AnnouncementScreen
-import com.example.meshworkapp.screens.TimeTableComposable
-import com.example.meshworkapp.screens.HomeScreen
+import com.example.meshworkapp.screens.*
 
 @Composable
 fun HubNavGraph(
@@ -95,7 +92,7 @@ fun HubNavGraph(
         composable(
             route = HubBottomNavigationItems.TimeTable.route
         ) {
-            TimeTableComposable()
+            TimeTableScreen()
         }
         composable(
             route = HubBottomNavigationItems.Announcements.route
