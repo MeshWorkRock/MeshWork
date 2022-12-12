@@ -104,7 +104,7 @@ fun AssignedClassesComposable(
                .fillMaxWidth()
        ) {
            Image(
-               painter = painterResource(id = R.drawable.teacher_teaching),
+               painter = painterResource(id = R.drawable.dummy_profile_pic),
                contentDescription = null,
                modifier = Modifier
                    .size(80.dp)
