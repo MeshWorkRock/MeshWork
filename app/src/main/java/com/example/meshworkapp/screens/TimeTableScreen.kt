@@ -1,6 +1,5 @@
 package com.example.meshworkapp.screens
 
-import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -10,21 +9,17 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.meshworkapp.TimeTableDataClass
 import com.example.meshworkapp.TimeTableViewModel
+import java.text.DateFormatSymbols
 import java.util.*
 
 @Composable
@@ -32,27 +27,23 @@ fun TimeTableScreen() {
     val date: Calendar = Calendar.getInstance()
     val currentDay = date.get(Calendar.DAY_OF_WEEK)
 
-
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
         DayChipComposable(currentDay)
-//        TimeTableComposable(viewModel = TimeTableViewModel())
     }
-
 }
 
 
+///Function for the Day Chip
 @Composable
-fun DayChipComposable(currentDay: Int) {
-    var pressedDay by remember {
-        mutableStateOf(currentDay)
-    }
+fun DayChipComposable(currentDay: Int){
 
-    var selectedDay by remember {
-        mutableStateOf("")
-    }
+    val weekday: String = DateFormatSymbols().getShortWeekdays().get(currentDay)
 
+    //Defining variable
+    var pressedDay by remember { mutableStateOf(currentDay) }
+    var selectedDay by remember { mutableStateOf(weekday) }
 
     Row(
         modifier = Modifier
@@ -77,6 +68,7 @@ fun DayChipComposable(currentDay: Int) {
                                  selectedDay = "Monday"
                             }
                         }
+
                     },
                     shape = CircleShape,
                     colors = if(index == pressedDay) ButtonDefaults.buttonColors(backgroundColor = Color.Blue)
@@ -91,24 +83,20 @@ fun DayChipComposable(currentDay: Int) {
             }
         }
     }
-
-sampleComposable(context = LocalContext.current, selectedDay = selectedDay)
-}
-
-//Sample Bottom Composable
-@Composable
-fun sampleComposable(context : Context, selectedDay: String){
-    Toast.makeText(context, "The selected day is $selectedDay", Toast.LENGTH_LONG).show()
+   TimeTableComposable(viewModel = TimeTableViewModel(), selectedDay = selectedDay )
 }
 
 
-
-//Daily Lectures List
+//Function for Daily Lectures List
 @Composable
 fun TimeTableComposable(viewModel: TimeTableViewModel, selectedDay: String) {
+
+    Toast.makeText(LocalContext.current, "The day is $selectedDay", Toast.LENGTH_LONG).show()
+
+
     val timeTableList: List<TimeTableDataClass> = viewModel.liveTimeTable
 
-    LazyColumn(        modifier = Modifier
+    LazyColumn(modifier = Modifier
             .fillMaxSize()
     ) {
 
@@ -124,7 +112,6 @@ fun TimeTableComposable(viewModel: TimeTableViewModel, selectedDay: String) {
 
 @Composable
 fun TimeTableCard(timeTable: TimeTableDataClass) {
-
     Card(
         elevation = 8.dp,
         modifier = Modifier
@@ -132,7 +119,6 @@ fun TimeTableCard(timeTable: TimeTableDataClass) {
             .fillMaxWidth(),
         shape = RoundedCornerShape(20.dp)
     ) {
-
         Row(
             modifier = Modifier
                 .padding(10.dp)
@@ -143,14 +129,11 @@ fun TimeTableCard(timeTable: TimeTableDataClass) {
 
             BlockComposable(Block = timeTable)
         }
-
     }
-
 }
 
 @Composable
 fun TimeStampComposable(Time: TimeTableDataClass) {
-
     Box(
         contentAlignment = Alignment.Center,
     ) {
@@ -163,7 +146,6 @@ fun TimeStampComposable(Time: TimeTableDataClass) {
 
 @Composable
 fun SubjectGroupTeacherComposable(SubjectGroupTeacher: TimeTableDataClass) {
-
     Box(
         modifier = Modifier
             .size(100.dp),
@@ -182,12 +164,10 @@ fun SubjectGroupTeacherComposable(SubjectGroupTeacher: TimeTableDataClass) {
 
         }
     }
-
 }
 
 @Composable
 fun BlockComposable(Block: TimeTableDataClass) {
-
     Box(
         modifier = Modifier,
         contentAlignment = Alignment.CenterEnd
@@ -196,20 +176,12 @@ fun BlockComposable(Block: TimeTableDataClass) {
             text = Block.block
         )
     }
-
 }
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    TimeTableCard(timeTable = TimeTableDataClass(
-        time = "9:55 - 10:40",
-        subject = "Python Programming",
-        group = "all",
-        teacherName = "Anjul Bhardwaj",
-        block = "DD6 - 413"
-    )
-    )
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun DefaultPreview() {
+// TimeTableScreen()
+//}
 
 

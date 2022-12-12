@@ -10,10 +10,10 @@ import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Black
@@ -33,8 +33,8 @@ fun StudentListComposable(
 ) {
 
 
-
     searchViewModel.loadStudents(studentDataList)
+
 
     val studentList: List<StudentsDataClass>? = searchViewModel.liveStudentsList.observeAsState().value
 
@@ -42,7 +42,7 @@ fun StudentListComposable(
         modifier = Modifier.padding(bottom = 48.dp)
     ) {
         if (!studentList.isNullOrEmpty()) {
-            items(items = studentList) { student ->
+            items(items = studentList.distinct()) { student ->
                 val studentDesignationBadge = student.studentDesignation
                 StudentListCardComposable(
                     student = student,
