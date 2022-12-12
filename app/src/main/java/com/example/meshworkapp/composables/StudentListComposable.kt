@@ -10,7 +10,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -34,17 +34,22 @@ fun StudentListComposable(
 //    onClick: () -> Unit
 ) {
 
+    var initializedStudentList by remember {
+        mutableStateOf(false)
+    }
+    if(!initializedStudentList){
+        searchViewModel.loadStudents(studentDataList)
+        initializedStudentList = true
+    }
 
-    searchViewModel.loadStudents(studentDataList)
-
-    val studentList = searchViewModel.liveStudentsList.observeAsState().value
+    var studentList = searchViewModel.liveStudentsList.observeAsState().value
+    studentList = studentList?.distinct()
 //    Toast.makeText(LocalContext.current, "list count = ${studentList?.size}", Toast.LENGTH_SHORT).show()
-
     LazyColumn(
         modifier = Modifier.padding(bottom = 48.dp)
     ) {
         if (!studentList.isNullOrEmpty()) {
-            items(items = studentList.distinct()) { student ->                            //TODO Optimise By using Other than List.distinct()
+            items(items = studentList) { student ->                            //TODO Optimise By using Other than List.distinct()
                 val studentDesignationBadge = student.studentDesignation
                 StudentListCardComposable(
                     student = student,

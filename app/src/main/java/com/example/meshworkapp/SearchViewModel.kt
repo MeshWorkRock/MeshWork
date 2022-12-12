@@ -1,6 +1,9 @@
 package com.example.meshworkapp
 
 import android.util.Log
+import android.widget.Toast
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,16 +18,12 @@ class SearchViewModel() : ViewModel() {
     //    Only Declare Variables from here on
     private var studentList = ArrayList<StudentsDataClass>()
 
-
-//    init {
-//        loadStudents()
-//    }
-
     fun loadStudents(studentDataList: List<StudentsDataClass>) {
 
         initializeStudentList(studentDataList)
         this._liveMutableStudentsList = MutableLiveData<List<StudentsDataClass>>()
-        this._liveMutableStudentsList.postValue(studentList)
+        if(_liveMutableStudentsList.value == null)
+            this._liveMutableStudentsList.postValue(studentList)
     }
 
     fun performQuery(
@@ -37,16 +36,10 @@ class SearchViewModel() : ViewModel() {
                     .contains(query.lowercase()) || student.studentUID.lowercase()
                     .contains(query.lowercase())
             ) {
-                filteredList.add(
-                    StudentsDataClass(
-                        student.studentName,
-                        student.studentUID,
-                        student.studentProfile,
-                        student.studentDesignation
-                    )
-                )
+                filteredList.add(student)
             }
         }
+
         this._liveMutableStudentsList.postValue(filteredList)
     }
 
