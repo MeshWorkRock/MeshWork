@@ -6,14 +6,15 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.material.*
-import androidx.compose.ui.unit.sp
 import com.example.meshworkapp.SearchBarComposable
 import com.example.meshworkapp.SearchViewModel
+import com.example.meshworkapp.StudentsDataClass
 import com.example.meshworkapp.composables.StudentListComposable
 
 @Composable
 fun StudentListScreen(
     searchViewModel: SearchViewModel = viewModel(),
+    studentDataList: List<StudentsDataClass>
 //    onClick: () -> Unit
 ) {
     Surface(
@@ -21,10 +22,10 @@ fun StudentListScreen(
     ) {
         Scaffold {
             Column {
-//                Text(text = "CHat", fontSize = 42.sp)
                 SearchBarComposable(searchViewModel)
                 StudentListComposable(
-                    viewModel = searchViewModel,
+                    searchViewModel = searchViewModel,
+                    studentDataList = studentDataList
 //                    onClick = { onClick() }
                 )
             }

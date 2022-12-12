@@ -2,7 +2,6 @@ package com.example.meshworkapp.composables
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -21,17 +20,23 @@ import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import com.example.meshworkapp.R
 import com.example.meshworkapp.SearchViewModel
 import com.example.meshworkapp.StudentsDataClass
 
 // It will show list of students
 @Composable
 fun StudentListComposable(
-    viewModel: SearchViewModel,
+    searchViewModel: SearchViewModel,
+    studentDataList: List<StudentsDataClass>
 //    onClick: () -> Unit
-
 ) {
-    val studentList: List<StudentsDataClass>? = viewModel.liveStudentsList.observeAsState().value
+
+
+
+    searchViewModel.loadStudents(studentDataList)
+
+    val studentList: List<StudentsDataClass>? = searchViewModel.liveStudentsList.observeAsState().value
 
     LazyColumn(
         modifier = Modifier.padding(bottom = 48.dp)
@@ -71,8 +76,8 @@ fun StudentListCardComposable(
             StudentNameAndUIDComposable(student)
             if (studentDesignationBadge != null)
                 StudentDesignationBadgeComposable(
-                    student,
-                    studentDesignationBadge
+                    student = student,
+                    studentDesignationBadge = studentDesignationBadge
                 )
         }
     }
