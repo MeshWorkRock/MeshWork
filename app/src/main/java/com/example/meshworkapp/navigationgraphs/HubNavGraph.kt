@@ -46,7 +46,7 @@ fun HubNavGraph(
         composable(
             route = HubNavigationScreens.TimeTable.route
         ) {
-            TimeTableComposable()
+//            TimeTableComposable()
         }
         composable(
             route = HubNavigationScreens.Announcements.route
