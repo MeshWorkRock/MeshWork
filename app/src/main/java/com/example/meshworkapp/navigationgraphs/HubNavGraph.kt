@@ -11,6 +11,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.meshworkapp.AnnouncementDataClass
+import com.example.meshworkapp.ChatListDataClass
 import com.example.meshworkapp.R
 import com.example.meshworkapp.StudentsDataClass
 import com.example.meshworkapp.TimeTableDataClass
@@ -279,8 +280,6 @@ fun HubNavGraph(
             )
         )
     }
-
-
     NavHost(
         navController = navHostController,
         route = TopLevelGraph.hubGraph,
@@ -294,17 +293,17 @@ fun HubNavGraph(
         composable(
             route = HubBottomNavigationItems.Chats.route
         ) {
-            StudentListScreen(studentDataList = data)
+            ChatListScreen(chatDataList = fetchChatList())
         }
         composable(
             route = HubBottomNavigationItems.TimeTable.route
         ) {
-            TimeTableScreen(timeTableList = timeTable)
+            TimeTableScreen()
         }
         composable(
             route = HubBottomNavigationItems.Announcements.route
         ) {
-            AnnouncementScreen(announcementMessages)
+            AnnouncementScreen()
         }
     }
 }
@@ -336,5 +335,134 @@ sealed class HubBottomNavigationItems(
         route = "announcements_screen",
         label = "Announcements",
         icon = Icons.Default.Person
+    )
+}
+
+
+fun fetchStudentsList(): List<StudentsDataClass> {
+
+    //    Toast.makeText(LocalContext.current, "list count = ${studentList.size}", Toast.LENGTH_SHORT).show()
+
+    return listOf(
+        StudentsDataClass(
+            studentName = "Pankaj Singh",
+            studentUID = "22MCC20049",
+            studentProfile = R.drawable.dummy_profile_pic,
+            studentDesignation = "CR"
+        ),
+        StudentsDataClass(
+            studentName = "Sahil Vishwakarma",
+            studentUID = "22MCC20030",
+            studentProfile = R.drawable.dummy_profile_pic,
+            studentDesignation = null
+        ),
+        StudentsDataClass(
+            studentName = "Amandeep Singh",
+            studentUID = "22MCC20050",
+            studentProfile = R.drawable.dummy_profile_pic,
+            studentDesignation = null
+        ),
+        StudentsDataClass(
+            studentName = "Mrinal Sahni",
+            studentUID = "22MCC20059",
+            studentProfile = R.drawable.dummy_profile_pic,
+            studentDesignation = null
+        ),
+        StudentsDataClass(
+            studentName = "Mercy",
+            studentUID = "22MCC20090",
+            studentProfile = R.drawable.dummy_profile_pic,
+            studentDesignation = null
+        ),
+        StudentsDataClass(
+            studentName = "Tejas",
+            studentUID = "22MCC20088",
+            studentProfile = R.drawable.dummy_profile_pic,
+            studentDesignation = "CR"
+        ),
+        StudentsDataClass(
+            studentName = "Tejveer",
+            studentUID = "22MCC20072",
+            studentProfile = R.drawable.dummy_profile_pic,
+            studentDesignation = null
+        ),
+        StudentsDataClass(
+            studentName = "Isha Nagpal",
+            studentUID = "22MCC20066",
+            studentProfile = R.drawable.dummy_profile_pic,
+            studentDesignation = null
+        )
+    )
+
+
+    NavHost(
+        navController = navHostController,
+        route = TopLevelGraph.hubGraph,
+        startDestination = HubBottomNavigationItems.Home.route
+    ) {
+        composable(
+            route = HubBottomNavigationItems.Home.route
+        ) {
+            HomeScreen()
+        }
+        composable(
+            route = HubBottomNavigationItems.Chats.route
+        ) {
+            StudentListScreen(studentDataList = data)
+        }
+        composable(
+            route = HubBottomNavigationItems.TimeTable.route
+        ) {
+            TimeTableScreen(timeTableList = timeTable)
+        }
+        composable(
+            route = HubBottomNavigationItems.Announcements.route
+        ) {
+            AnnouncementScreen(announcementMessages)
+        }
+    }
+}
+
+fun fetchChatList(): List<ChatListDataClass> {
+
+    //    Toast.makeText(LocalContext.current, "list count = ${studentList.size}", Toast.LENGTH_SHORT).show()
+
+    return listOf(
+        ChatListDataClass(
+            studentName = "Pankaj Singh",
+            lastText = "Hello",
+            studentProfile = R.drawable.dummy_profile_pic,
+            lastTime = "12:01 PM"
+        ),
+        ChatListDataClass(
+            studentName = "Sahil Vishwakarma",
+            lastText = "Hello",
+            studentProfile = R.drawable.dummy_profile_pic,
+            lastTime = "12:02 PM"
+        ),
+        ChatListDataClass(
+            studentName = "Amandeep Singh",
+            lastText = "Hello",
+            studentProfile = R.drawable.dummy_profile_pic,
+            lastTime = "12:03 PM"
+        ),
+        ChatListDataClass(
+            studentName = "Mrinal Sahni",
+            lastText = "Hello",
+            studentProfile = R.drawable.dummy_profile_pic,
+            lastTime = "12:01 PM"
+        ),
+        ChatListDataClass(
+            studentName = "Mercy",
+            lastText = "Hello",
+            studentProfile = R.drawable.dummy_profile_pic,
+            lastTime = "12:04 PM"
+        ),
+        ChatListDataClass(
+            studentName = "Tejas",
+            lastText = "Hello",
+            studentProfile = R.drawable.dummy_profile_pic,
+            lastTime = "11:00 PM"
+        ),
     )
 }

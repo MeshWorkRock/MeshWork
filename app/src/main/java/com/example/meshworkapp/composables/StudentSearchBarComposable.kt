@@ -16,13 +16,14 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.ViewModel
 
 // Search Bar Composable For Student List Screen
 // It Contain ViewModel Of Type SearchViewModel
 // Contains TextField With Search Icon(LeadingIcon), Cross Icon(TrailingIcon)
 @Composable
-fun SearchBarComposable(
-    viewModel: SearchViewModel
+fun StudentSearchBarComposable(
+    viewModel: StudentViewModel
 ) {
     var query: String by rememberSaveable { mutableStateOf("") }
     var showClearIcon by rememberSaveable { mutableStateOf(false) }

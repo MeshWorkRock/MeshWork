@@ -1,13 +1,12 @@
 package com.example.meshworkapp
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class SearchViewModel() : ViewModel() {
+class StudentViewModel() : ViewModel() {
 
-    //    Don't Declare variables between these three variables
+    //    Don't Declare anything between these three variables
     private var _liveMutableStudentsList = MutableLiveData<List<StudentsDataClass>>()
     val liveStudentsList: LiveData<List<StudentsDataClass>>
         get() = this._liveMutableStudentsList
@@ -15,37 +14,28 @@ class SearchViewModel() : ViewModel() {
     //    Only Declare Variables from here on
     private var studentList = ArrayList<StudentsDataClass>()
 
-
-//    init {
-//        loadStudents()
-//    }
-
     fun loadStudents(studentDataList: List<StudentsDataClass>) {
 
         initializeStudentList(studentDataList)
-        this._liveMutableStudentsList.postValue(studentList)
+        this._liveMutableStudentsList = MutableLiveData<List<StudentsDataClass>>()
+        if(_liveMutableStudentsList.value == null)
+            this._liveMutableStudentsList.postValue(studentList)
     }
 
     fun performQuery(
         query: String
     ) {
-        Log.i("queryn7", ":1")
+//        Log.i("queryn7", ":1")
         val filteredList = ArrayList<StudentsDataClass>()
         studentList.forEach { student ->
             if (student.studentName.lowercase()
                     .contains(query.lowercase()) || student.studentUID.lowercase()
                     .contains(query.lowercase())
             ) {
-                filteredList.add(
-                    StudentsDataClass(
-                        student.studentName,
-                        student.studentUID,
-                        student.studentProfile,
-                        student.studentDesignation
-                    )
-                )
+                filteredList.add(student)
             }
         }
+
         this._liveMutableStudentsList.postValue(filteredList)
     }
 
