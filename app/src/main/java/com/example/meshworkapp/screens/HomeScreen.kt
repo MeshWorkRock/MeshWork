@@ -15,14 +15,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.meshworkapp.AssignedClassDataClass
-import com.example.meshworkapp.ClassCardComposable
+import com.example.meshworkapp.composables.ClassCardComposable
 import com.example.meshworkapp.R
 import com.example.meshworkapp.UserInfoDataClass
 import com.example.meshworkapp.ui.theme.LightBlueAnimation
@@ -30,17 +32,15 @@ import com.example.meshworkapp.ui.theme.LightBlueText
 
 @Composable
 fun HomeScreen() {
+    @Composable
+fun HomeScreen(
+        navHostController: NavHostController,
+        assignedClassesList: List<AssignedClassDataClass>
+) {
     val userInfo = UserInfoDataClass(
         name = "Welcome Rydhm",
         id = "E9875",
         profilePhoto = painterResource(id = R.drawable.profile_image_dummy)
-    )
-    val assignedClassesList = listOf(
-        AssignedClassDataClass("22BSC-1", "Digital Electronics"),
-        AssignedClassDataClass("22BSC-1", "Digital Electronics"),
-        AssignedClassDataClass("22BSC-1", "Digital Electronics"),
-        AssignedClassDataClass("22BSC-1", "Digital Electronics"),
-        AssignedClassDataClass("22BSC-1", "Digital Electronics")
     )
     Column(
         modifier = Modifier
@@ -59,7 +59,10 @@ fun HomeScreen() {
         Spacer(modifier = Modifier.height(0.dp))
         AssignedClassesComposable(modifier = Modifier.padding(start = 30.dp))
         Spacer(modifier = Modifier.height(0.dp))
-        ClassesGridComposable(assignedClasses = assignedClassesList)
+        ClassesGridComposable(
+            assignedClasses = assignedClassesList,
+            navHostController = navHostController
+        )
     }
 }
 
@@ -195,7 +198,8 @@ fun UserInfoCard(
 @Composable
 fun ClassesGridComposable(
     assignedClasses: List<AssignedClassDataClass>,
-) {
+    navHostController: NavHostController
+){
     LazyVerticalGrid(
         cells = GridCells.Fixed(2),
         contentPadding = PaddingValues(
@@ -208,7 +212,8 @@ fun ClassesGridComposable(
                 ClassCardComposable(
                     className = assignedClass.className,
                     subjectName = assignedClass.subject,
-                    modifier = Modifier.size(150.dp)
+                    modifier = Modifier.size(150.dp),
+                    navHostController = navHostController
                 )
             })
         }
@@ -218,5 +223,15 @@ fun ClassesGridComposable(
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen()
+    val assignedClassesList = listOf(
+        AssignedClassDataClass("22BSC-1", "Digital Electronics"),
+        AssignedClassDataClass("22BSC-1", "Digital Electronics"),
+        AssignedClassDataClass("22BSC-1", "Digital Electronics"),
+        AssignedClassDataClass("22BSC-1", "Digital Electronics"),
+        AssignedClassDataClass("22BSC-1", "Digital Electronics")
+    )
+    HomeScreen(
+        navHostController = NavHostController(LocalContext.current),
+        assignedClassesList = assignedClassesList
+    )
 }

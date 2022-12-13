@@ -12,7 +12,7 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.meshworkapp.navigationgraphs.HubBottomNavigationItems
+import com.example.meshworkapp.navigationgraphs.HubNavigationScreens
 import com.example.meshworkapp.navigationgraphs.HubNavGraph
 
 @Composable
@@ -33,10 +33,10 @@ fun BottomNavigationBarComposable(
     navHostController: NavHostController
 ) {
     val bottomNavigationItems = listOf(
-        HubBottomNavigationItems.Chats,
-        HubBottomNavigationItems.Home,
-        HubBottomNavigationItems.Announcements,
-        HubBottomNavigationItems.TimeTable,
+        HubNavigationScreens.Chats,
+        HubNavigationScreens.Home,
+        HubNavigationScreens.Announcements,
+        HubNavigationScreens.TimeTable,
     )
 
     val backStackEntry by navHostController.currentBackStackEntryAsState()
@@ -61,7 +61,7 @@ fun BottomNavigationBarComposable(
 
 @Composable
 fun RowScope.AddItem(
-    item: HubBottomNavigationItems,
+    item: HubNavigationScreens,
     currentDestination: NavDestination?,
     navHostController: NavHostController
 ) {

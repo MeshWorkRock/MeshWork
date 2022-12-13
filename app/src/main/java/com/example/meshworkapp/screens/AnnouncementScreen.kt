@@ -22,13 +22,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.meshworkapp.AnnouncementDataClass
-
+import com.example.meshworkapp.navigationgraphs.HubNavigationScreens
 
 
 //Announcement Screen Code
 @Composable
-fun AnnouncementScreen(announcementMessages: List<AnnouncementDataClass>) {
+fun AnnouncementScreen(
+    announcementMessages: List<AnnouncementDataClass>,
+    navHostController: NavHostController
+) {
 
     //Composable for Announcement Screen
     Column {
@@ -36,7 +40,7 @@ fun AnnouncementScreen(announcementMessages: List<AnnouncementDataClass>) {
 
         Scaffold(floatingActionButton = {
             FloatingActionButton(
-                onClick = { /*TODO*/ },
+                onClick = { navigateToMakeAnnouncementScreen(navHostController) },
                 modifier = Modifier.padding(bottom = 55.dp)
             ) {
                 Text(
@@ -82,6 +86,12 @@ fun AnnouncementScreen(announcementMessages: List<AnnouncementDataClass>) {
         }
     }
 
+}
+
+fun navigateToMakeAnnouncementScreen(
+    navHostController: NavHostController
+){
+    navHostController.navigate(HubNavigationScreens.MakeAnnouncement.route)
 }
 
 //Announcement Screen Search Bar Composable
