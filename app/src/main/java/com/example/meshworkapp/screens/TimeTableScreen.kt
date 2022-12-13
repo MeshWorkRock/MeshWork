@@ -1,80 +1,187 @@
 package com.example.meshworkapp.screens
 
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsPressedAsState
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.meshworkapp.TimeTableDataClass
+import com.example.meshworkapp.TimeTableViewModel
 import java.text.DateFormatSymbols
 import java.util.*
 
 @Composable
-fun TimeTableComposable() {
-    val dayNames: Array<String> = DateFormatSymbols().weekdays
+fun TimeTableScreen() {
     val date: Calendar = Calendar.getInstance()
-    val currentDay: String = dayNames[date.get(Calendar.DAY_OF_WEEK)]
+    val currentDay = date.get(Calendar.DAY_OF_WEEK)
 
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
         DayChipComposable(currentDay)
     }
-
 }
 
 
+///Function for the Day Chip
 @Composable
-fun DayChipComposable(currentDay: String) {
-    val interactionSource = remember { MutableInteractionSource() }
-    val isPressed by interactionSource.collectIsPressedAsState()
-    val chipBackgroundColor = if (isPressed) Color.Blue else Color.Gray
+fun DayChipComposable(currentDay: Int){
 
+    val weekday: String = DateFormatSymbols().getShortWeekdays().get(currentDay)
 
-    val selectedColor : Color = Color.Blue
-
-    var selectedDay by remember {
-        mutableStateOf(currentDay)
-    }
+    //Defining variable
+    var pressedDay by remember { mutableStateOf(currentDay) }
+    var selectedDay by remember { mutableStateOf(weekday) }
 
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(5.dp)
+            .padding(5.dp),
+        horizontalArrangement = Arrangement.SpaceEvenly
     ) {
         LazyRow {
             itemsIndexed(
-                listOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday")
+                listOf("M", "T", "W", "T", "F"),
             ) { index, string ->
                 Button(
                     onClick = {
-                        selectedDay = string
+                              pressedDay = index
+                        when (index) {
+                            0 -> selectedDay = "Monday"
+                            1 -> selectedDay = "Tuesday"
+                            2 -> selectedDay = "Wednesday"
+                            3 -> selectedDay = "Thursday"
+                            4 -> selectedDay = "Friday"
+                            else -> {
+                                 selectedDay = "Monday"
+                            }
+                        }
+
                     },
-                    shape = RoundedCornerShape(50),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = chipBackgroundColor),
-                    modifier = Modifier.padding(end = 3.dp)
+                    shape = CircleShape,
+                    colors = if(index == pressedDay) ButtonDefaults.buttonColors(backgroundColor = Color.Blue)
+                                else ButtonDefaults.buttonColors(backgroundColor = Color.Gray) ,
+                    modifier = Modifier
+                        .padding(end = 5.dp, top = 5.dp)
+                        .size(55.dp),
                 ) {
-                    Text(text = string)
+                    Text(text = string, fontSize = 20.sp)
                 }
 
             }
         }
     }
+   TimeTableComposable(viewModel = TimeTableViewModel(), selectedDay = selectedDay )
 }
 
 
-@Preview(showBackground = true)
+//Function for Daily Lectures List
 @Composable
-fun TimeTablePreview() {
-    TimeTableComposable()
+fun TimeTableComposable(viewModel: TimeTableViewModel, selectedDay: String) {
+
+    Toast.makeText(LocalContext.current, "The day is $selectedDay", Toast.LENGTH_LONG).show()
+
+
+    val timeTableList: List<TimeTableDataClass> = viewModel.liveTimeTable
+
+    LazyColumn(modifier = Modifier
+            .fillMaxSize()
+    ) {
+
+        if (timeTableList.isNotEmpty()) {
+            items(items = timeTableList) { timeTable ->
+                TimeTableCard(timeTable = timeTable)
+            }
+        }
+
+    }
+
 }
+
+@Composable
+fun TimeTableCard(timeTable: TimeTableDataClass) {
+    Card(
+        elevation = 8.dp,
+        modifier = Modifier
+            .padding(10.dp)
+            .fillMaxWidth(),
+        shape = RoundedCornerShape(20.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .padding(10.dp)
+        ) {
+            TimeStampComposable(Time = timeTable)
+
+            SubjectGroupTeacherComposable(SubjectGroupTeacher = timeTable)
+
+            BlockComposable(Block = timeTable)
+        }
+    }
+}
+
+@Composable
+fun TimeStampComposable(Time: TimeTableDataClass) {
+    Box(
+        contentAlignment = Alignment.Center,
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically){
+            Text(text = Time.time, textAlign = TextAlign.Center)
+        }
+    }
+
+}
+
+@Composable
+fun SubjectGroupTeacherComposable(SubjectGroupTeacher: TimeTableDataClass) {
+    Box(
+        modifier = Modifier
+            .size(100.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(
+            modifier = Modifier
+            //            .fillMaxWidth()
+        ) {
+
+            Text(text = SubjectGroupTeacher.subject)
+
+            Text(text = SubjectGroupTeacher.group)
+
+            Text(text = SubjectGroupTeacher.teacherName)
+
+        }
+    }
+}
+
+@Composable
+fun BlockComposable(Block: TimeTableDataClass) {
+    Box(
+        modifier = Modifier,
+        contentAlignment = Alignment.CenterEnd
+    ) {
+        Text(
+            text = Block.block
+        )
+    }
+}
+
+//@Preview(showBackground = true)
+//@Composable
+//fun DefaultPreview() {
+// TimeTableScreen()
+//}
+
+

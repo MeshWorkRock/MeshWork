@@ -1,14 +1,10 @@
 package com.example.meshworkapp
 
-import android.util.Log
-import android.widget.Toast
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class SearchViewModel() : ViewModel() {
+class StudentViewModel() : ViewModel() {
 
     //    Don't Declare anything between these three variables
     private var _liveMutableStudentsList = MutableLiveData<List<StudentsDataClass>>()

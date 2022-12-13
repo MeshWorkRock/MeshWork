@@ -3,19 +3,18 @@ package com.example.meshworkapp.screens
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.compose.material.*
-import com.example.meshworkapp.StudentSearchBarComposable
-import com.example.meshworkapp.StudentViewModel
-import com.example.meshworkapp.StudentsDataClass
+import com.example.meshworkapp.*
 import com.example.meshworkapp.composables.ChatListComposable
+import com.example.meshworkapp.composables.ChatSearchBarComposable
 import com.example.meshworkapp.composables.StudentListComposable
 
 @Composable
-fun StudentListScreen(
-    studentViewModel: StudentViewModel = viewModel(),
-    studentDataList: List<StudentsDataClass>
+fun ChatListScreen(
+    chatViewModel: ChatListViewModel = viewModel(),
+    chatDataList: List<ChatListDataClass>
 //    onClick: () -> Unit
 ) {
     Surface(
@@ -23,10 +22,10 @@ fun StudentListScreen(
     ) {
         Scaffold {
             Column {
-                StudentSearchBarComposable(viewModel = studentViewModel)
-                StudentListComposable(
-                    searchViewModel = studentViewModel,
-                    studentDataList = studentDataList
+                ChatSearchBarComposable(viewModel = chatViewModel)
+                ChatListComposable(
+                    chatListViewModel = chatViewModel,
+                    chatDataList = chatDataList
 //                    onClick = { onClick() }
                 )
             }

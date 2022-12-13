@@ -8,6 +8,7 @@ import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -15,6 +16,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.meshworkapp.AnnouncementDataClass
 
+
+//Announcement Screen Code
 @Composable
 fun AnnouncementScreen() {
     val announcementMessages = listOf(
@@ -37,7 +40,10 @@ fun AnnouncementScreen() {
     )
 
     Scaffold(floatingActionButton = {
-        FloatingActionButton(onClick = { /*TODO*/ }) {
+        FloatingActionButton(
+            onClick = { /*TODO*/ },
+            modifier = Modifier.padding(bottom = 55.dp)
+        ) {
             Text(
                 text = "+", fontSize = 30.sp
             )
@@ -49,21 +55,27 @@ fun AnnouncementScreen() {
                     elevation = 10.dp,
                     modifier = Modifier
                         .padding(10.dp)
-                        .fillMaxWidth()
                 ) {
-                    Column(modifier = Modifier.padding(5.dp)) {
-                        Row(
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Text(text = announcement.senderName)
-                            Text(text = announcement.programDetail)
+                    Column(modifier = Modifier
+                        .padding(5.dp)
+                        .fillMaxWidth()) {
+                        Row() {
+                            Text(
+                                text = announcement.senderName,
+                                textAlign = TextAlign.Start,
+                                modifier = Modifier.weight(1f)
+                            )
+                            Text(
+                                text = announcement.programDetail,
+                                textAlign = TextAlign.End,
+                                modifier = Modifier.weight(1f)
+                            )
                         }
                         Text(
                             text = announcement.announcementMessage,
                             fontSize = 18.sp,
                             textAlign = TextAlign.Left,
                             modifier = Modifier
-                                .fillMaxWidth()
                                 .padding(top = 5.dp)
                         )
                     }
