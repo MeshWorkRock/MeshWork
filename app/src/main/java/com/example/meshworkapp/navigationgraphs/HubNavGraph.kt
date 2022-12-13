@@ -41,7 +41,8 @@ fun HubNavGraph(
         composable(
             route = HubNavigationScreens.Chats.route
         ) {
-            StudentListScreen(studentDataList = fetchChatsList())
+//            StudentListScreen(studentDataList = fetchChatsList())
+            ChatListScreen(chatDataList = fetchChatsList())
         }
         composable(
             route = HubNavigationScreens.TimeTable.route
@@ -159,34 +160,40 @@ fun fetchStudentsList(): List<StudentsDataClass> {
     )
 }
 
-fun fetchChatsList(): List<StudentsDataClass> {
+fun fetchChatsList(): List<ChatListDataClass> {
 
 
     return listOf(
-        StudentsDataClass(
+        ChatListDataClass(
             studentName = "Pankaj Singh",
-            studentUID = "22MCC20049",
+            lastText = "Hello",
             studentProfile = R.drawable.dummy_profile_pic,
-            studentDesignation = "CR"
+            lastTime = "11:00 PM"
         ),
-        StudentsDataClass(
+        ChatListDataClass(
+            studentName = "Aman Singh",
+            lastText = "Hello",
+            studentProfile = R.drawable.dummy_profile_pic,
+            lastTime = "10:00 PM"
+        ),
+        ChatListDataClass(
             studentName = "Sahil Vishwakarma",
-            studentUID = "22MCC20030",
+            lastText = "Hello",
             studentProfile = R.drawable.dummy_profile_pic,
-            studentDesignation = null
+            lastTime = "12:00 PM"
         ),
-        StudentsDataClass(
-            studentName = "Amandeep Singh",
-            studentUID = "22MCC20050",
+        ChatListDataClass(
+            studentName = "Iqra Khan",
+            lastText = "Hello",
             studentProfile = R.drawable.dummy_profile_pic,
-            studentDesignation = null
+            lastTime = "09:00 PM"
         ),
-        StudentsDataClass(
+        ChatListDataClass(
             studentName = "Mrinal Sahni",
-            studentUID = "22MCC20059",
+            lastText = "Hello",
             studentProfile = R.drawable.dummy_profile_pic,
-            studentDesignation = null
-        )
+            lastTime = "05:00 PM"
+        ),
     )
 
 }
