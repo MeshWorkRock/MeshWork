@@ -10,13 +10,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.meshworkapp.AssignedClassDataClass
 import com.example.meshworkapp.R
 import com.example.meshworkapp.StudentsDataClass
-import com.example.meshworkapp.screens.StudentListScreen
-import com.example.meshworkapp.screens.AnnouncementScreen
-import com.example.meshworkapp.screens.TimeTableComposable
-import com.example.meshworkapp.screens.HomeScreen
+import com.example.meshworkapp.screens.*
 
 @Composable
 fun HubNavGraph(
@@ -147,11 +143,41 @@ fun fetchStudentsList(): List<StudentsDataClass> {
         )
     )
 
+    NavHost(
+        navController = navHostController,
+        route = TopLevelGraph.hubGraph,
+        startDestination = HubBottomNavigationItems.Home.route
+    ) {
+        composable(
+            route = HubBottomNavigationItems.Home.route
+        ) {
+            HomeScreen()
+        }
+        composable(
+            route = HubBottomNavigationItems.Chats.route
+        ) {
+            StudentListScreen(studentDataList = data)
+        }
+        composable(
+            route = HubBottomNavigationItems.TimeTable.route
+        ) {
+            TimeTableScreen()
+        }
+        composable(
+            route = HubBottomNavigationItems.Announcements.route
+        ) {
+            AnnouncementScreen()
+        }
+    }
 }
 
 fun fetchChatsList(): List<StudentsDataClass> {
 
-    //    Toast.makeText(LocalContext.current, "list count = ${studentList.size}", Toast.LENGTH_SHORT).show()
+    object TimeTable : HubBottomNavigationItems(
+        route = "time_table_screen",
+        label = "Time Table",
+        icon = Icons.Default.Menu
+    )
 
     return listOf(
         StudentsDataClass(
@@ -180,14 +206,9 @@ fun fetchChatsList(): List<StudentsDataClass> {
         )
     )
 
-}
-
-fun fetchAssignedCLassesList(): List<AssignedClassDataClass> {
-    return listOf(
-        AssignedClassDataClass("22BSC-1", "Digital Electronics"),
-        AssignedClassDataClass("22BSC-1", "Digital Electronics"),
-        AssignedClassDataClass("22BSC-1", "Digital Electronics"),
-        AssignedClassDataClass("22BSC-1", "Digital Electronics"),
-        AssignedClassDataClass("22BSC-1", "Digital Electronics")
+    object Announcements : HubBottomNavigationItems(
+        route = "announcements_screen",
+        label = "Announcements",
+        icon = Icons.Default.Person
     )
 }
