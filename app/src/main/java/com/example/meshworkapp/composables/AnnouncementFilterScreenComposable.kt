@@ -1,7 +1,9 @@
 package com.example.meshworkapp.composables
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
@@ -14,8 +16,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -31,13 +35,54 @@ fun AnnouncementFilterScreenComposable() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 10.dp)
-            .padding(top = 25.dp)
+            .padding(horizontal = 15.dp)
     ) {
+
+        Column(horizontalAlignment = Alignment.Start) {
+            Text(
+                text = "Create ",
+                fontSize = 30.sp,
+                modifier = Modifier.padding(top = 35.dp, start = 10.dp)
+            )
+            Text(
+                text = "Announcement",
+                fontSize = 30.sp,
+                modifier = Modifier.padding(bottom = 20.dp, start = 10.dp)
+            )
+        }
+
         BatchSelectorBlockComposable(batchList)
         CourseSelectorBlockComposable(courseList)
         SectionSelectorBlockComposable(sectionlist)
         GroupSelectorBlockComposable(grouplist)
+
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier
+                .padding(horizontal = 20.dp, vertical = 20.dp)
+                .fillMaxWidth()
+        ) {
+            Button(onClick = {}, shape = RoundedCornerShape(20.dp)) {
+                Text(
+                    text = "Cancel",
+                    fontSize = 20.sp,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .height(30.dp)
+                        .width(100.dp)
+                )
+            }
+
+            Button(onClick = {}, shape = RoundedCornerShape(20.dp)) {
+                Text(
+                    text = "Create", fontSize = 20.sp,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .height(30.dp)
+                        .width(100.dp)
+                )
+            }
+        }
     }
 }
 
@@ -57,7 +102,7 @@ fun BatchSelectorBlockComposable(batchList: List<String>) {
                 .weight(1f)
                 .align(alignment = Alignment.CenterVertically)
                 .padding(start = 10.dp),
-            fontSize = 20.sp
+            fontSize = 30.sp
         )
         BatchFilterBlockComposable(modifier = Modifier.weight(2f), batchList)
     }
@@ -65,7 +110,7 @@ fun BatchSelectorBlockComposable(batchList: List<String>) {
 
 
 @Composable
-fun CourseSelectorBlockComposable(courseList:List<String>) {
+fun CourseSelectorBlockComposable(courseList: List<String>) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -78,7 +123,7 @@ fun CourseSelectorBlockComposable(courseList:List<String>) {
                 .weight(1f)
                 .align(alignment = Alignment.CenterVertically)
                 .padding(start = 10.dp),
-            fontSize = 20.sp
+            fontSize = 30.sp
         )
         BatchFilterBlockComposable(modifier = Modifier.weight(2f), courseList)
     }
@@ -92,12 +137,13 @@ fun SectionSelectorBlockComposable(sectionlist: List<String>) {
             .padding(top = 10.dp),
         horizontalArrangement = Arrangement.Center
     ) {
-        Text(text = "Section",
+        Text(
+            text = "Section",
             Modifier
                 .weight(1f)
                 .align(alignment = Alignment.CenterVertically)
                 .padding(start = 10.dp),
-            fontSize = 20.sp
+            fontSize = 30.sp
         )
         BatchFilterBlockComposable(modifier = Modifier.weight(2f), sectionlist)
     }
@@ -111,12 +157,13 @@ fun GroupSelectorBlockComposable(grouplist: List<String>) {
             .padding(top = 10.dp),
         horizontalArrangement = Arrangement.Center
     ) {
-        Text(text = "Course",
+        Text(
+            text = "Group",
             Modifier
                 .weight(1f)
                 .align(alignment = Alignment.CenterVertically)
                 .padding(start = 10.dp),
-            fontSize = 20.sp
+            fontSize = 30.sp
         )
         BatchFilterBlockComposable(modifier = Modifier.weight(2f), grouplist)
     }
