@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "588687442189",
+    "project_id": "meshwork-93cd1",
+    "storage_bucket": "meshwork-93cd1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:588687442189:android:3a7aa3cfbc89b9eea77044",
+        "android_client_info": {
+          "package_name": "com.example.meshworkapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "588687442189-pt0bkg6cu70e002u3c91e20ugadjaurn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdKW8myQ2Mf1XjhiUzwjprPa7yepf67xM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "588687442189-pt0bkg6cu70e002u3c91e20ugadjaurn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
