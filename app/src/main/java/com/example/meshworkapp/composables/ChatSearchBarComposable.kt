@@ -74,7 +74,7 @@ fun ChatSearchBarComposable(
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent
         ),
-        placeholder = { Text(text = "Search Student") },
+//        placeholder = { Text(text = "Search Student") },
         textStyle = MaterialTheme.typography.subtitle1,
         singleLine = true,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),

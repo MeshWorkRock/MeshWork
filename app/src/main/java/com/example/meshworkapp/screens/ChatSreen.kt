@@ -17,11 +17,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.meshworkapp.R
+import com.example.meshworkapp.composables.GradientBackGround
 
 
 @Composable
 fun ChatScreen() {
-    Column (
+
+
+    Column(
         modifier = Modifier
             .fillMaxHeight()
     ) {
@@ -31,6 +34,9 @@ fun ChatScreen() {
         LeftSideChat(chat = "I am having some doubts\n" +
                 "I was confused in problem two")
     }
+
+
+
 }
 
 @Composable

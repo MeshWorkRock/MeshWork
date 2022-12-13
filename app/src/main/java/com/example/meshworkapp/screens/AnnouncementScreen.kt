@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -24,6 +25,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.meshworkapp.AnnouncementDataClass
 import com.example.meshworkapp.navigationgraphs.HubNavigationScreens
+import com.example.meshworkapp.ui.theme.DarkBlueText
 
 
 //Announcement Screen Code
@@ -35,22 +37,26 @@ fun AnnouncementScreen(
 
     //Composable for Announcement Screen
     Column {
+        AnnouncementTopBar()
         AnnouncementSearchBarComposable()
 
         Scaffold(floatingActionButton = {
             FloatingActionButton(
                 onClick = { navigateToMakeAnnouncementScreen(navHostController) },
-                modifier = Modifier.padding(bottom = 55.dp)
+                modifier = Modifier
+                    .padding(bottom = 55.dp)
             ) {
                 Text(
-                    text = "+", fontSize = 30.sp
+                    text = "+",
+                    fontSize = 30.sp,
                 )
             }
         }) {
             LazyColumn(modifier = Modifier.fillMaxSize()) {
                 items(items = announcementMessages, itemContent = { announcement ->
                     Card(
-                        elevation = 10.dp,
+                        shape = RoundedCornerShape(20.dp),
+                        elevation = 8.dp,
                         modifier = Modifier
                             .padding(10.dp)
                     ) {
@@ -58,23 +64,29 @@ fun AnnouncementScreen(
                             modifier = Modifier
                                 .padding(5.dp)
                                 .fillMaxWidth()
+                                .padding(5.dp)
                         ) {
                             Row() {
                                 Text(
                                     text = announcement.Heading,
                                     textAlign = TextAlign.Start,
-                                    modifier = Modifier.weight(1f)
+                                    modifier = Modifier.weight(1f),
+                                    style = MaterialTheme.typography.h6,
+                                    color = DarkBlueText
                                 )
                                 Text(
                                     text = announcement.Date,
                                     textAlign = TextAlign.End,
-                                    modifier = Modifier.weight(1f)
+                                    modifier = Modifier.weight(1f),
+                                    style = MaterialTheme.typography.body2,
+                                    color = DarkBlueText
                                 )
                             }
                             Text(
                                 text = announcement.announcementBody,
                                 fontSize = 18.sp,
                                 textAlign = TextAlign.Left,
+                                color = DarkBlueText,
                                 modifier = Modifier
                                     .padding(top = 5.dp)
                             )
@@ -137,7 +149,7 @@ fun AnnouncementSearchBarComposable() {
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent
         ),
-        placeholder = { Text(text = "Search Student") },
+//        placeholder = { Text(text = "Search Student") },
         textStyle = MaterialTheme.typography.subtitle1,
         singleLine = true,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
@@ -146,5 +158,25 @@ fun AnnouncementSearchBarComposable() {
             .fillMaxWidth(90f)
             .background(color = Color.LightGray, shape = CircleShape)
     )
+}
+
+@Composable
+fun AnnouncementTopBar() {
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(60.dp)
+            .padding(10.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+    ) {
+        Text(
+            text = "Announcements",
+            style = MaterialTheme.typography.h4,
+            textAlign = TextAlign.Start
+//            color = Color.White
+        )
+    }
+
 }
 

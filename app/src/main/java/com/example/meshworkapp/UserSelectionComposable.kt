@@ -1,58 +1,109 @@
 package com.example.meshworkapp
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.meshworkapp.Screen
+import com.example.meshworkapp.composables.GradientBackGround
+import com.example.meshworkapp.ui.theme.DarkBlueText
 
 @Composable
 fun UserSelectionComposable(
     navController: NavHostController,
     onClick: () -> Unit
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(top = 12.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Text(
-            text = "AS A FACULTY",
-            color = MaterialTheme.colors.primary,
-            fontSize = 24.sp,
-            textAlign = TextAlign.Center,
+
+
+    Box {
+
+        GradientBackGround()
+        Column(
             modifier = Modifier
-                .border(2.dp, MaterialTheme.colors.primary)
-                .width(200.dp)
-                .padding(horizontal = 15.dp, vertical = 10.dp)
-                .clickable {
-                    onClick()
+                .padding(top = 280.dp)
+        ) {
+
+            Text(
+                text = "MeshWork",
+                color = Color.White,
+                fontWeight = FontWeight.Bold,
+                fontSize = 50.sp,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+
+            )
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 20.dp),
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+
+                Button(
+                    onClick = { navController.navigate(Screen.LoginScreenStudent.route) },
+                    modifier = Modifier
+                        .wrapContentSize(),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
+                    shape = RoundedCornerShape(20.dp)
+                ) {
+
+                    Text(
+                        text = "STUDENT",
+                        color = DarkBlueText,
+                        fontSize = 26.sp,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier
+                    )
+
                 }
-        )
-        Spacer(modifier = Modifier.height(5.dp))
-        Text(
-            text = "AS A STUDENT",
-            fontSize = 24.sp,
-            color = MaterialTheme.colors.primary,
-            textAlign = TextAlign.Center,
-            modifier = Modifier
-                .border(2.dp, MaterialTheme.colors.primary)
-                .width(200.dp)
-                .padding(horizontal = 15.dp, vertical = 10.dp)
-                .clickable {
-                    navController.navigate(Screen.LoginScreenStudent.route)
+
+                Button(
+                    onClick = { onClick() },
+                    modifier = Modifier
+                        .wrapContentSize(),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
+                    shape = RoundedCornerShape(20.dp)
+                ) {
+
+                    Text(
+                        text = "FACULTY",
+                        color = DarkBlueText,
+                        fontSize = 26.sp,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier
+                    )
+
                 }
-        )
+
+            }
+        }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun UserSelectionComposablePreview() {
+
+    UserSelectionComposable(navController = NavHostController(LocalContext.current), onClick = {})
+
 }
 

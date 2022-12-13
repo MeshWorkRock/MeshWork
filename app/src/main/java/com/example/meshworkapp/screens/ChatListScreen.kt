@@ -26,7 +26,7 @@ fun ChatListScreen(
 //    onClick: () -> Unit
 ) {
     Surface(
-        color = MaterialTheme.colors.background
+//        color = MaterialTheme.colors.background
     ) {
         Scaffold {
             Column {
