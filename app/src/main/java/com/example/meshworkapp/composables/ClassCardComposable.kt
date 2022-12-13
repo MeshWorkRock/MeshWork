@@ -1,6 +1,7 @@
 package com.example.meshworkapp
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -13,6 +14,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.meshworkapp.ui.theme.DarkBlueAnimation
+import com.example.meshworkapp.ui.theme.LightBlueAnimation
 
 @Composable
 fun ClassCardComposable(
@@ -22,30 +25,34 @@ fun ClassCardComposable(
 ){
     Card(
         modifier = modifier
-            .padding(10.dp),
-        backgroundColor = Color.Yellow,
-        elevation = 10.dp
+            .padding(start = 20.dp, end = 20.dp, top = 10.dp, bottom = 20.dp),
+        backgroundColor = DarkBlueAnimation ,
+        elevation = 10.dp,
+        shape = RoundedCornerShape(20.dp)
     ) {
         Column(
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxSize()
+                .padding(start = 5.dp)
         ) {
             Text(
                 text = className,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Start,
-                modifier = Modifier.padding(4.dp)
+                modifier = Modifier
+                    .padding(top = 12.dp)
                     .fillMaxWidth()
             )
             Text(
                 text = subjectName,
-                fontSize = 22.sp,
+                fontSize = 15.sp,
                 fontWeight = FontWeight.SemiBold,
-                textAlign = TextAlign.End,
-                modifier = Modifier.padding(4.dp)
+                textAlign = TextAlign.Start,
+                modifier = Modifier
+                    .padding(bottom = 15.dp)
                     .fillMaxWidth()
             )
         }
@@ -57,7 +64,7 @@ fun ClassCardComposable(
 fun ClassCardPreview() {
     ClassCardComposable(
         className = "22MCD-1",
-        subjectName = "Digital Electronics",
+        subjectName = "Digital Electronics and computing",
         modifier = Modifier.size(200.dp)
     )
 }

@@ -25,6 +25,8 @@ import com.example.meshworkapp.AssignedClassDataClass
 import com.example.meshworkapp.ClassCardComposable
 import com.example.meshworkapp.R
 import com.example.meshworkapp.UserInfoDataClass
+import com.example.meshworkapp.ui.theme.LightBlueAnimation
+import com.example.meshworkapp.ui.theme.LightBlueText
 
 @Composable
 fun HomeScreen() {
@@ -50,12 +52,12 @@ fun HomeScreen() {
         OrganizationNameAndLogoComposable(
             name = "Chandigarh University",
             logo = painterResource(id = R.drawable.cu_logo),
-            modifier = Modifier.padding(20.dp)
+            modifier = Modifier.padding(top = 30.dp, bottom = 20.dp, start = 30.dp, end = 30.dp)
         )
         Spacer(modifier = Modifier.height(10.dp))
-        UserInfoCard(userInfo = userInfo, modifier = Modifier.padding(horizontal = 20.dp, vertical = 10.dp))
+        UserInfoCard(userInfo = userInfo, modifier = Modifier.padding(start = 30.dp, bottom = 20.dp, end = 30.dp, top = 10.dp))
         Spacer(modifier = Modifier.height(0.dp))
-        AssignedClassesComposable(modifier = Modifier.padding(start = 20.dp))
+        AssignedClassesComposable(modifier = Modifier.padding(start = 30.dp))
         Spacer(modifier = Modifier.height(0.dp))
         ClassesGridComposable(assignedClasses = assignedClassesList)
     }
@@ -65,12 +67,12 @@ fun HomeScreen() {
 fun OrganizationNameAndLogoComposable(
     name: String,
     logo: Painter? = null,
-    modifier: Modifier = Modifier
+    modifier: Modifier
 ) {
     Row {
         Column(
             horizontalAlignment = Alignment.Start,
-            modifier = modifier.fillMaxWidth()
+            modifier = modifier.fillMaxWidth().weight(7f)
         ) {
             //        if (logo != null)
             //            Image(
@@ -80,21 +82,21 @@ fun OrganizationNameAndLogoComposable(
             //            )
 
 
-            Text(text = "MeshWork", fontSize = 30.sp)
+            Text(text = "MeshWork", fontSize = 30.sp,fontWeight = FontWeight.ExtraBold)
             Text(
                 text = name,
                 fontWeight = FontWeight.Bold,
-                fontSize = 25.sp,
+                fontSize = 28.sp,
                 textAlign = TextAlign.Center
             )
         }
         Image(
-            painter = painterResource(id = R.drawable.teacher_teaching),
+            painter = painterResource(id = R.drawable.settings),
             contentDescription = null,
             modifier = Modifier
-                .size(50.dp)
-                .padding(8.dp)
-        )
+                .size(60.dp)
+                .padding(top = 30.dp, end = 20.dp)
+                .weight(1f), alignment = Alignment.TopStart)
 
     }
 }
@@ -149,7 +151,7 @@ fun UserInfoCard(
     Card(
         modifier = modifier
             .fillMaxWidth(),
-        backgroundColor = Color.LightGray,
+        backgroundColor = LightBlueText,
         elevation = 8.dp,
         shape = RoundedCornerShape(20.dp)
     ) {
@@ -174,13 +176,15 @@ fun UserInfoCard(
                 Text(
                     text = userInfo.name,
                     fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White
                 )
                 Text(
                     text = userInfo.id,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.SemiBold,
-                    textAlign = TextAlign.End
+                    textAlign = TextAlign.End,
+                    color = Color.White
                 )
             }
         }
@@ -193,7 +197,12 @@ fun ClassesGridComposable(
     assignedClasses: List<AssignedClassDataClass>,
 ) {
     LazyVerticalGrid(
-        cells = GridCells.Adaptive(150.dp),
+        cells = GridCells.Fixed(2),
+        contentPadding = PaddingValues(
+            start = 20.dp,
+            end = 20.dp,
+            bottom = 50.dp
+        ),
         content = {
             items(items = assignedClasses, itemContent = { assignedClass ->
                 ClassCardComposable(

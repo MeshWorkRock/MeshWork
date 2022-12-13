@@ -1,9 +1,12 @@
 package com.example.meshworkapp.screens
 
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -63,11 +66,8 @@ fun RowScope.AddItem(
     navHostController: NavHostController
 ) {
     BottomNavigationItem(
-        label = {
-            Text(text = item.label)
-        },
         icon = {
-            Icon(imageVector = item.icon, contentDescription = item.label)
+            Icon(imageVector = item.icon, contentDescription = item.label,modifier = Modifier.size(30.dp))
         },
         selected = item.route == currentDestination?.route,
         unselectedContentColor = LocalContentColor.current.copy(alpha = ContentAlpha.disabled),
