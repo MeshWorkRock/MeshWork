@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -13,11 +14,13 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.meshworkapp.ChatListDataClass
 import com.example.meshworkapp.ChatListViewModel
+import com.example.meshworkapp.ui.theme.DarkBlueText
 
 @Composable
 fun ChatListComposable(
@@ -58,19 +61,29 @@ fun ChatListCardComposable(
     chat: ChatListDataClass,
 //    onClick: () -> Unit
 ) {
-    Card(modifier = Modifier
-        .padding(10.dp),
+    Card(
+        elevation = 8.dp,
+        shape = RoundedCornerShape(10.dp),
+        modifier = Modifier
+            .padding(10.dp)
 //        .clickable{ onClick() },
-        elevation = 8.dp
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            StudentProfileImageComposable(chat)
-            StudentNameAndLastTextComposable(chat)
-            StudentLastTime(chat)
+            Row {
+                StudentProfileImageComposable(chat)
+                StudentNameAndLastTextComposable(chat)
+            }
+            Row(
+                modifier = Modifier
+                    .padding(end = 10.dp)
+            ) {
+                StudentLastTime(chat)
+            }
         }
     }
 }
@@ -84,17 +97,17 @@ fun StudentNameAndLastTextComposable(chat : ChatListDataClass) {
         Text(
             text = chat.studentName,
             style = MaterialTheme.typography.h6,
-            color = MaterialTheme.colors.onBackground,
+            color = DarkBlueText,
             modifier = Modifier
-                .padding(horizontal = 20.dp, vertical = 5.dp)
+//                .padding(horizontal = 20.dp, vertical = 5.dp)
                 .wrapContentWidth(Alignment.Start)
         )
         Text(
             text = chat.lastText,
-            style = MaterialTheme.typography.body1,
-            color = MaterialTheme.colors.onBackground,
+            style = MaterialTheme.typography.body2,
+            color = DarkBlueText,
             modifier = Modifier
-                .padding(horizontal = 20.dp, vertical = 5.dp)
+//                .padding(horizontal = 20.dp, vertical = 5.dp)
                 .wrapContentWidth(Alignment.Start)
         )
     }

@@ -6,7 +6,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -24,9 +26,16 @@ import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import com.example.meshworkapp.ChatListDataClass
 import com.example.meshworkapp.StudentViewModel
 import com.example.meshworkapp.StudentsDataClass
+import com.example.meshworkapp.R
+import com.example.meshworkapp.navigationgraphs.ChatScreensGraph
+import com.example.meshworkapp.ui.theme.DarkBlueAnimation
+import com.example.meshworkapp.ui.theme.DarkBlueText
+import com.example.meshworkapp.ui.theme.LightBlueAnimation
+import com.example.meshworkapp.ui.theme.LightBlueText
 
 // It will show list of students
 @Composable
@@ -71,24 +80,37 @@ fun StudentListCardComposable(
     studentDesignationBadge: String?,
 //    onClick: () -> Unit
 ) {
-    Card(modifier = Modifier
-        .padding(10.dp),
+    Card(
+        elevation = 8.dp,
+        shape = RoundedCornerShape(10.dp),
+        modifier = Modifier
+            .padding(10.dp)
 //        .clickable{ onClick() },
-        elevation = 8.dp
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            StudentProfileImageComposable(student)
-            StudentNameAndUIDComposable(student)
-            if (studentDesignationBadge != null)
-                StudentDesignationBadgeComposable(
-                    student = student,
-                    studentDesignationBadge = studentDesignationBadge
-                )
+            Row() {
+                StudentProfileImageComposable(student)
+                StudentNameAndUIDComposable(student)
+            }
+            Row(
+                modifier = Modifier
+                    .padding(end = 10.dp)
+            ) {
+                if (studentDesignationBadge != null)
+                    StudentDesignationBadgeComposable(
+                        student = student,
+                        studentDesignationBadge = studentDesignationBadge
+                    )
+            }
+
         }
+
+
     }
 }
 
@@ -96,41 +118,38 @@ fun StudentListCardComposable(
 @Composable
 fun StudentDesignationBadgeComposable(student : StudentsDataClass, studentDesignationBadge: String) {
     if (student.studentDesignation == studentDesignationBadge) {
-        Box(
+
+        Icon(
             modifier = Modifier
-                .padding(4.dp)
-                .clip(shape = CircleShape)
-                .size(50.dp)
-                .background(color = Color.Gray),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(
-                text = studentDesignationBadge,
-                color = Black,
-                textAlign = TextAlign.Center
-            )
-        }
+                .size(30.dp),
+            painter = painterResource(id = R.drawable.cr_badge_star),
+            contentDescription = "Star Icon",
+            tint = LightBlueText
+        )
+
     }
 }
 
 // It will show student Name and Student UID in student list
 @Composable
 fun StudentNameAndUIDComposable(student: StudentsDataClass) {
-    Column {
+    Column(
+        modifier = Modifier.padding(top = 5.dp)
+    ) {
         Text(
             text = student.studentName,
             style = MaterialTheme.typography.h6,
-            color = MaterialTheme.colors.onBackground,
+            color = DarkBlueText,
             modifier = Modifier
-                .padding(horizontal = 20.dp, vertical = 5.dp)
+//                .padding(horizontal = 20.dp, vertical = 5.dp)
                 .wrapContentWidth(Alignment.Start)
         )
         Text(
             text = student.studentUID,
-            style = MaterialTheme.typography.body1,
-            color = MaterialTheme.colors.onBackground,
+            style = MaterialTheme.typography.body2,
+            color = DarkBlueText,
             modifier = Modifier
-                .padding(horizontal = 20.dp, vertical = 5.dp)
+//                .padding(horizontal = 20.dp, vertical = 5.dp)
                 .wrapContentWidth(Alignment.Start)
         )
     }
@@ -149,5 +168,18 @@ fun StudentProfileImageComposable(student : StudentsDataClass) {
             .clip(CircleShape)
     )
 }
+
+@Preview(showBackground = true)
+@Composable
+fun StudentsListScreenPreview(){
+    val s = StudentsDataClass(
+        studentName = "Pankaj Singh",
+        studentUID = "22MCC20049",
+        studentProfile = R.drawable.dummy_profile_pic,
+        studentDesignation = "CR"
+    )
+    StudentListCardComposable(student = s, studentDesignationBadge = "CR")
+}
+
 
 

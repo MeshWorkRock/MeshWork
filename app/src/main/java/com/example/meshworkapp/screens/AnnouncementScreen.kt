@@ -3,6 +3,7 @@ package com.example.meshworkapp.screens
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Scaffold
@@ -52,18 +53,20 @@ fun AnnouncementScreen() {
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             items(items = announcementMessages, itemContent = { announcement ->
                 Card(
-                    elevation = 10.dp,
+                    elevation = 8.dp,
+                    shape = RoundedCornerShape(20.dp),
                     modifier = Modifier
-                        .padding(10.dp)
+                        .padding(15.dp)
                 ) {
                     Column(modifier = Modifier
-                        .padding(5.dp)
+                        .padding(10.dp)
                         .fillMaxWidth()) {
                         Row() {
                             Text(
                                 text = announcement.senderName,
                                 textAlign = TextAlign.Start,
-                                modifier = Modifier.weight(1f)
+                                modifier = Modifier
+                                    .weight(1f)
                             )
                             Text(
                                 text = announcement.programDetail,
