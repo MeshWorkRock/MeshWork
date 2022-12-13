@@ -84,14 +84,18 @@ fun DayChipComposable(currentDay: Int, timeTableList: Array<Array<TimeTableDataC
             }
         }
     }
-    TimeTableComposable(viewModel = TimeTableViewModel(), selectedDay = selectedDay, timeTableList)
+    TimeTableComposable(
+//        viewModel = TimeTableViewModel(),
+        selectedDay = selectedDay,
+        timeTableList
+    )
 }
 
 
 //Function for Daily Lectures List
 @Composable
 fun TimeTableComposable(
-    viewModel: TimeTableViewModel,
+//    viewModel: TimeTableViewModel,
     selectedDay: String,
     arrLectureList: Array<Array<TimeTableDataClass>>
 ) {

@@ -1,7 +1,6 @@
 package com.example.meshworkapp
 
 import androidx.lifecycle.ViewModel
-import com.example.meshworkapp.dataclassfiles.TimeTableDataClass
 
 class TimeTableViewModel : ViewModel() {
 //
