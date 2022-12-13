@@ -77,13 +77,6 @@ fun OrganizationNameAndLogoComposable(
             horizontalAlignment = Alignment.Start,
             modifier = modifier.fillMaxWidth().weight(7f)
         ) {
-            //        if (logo != null)
-            //            Image(
-            //                painter = logo,
-            //                contentDescription = "Logo",
-            //                modifier = Modifier.size(120.dp)
-            //            )
-
 
             Text(text = "MeshWork", fontSize = 30.sp,fontWeight = FontWeight.ExtraBold)
             Text(
@@ -108,35 +101,6 @@ fun OrganizationNameAndLogoComposable(
 fun AssignedClassesComposable(
     modifier: Modifier = Modifier,
 ) {
-//    Card(
-//        modifier = modifier
-//            .fillMaxWidth()
-//            .padding(10.dp),
-//        backgroundColor = Color.Gray,
-//        elevation = 8.dp
-//    ) {
-//       Row(
-//           verticalAlignment = Alignment.CenterVertically,
-//           horizontalArrangement = Arrangement.Start,
-//           modifier = modifier
-//               .fillMaxWidth()
-//       ) {
-//           Image(
-//               painter = painterResource(id = R.drawable.teacher_teaching),
-//               contentDescription = null,
-//               modifier = Modifier
-//                   .size(80.dp)
-//                   .padding(8.dp)
-//           )
-//           Spacer(modifier = Modifier.width(10.dp))
-//           Text(
-//               text = "Assigned Classes",
-//               fontSize = 24.sp,
-//               fontWeight = FontWeight.SemiBold
-//           )
-//       }
-//    }
-
     //Assigned Class text
     Text(
         text = "Assigned Classes",
@@ -212,8 +176,7 @@ fun ClassesGridComposable(
                 ClassCardComposable(
                     className = assignedClass.className,
                     subjectName = assignedClass.subject,
-                    modifier = Modifier.size(150.dp),
-                    navHostController = navHostController
+                    modifier = Modifier.size(150.dp)
                 )
             })
         }
@@ -223,15 +186,5 @@ fun ClassesGridComposable(
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
-    val assignedClassesList = listOf(
-        AssignedClassDataClass("22BSC-1", "Digital Electronics"),
-        AssignedClassDataClass("22BSC-1", "Digital Electronics"),
-        AssignedClassDataClass("22BSC-1", "Digital Electronics"),
-        AssignedClassDataClass("22BSC-1", "Digital Electronics"),
-        AssignedClassDataClass("22BSC-1", "Digital Electronics")
-    )
-    HomeScreen(
-        navHostController = NavHostController(LocalContext.current),
-        assignedClassesList = assignedClassesList
-    )
+    HomeScreen()
 }
