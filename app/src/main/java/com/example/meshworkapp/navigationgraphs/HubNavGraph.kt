@@ -10,6 +10,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.meshworkapp.ChatListDataClass
 import com.example.meshworkapp.R
 import com.example.meshworkapp.StudentsDataClass
 import com.example.meshworkapp.screens.*
@@ -32,7 +33,7 @@ fun HubNavGraph(
         composable(
             route = HubBottomNavigationItems.Chats.route
         ) {
-            StudentListScreen(studentDataList = fetchStudentsList())
+            ChatListScreen(chatDataList = fetchChatList())
         }
         composable(
             route = HubBottomNavigationItems.TimeTable.route
@@ -133,4 +134,48 @@ fun fetchStudentsList(): List<StudentsDataClass> {
         )
     )
 
+}
+
+fun fetchChatList(): List<ChatListDataClass> {
+
+    //    Toast.makeText(LocalContext.current, "list count = ${studentList.size}", Toast.LENGTH_SHORT).show()
+
+    return listOf(
+        ChatListDataClass(
+            studentName = "Pankaj Singh",
+            lastText = "Hello",
+            studentProfile = R.drawable.dummy_profile_pic,
+            lastTime = "12:01 PM"
+        ),
+        ChatListDataClass(
+            studentName = "Sahil Vishwakarma",
+            lastText = "Hello",
+            studentProfile = R.drawable.dummy_profile_pic,
+            lastTime = "12:02 PM"
+        ),
+        ChatListDataClass(
+            studentName = "Amandeep Singh",
+            lastText = "Hello",
+            studentProfile = R.drawable.dummy_profile_pic,
+            lastTime = "12:03 PM"
+        ),
+        ChatListDataClass(
+            studentName = "Mrinal Sahni",
+            lastText = "Hello",
+            studentProfile = R.drawable.dummy_profile_pic,
+            lastTime = "12:01 PM"
+        ),
+        ChatListDataClass(
+            studentName = "Mercy",
+            lastText = "Hello",
+            studentProfile = R.drawable.dummy_profile_pic,
+            lastTime = "12:04 PM"
+        ),
+        ChatListDataClass(
+            studentName = "Tejas",
+            lastText = "Hello",
+            studentProfile = R.drawable.dummy_profile_pic,
+            lastTime = "11:00 PM"
+        ),
+    )
 }
