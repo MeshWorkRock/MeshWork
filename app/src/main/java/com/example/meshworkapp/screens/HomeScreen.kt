@@ -27,12 +27,11 @@ import com.example.meshworkapp.AssignedClassDataClass
 import com.example.meshworkapp.composables.ClassCardComposable
 import com.example.meshworkapp.R
 import com.example.meshworkapp.UserInfoDataClass
+import com.example.meshworkapp.navigationgraphs.fetchAssignedCLassesList
 import com.example.meshworkapp.ui.theme.LightBlueAnimation
 import com.example.meshworkapp.ui.theme.LightBlueText
 
 @Composable
-fun HomeScreen() {
-    @Composable
 fun HomeScreen(
         navHostController: NavHostController,
         assignedClassesList: List<AssignedClassDataClass>
@@ -142,7 +141,7 @@ fun UserInfoCard(
             ) {
                 Text(
                     text = userInfo.name,
-                    fontSize = 20.sp,
+                        fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.White
                 )
@@ -176,7 +175,8 @@ fun ClassesGridComposable(
                 ClassCardComposable(
                     className = assignedClass.className,
                     subjectName = assignedClass.subject,
-                    modifier = Modifier.size(150.dp)
+                    modifier = Modifier.size(150.dp),
+                    navHostController = navHostController
                 )
             })
         }
@@ -186,5 +186,8 @@ fun ClassesGridComposable(
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen()
+    HomeScreen(
+        assignedClassesList = fetchAssignedCLassesList(),
+        navHostController = NavHostController(LocalContext.current)
+    )
 }
