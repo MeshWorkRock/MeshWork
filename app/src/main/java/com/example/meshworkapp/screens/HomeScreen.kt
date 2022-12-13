@@ -6,6 +6,7 @@ import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -26,15 +27,18 @@ import com.example.meshworkapp.AssignedClassDataClass
 import com.example.meshworkapp.composables.ClassCardComposable
 import com.example.meshworkapp.R
 import com.example.meshworkapp.UserInfoDataClass
+import com.example.meshworkapp.navigationgraphs.fetchAssignedCLassesList
+import com.example.meshworkapp.ui.theme.LightBlueAnimation
+import com.example.meshworkapp.ui.theme.LightBlueText
 
-    @Composable
+@Composable
 fun HomeScreen(
         navHostController: NavHostController,
         assignedClassesList: List<AssignedClassDataClass>
 ) {
     val userInfo = UserInfoDataClass(
-        name = "John Doe",
-        id = "E23422",
+        name = "Welcome Rydhm",
+        id = "E9875",
         profilePhoto = painterResource(id = R.drawable.profile_image_dummy)
     )
     Column(
@@ -43,16 +47,16 @@ fun HomeScreen(
             .padding(0.dp)
 //            .verticalScroll(rememberScrollState())
     ) {
-        Spacer(modifier = Modifier.height(40.dp))
+        Spacer(modifier = Modifier.height(10.dp))
         OrganizationNameAndLogoComposable(
             name = "Chandigarh University",
             logo = painterResource(id = R.drawable.cu_logo),
-            modifier = Modifier.padding(20.dp)
+            modifier = Modifier.padding(top = 30.dp, bottom = 20.dp, start = 30.dp, end = 30.dp)
         )
-        Spacer(modifier = Modifier.height(50.dp))
-        UserInfoCard(userInfo = userInfo, modifier = Modifier.padding(20.dp))
+        Spacer(modifier = Modifier.height(10.dp))
+        UserInfoCard(userInfo = userInfo, modifier = Modifier.padding(start = 30.dp, bottom = 20.dp, end = 30.dp, top = 10.dp))
         Spacer(modifier = Modifier.height(0.dp))
-        AssignedClassesComposable()
+        AssignedClassesComposable(modifier = Modifier.padding(start = 30.dp))
         Spacer(modifier = Modifier.height(0.dp))
         ClassesGridComposable(
             assignedClasses = assignedClassesList,
@@ -65,60 +69,44 @@ fun HomeScreen(
 fun OrganizationNameAndLogoComposable(
     name: String,
     logo: Painter? = null,
-    modifier: Modifier = Modifier
+    modifier: Modifier
 ) {
-    Column(
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier.fillMaxWidth()
-    ) {
-        if (logo != null)
-            Image(
-                painter = logo,
-                contentDescription = "Logo",
-                modifier = Modifier.size(120.dp)
+    Row {
+        Column(
+            horizontalAlignment = Alignment.Start,
+            modifier = modifier.fillMaxWidth().weight(7f)
+        ) {
+
+            Text(text = "MeshWork", fontSize = 30.sp,fontWeight = FontWeight.ExtraBold)
+            Text(
+                text = name,
+                fontWeight = FontWeight.Bold,
+                fontSize = 28.sp,
+                textAlign = TextAlign.Center
             )
-        Text(
-            text = name,
-            fontWeight = FontWeight.Bold,
-            fontSize = 32.sp,
-            textAlign = TextAlign.Center
-        )
+        }
+        Image(
+            painter = painterResource(id = R.drawable.settings),
+            contentDescription = null,
+            modifier = Modifier
+                .size(60.dp)
+                .padding(top = 30.dp, end = 20.dp)
+                .weight(1f), alignment = Alignment.TopStart)
+
     }
 }
 
 @Composable
 fun AssignedClassesComposable(
     modifier: Modifier = Modifier,
-){
-    Card(
+) {
+    //Assigned Class text
+    Text(
+        text = "Assigned Classes",
+        fontSize = 22.sp,
+        fontWeight = FontWeight.SemiBold,
         modifier = modifier
-            .fillMaxWidth()
-            .padding(10.dp),
-        backgroundColor = Color.Gray,
-        elevation = 8.dp
-    ) {
-       Row(
-           verticalAlignment = Alignment.CenterVertically,
-           horizontalArrangement = Arrangement.Start,
-           modifier = modifier
-               .fillMaxWidth()
-       ) {
-           Image(
-               painter = painterResource(id = R.drawable.dummy_profile_pic),
-               contentDescription = null,
-               modifier = Modifier
-                   .size(80.dp)
-                   .padding(8.dp)
-           )
-           Spacer(modifier = Modifier.width(10.dp))
-           Text(
-               text = "Assigned Classes",
-               fontSize = 24.sp,
-               fontWeight = FontWeight.SemiBold
-           )
-       } 
-    }
+    )
 }
 
 @Composable
@@ -129,12 +117,14 @@ fun UserInfoCard(
     Card(
         modifier = modifier
             .fillMaxWidth(),
-        backgroundColor = Color.LightGray,
-        elevation = 8.dp
+        backgroundColor = LightBlueText,
+        elevation = 8.dp,
+        shape = RoundedCornerShape(20.dp)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Start
+            horizontalArrangement = Arrangement.Start,
+            modifier = Modifier.padding(5.dp)
         ) {
             Image(
                 painter = userInfo.profilePhoto,
@@ -146,17 +136,21 @@ fun UserInfoCard(
             )
             Column(
                 verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.Start
+                horizontalAlignment = Alignment.Start,
+                modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
                     text = userInfo.name,
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold
+                        fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White
                 )
                 Text(
                     text = userInfo.id,
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.SemiBold
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    textAlign = TextAlign.End,
+                    color = Color.White
                 )
             }
         }
@@ -170,7 +164,12 @@ fun ClassesGridComposable(
     navHostController: NavHostController
 ){
     LazyVerticalGrid(
-        cells = GridCells.Adaptive( 150.dp),
+        cells = GridCells.Fixed(2),
+        contentPadding = PaddingValues(
+            start = 20.dp,
+            end = 20.dp,
+            bottom = 50.dp
+        ),
         content = {
             items(items = assignedClasses, itemContent = { assignedClass ->
                 ClassCardComposable(
@@ -187,15 +186,8 @@ fun ClassesGridComposable(
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
-    val assignedClassesList = listOf(
-        AssignedClassDataClass("22BSC-1", "Digital Electronics"),
-        AssignedClassDataClass("22BSC-1", "Digital Electronics"),
-        AssignedClassDataClass("22BSC-1", "Digital Electronics"),
-        AssignedClassDataClass("22BSC-1", "Digital Electronics"),
-        AssignedClassDataClass("22BSC-1", "Digital Electronics")
-    )
     HomeScreen(
-        navHostController = NavHostController(LocalContext.current),
-        assignedClassesList = assignedClassesList
+        assignedClassesList = fetchAssignedCLassesList(),
+        navHostController = NavHostController(LocalContext.current)
     )
 }
