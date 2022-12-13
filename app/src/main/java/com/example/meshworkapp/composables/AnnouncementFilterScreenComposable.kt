@@ -18,16 +18,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
+import androidx.navigation.NavHostController
+import com.example.meshworkapp.navigationgraphs.HubNavigationScreens
 
 
 @Composable
-fun AnnouncementFilterScreenComposable() {
+fun AnnouncementFilterScreenComposable(navHostController: NavHostController) {
     val batchList = listOf("2018", "2019", "2020", "2021", "2022")
     val courseList = listOf("BCA", "MCA", "BSC")
     val sectionlist = listOf("1", "2", "3", "4", "5", "6", "7")
@@ -62,7 +65,7 @@ fun AnnouncementFilterScreenComposable() {
                 .padding(horizontal = 20.dp, vertical = 20.dp)
                 .fillMaxWidth()
         ) {
-            Button(onClick = {}, shape = RoundedCornerShape(20.dp)) {
+            Button(onClick = { navHostController.popBackStack()}, shape = RoundedCornerShape(20.dp)) {
                 Text(
                     text = "Cancel",
                     fontSize = 20.sp,
@@ -73,7 +76,7 @@ fun AnnouncementFilterScreenComposable() {
                 )
             }
 
-            Button(onClick = {}, shape = RoundedCornerShape(20.dp)) {
+            Button(onClick = { navigateToCreateAnnouncementScreen(navHostController) }, shape = RoundedCornerShape(20.dp)) {
                 Text(
                     text = "Create", fontSize = 20.sp,
                     textAlign = TextAlign.Center,
@@ -228,9 +231,12 @@ fun BatchFilterBlockComposable(modifier: Modifier, list: List<String>) {
     }
 }
 
+fun navigateToCreateAnnouncementScreen(navHostController: NavHostController){
+    navHostController.navigate(HubNavigationScreens.CreatAndPostAnnouncement.route)
+}
 
 @Preview(showBackground = true)
 @Composable
 fun NewAnnouncementPreview() {
-    AnnouncementFilterScreenComposable()
+    AnnouncementFilterScreenComposable(navHostController = NavHostController(LocalContext.current))
 }

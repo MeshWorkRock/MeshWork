@@ -57,7 +57,12 @@ fun HubNavGraph(
         composable(
             route = HubNavigationScreens.MakeAnnouncement.route
         ) {
-            AnnouncementFilterScreenComposable()                    //TODO Chane file name
+            AnnouncementFilterScreenComposable(navHostController = navHostController)                    //TODO Chane file name
+        }
+        composable(
+            route = HubNavigationScreens.CreatAndPostAnnouncement.route
+        ) {
+            CreateAnnouncementScreen()                    //TODO Chane file name
         }
     }
 }
@@ -99,6 +104,11 @@ sealed class HubNavigationScreens(
     object MakeAnnouncement : HubNavigationScreens(
         route = "make_announcements_screen",
         label = "Make Announcement",
+        icon = Icons.Default.Person
+    )
+    object CreatAndPostAnnouncement : HubNavigationScreens(
+        route = "create_and_announcement_screen",
+        label = "Create Announcement",
         icon = Icons.Default.Person
     )
 }

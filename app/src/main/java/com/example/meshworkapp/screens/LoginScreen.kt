@@ -1,5 +1,7 @@
 package com.example.meshworkapp.screens
 
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -17,14 +19,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.meshworkapp.R
+import com.google.firebase.firestore.FirebaseFirestore
 
 @Composable
-fun LoginScreenStudentComposable(name : String) {
+fun LoginScreenStudentComposable(name: String) {
     val loginId = name
     var uidTextState by remember {
         mutableStateOf("")
@@ -99,7 +103,7 @@ fun LoginScreenStudentComposable(name : String) {
 fun LoginScreenFacultyComposable(
     name: String,
     onSubmit: () -> Unit
-){
+) {
     val loginId = name
     var uidTextState by remember {
         mutableStateOf("")
@@ -152,7 +156,7 @@ fun LoginScreenFacultyComposable(
                     Text(text = "Enter the Password")
                 },
                 onValueChange = {
-                    uidTextState = it
+                    passwordState = it
                 },
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth()
@@ -160,13 +164,39 @@ fun LoginScreenFacultyComposable(
 
             Spacer(modifier = Modifier.height(20.dp))
             Button(
-                onClick = { onSubmit() },
+                onClick = {
+                    loginFaculty(
+                        id = uidTextState,
+                        password = passwordState,
+                        onSubmit = onSubmit
+                    )
+                },
                 modifier = Modifier.width(150.dp),
             ) {
                 Text(text = "LOG IN")
             }
         }
     }
+}
+
+
+fun loginFaculty(
+    id: String,
+    password: String,
+    onSubmit: () -> Unit
+) {
+    val firebaseFirestore = FirebaseFirestore.getInstance()
+    firebaseFirestore.collection("faculty")
+        .whereEqualTo("id", id)
+        .whereEqualTo("password", password)
+        .get().addOnSuccessListener {
+            Log.e("Flag", "function call")
+
+            onSubmit()
+        }.addOnFailureListener {
+//            Toast.makeText(LocalContext.current, "Invalid", Toast.LENGTH_SHORT).show()
+            Log.e("Auth", "Invalid User id password")
+        }
 }
 
 @Composable
