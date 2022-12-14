@@ -21,6 +21,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -56,7 +57,7 @@ fun StudentSearchBarComposable(
             Icon(
                 imageVector = Icons.Rounded.Search,
                 tint = MaterialTheme.colors.onBackground,
-                contentDescription = "Search Icon"
+                contentDescription = "Search Icon",
             )
         },
         trailingIcon = {
@@ -81,7 +82,7 @@ fun StudentSearchBarComposable(
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent
         ),
-        placeholder = { Text(text = "Search Student") },
+//        placeholder = { Text(text = "Search Student") },
         textStyle = MaterialTheme.typography.subtitle1,
         singleLine = true,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
@@ -104,18 +105,17 @@ fun StudentListTopBar(className: String) {
         Text(
             text = "Student List",
             style = MaterialTheme.typography.h4,
-            textAlign = TextAlign.Start
-//            color = Color.White
+            textAlign = TextAlign.Start,
+            color = Color.White
         )
         Box(
             modifier = Modifier.fillMaxSize()
-//                .background(Color.Red),
         ) {
             Text(
                 text = className,
                 style = MaterialTheme.typography.h6,
-                modifier = Modifier.align(Alignment.BottomEnd)
-                //            color = Color.White
+                modifier = Modifier.align(Alignment.BottomEnd),
+                color = Color.White
             )
         }
     }
