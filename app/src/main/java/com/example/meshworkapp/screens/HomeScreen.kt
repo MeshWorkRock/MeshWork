@@ -30,15 +30,17 @@ import com.example.meshworkapp.UserInfoDataClass
 import com.example.meshworkapp.navigationgraphs.fetchAssignedCLassesList
 import com.example.meshworkapp.ui.theme.LightBlueAnimation
 import com.example.meshworkapp.ui.theme.LightBlueText
+import com.example.meshworkapp.viewmodels.FacultySharedViewModel
 
 @Composable
 fun HomeScreen(
         navHostController: NavHostController,
-        assignedClassesList: List<AssignedClassDataClass>
+        assignedClassesList: List<AssignedClassDataClass>,
+        facultySharedViewModel: FacultySharedViewModel
 ) {
     val userInfo = UserInfoDataClass(
-        name = "Welcome Rydhm",
-        id = "E9875",
+        name = facultySharedViewModel.facultyUser?.name!!,
+        id = facultySharedViewModel.facultyUser?.id!!,
         profilePhoto = painterResource(id = R.drawable.profile_image_dummy)
     )
     Column(
@@ -186,8 +188,8 @@ fun ClassesGridComposable(
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen(
-        assignedClassesList = fetchAssignedCLassesList(),
-        navHostController = NavHostController(LocalContext.current)
-    )
+//    HomeScreen(
+//        assignedClassesList = fetchAssignedCLassesList(),
+//        navHostController = NavHostController(LocalContext.current)
+//    )
 }

@@ -1,5 +1,7 @@
 package com.example.meshworkapp.navigationgraphs
 
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Home
@@ -7,6 +9,7 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -14,11 +17,15 @@ import com.example.meshworkapp.*
 import com.example.meshworkapp.R
 import com.example.meshworkapp.composables.AnnouncementFilterScreenComposable
 import com.example.meshworkapp.screens.*
+import com.example.meshworkapp.viewmodels.FacultySharedViewModel
 
 @Composable
 fun HubNavGraph(
-    navHostController: NavHostController
+    navHostController: NavHostController,
+    facultySharedViewModel: FacultySharedViewModel
 ) {
+
+    Toast.makeText(LocalContext.current, "HubNavGraph", Toast.LENGTH_SHORT).show()
 
     NavHost(
         navController = navHostController,
@@ -30,7 +37,8 @@ fun HubNavGraph(
         ) {
             HomeScreen(
                 navHostController = navHostController,
-                assignedClassesList = fetchAssignedCLassesList()
+                assignedClassesList = fetchAssignedCLassesList(facultySharedViewModel = facultySharedViewModel),
+                facultySharedViewModel = facultySharedViewModel
             )
         }
         composable(
@@ -208,14 +216,14 @@ fun fetchChatsList(): List<ChatListDataClass> {
 
 }
 
-fun fetchAssignedCLassesList(): List<AssignedClassDataClass> {
-    return listOf(
-        AssignedClassDataClass("22BSC-1", "Digital Electronics"),
-        AssignedClassDataClass("22BSC-1", "Digital Electronics"),
-        AssignedClassDataClass("22BSC-1", "Digital Electronics"),
-        AssignedClassDataClass("22BSC-1", "Digital Electronics"),
-        AssignedClassDataClass("22BSC-1", "Digital Electronics")
-    )
+fun fetchAssignedCLassesList(facultySharedViewModel: FacultySharedViewModel): List<AssignedClassDataClass> {
+
+    var classesList = ArrayList<AssignedClassDataClass>()
+
+    for ((key, value) in facultySharedViewModel.facultyUser?.classes!!){
+        classesList.add(AssignedClassDataClass(className = key, subject = value))
+    }
+    return classesList.toList()
 }
 
 fun fetchAnnouncementsList(): List<AnnouncementDataClass> {
