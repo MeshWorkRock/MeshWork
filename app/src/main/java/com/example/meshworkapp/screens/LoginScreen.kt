@@ -1,13 +1,12 @@
 package com.example.meshworkapp.screens
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Button
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -19,12 +18,20 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.meshworkapp.R
+import com.example.meshworkapp.composables.GradientBackGround
+import com.example.meshworkapp.dataclassfiles.FacultyDataClass
+import com.example.meshworkapp.ui.theme.DarkBlueText
+import com.example.meshworkapp.viewmodels.FacultySharedViewModel
+import com.google.firebase.firestore.FirebaseFirestore
 
 @Composable
-fun LoginScreenStudentComposable(name : String) {
+fun LoginScreenStudentComposable(name: String) {
     val loginId = name
     var uidTextState by remember {
         mutableStateOf("")
@@ -70,7 +77,7 @@ fun LoginScreenStudentComposable(name : String) {
                     Text(text = "Enter the Password")
                 },
                 onValueChange = {
-                    uidTextState = it
+                    passwordState = it
                 },
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth()
@@ -90,9 +97,7 @@ fun LoginScreenStudentComposable(name : String) {
 
 @Composable
 fun LoginScreenFacultyComposable(
-    name: String,
-    onSubmit: () -> Unit,
-    facultySharedViewModel: FacultySharedViewModel
+    name: String, onSubmit: () -> Unit, facultySharedViewModel: FacultySharedViewModel
 ) {
     var uidTextState by remember {
         mutableStateOf("")
@@ -162,40 +167,85 @@ fun LoginScreenFacultyComposable(
 
                 )
 
-            Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(8.dp))
 
-            TextField(
-                value = passwordState,
-                label = {
-                    Text(text = "Enter the Password")
-                },
-                onValueChange = {
-                    passwordState = it
-                },
-                singleLine = true,
-                modifier = Modifier.fillMaxWidth()
-            )
+                Text(
+                    text = "Password",
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 20.sp,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 15.dp)
+                )
 
-            Spacer(modifier = Modifier.height(20.dp))
-            Button(
-                onClick = {
-                    loginFaculty(
+                TextField(
+                    value = passwordState,
+                    onValueChange = {
+                        passwordState = it
+                    },
+                    singleLine = true,
+                    colors = TextFieldDefaults.textFieldColors(
+                        backgroundColor = Color.Transparent,
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent
+                    ),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(color = Color.White, shape = CircleShape)
+                )
+
+                Spacer(modifier = Modifier.height(20.dp))
+                Button(
+                    onClick = { loginFaculty(
+                        facultySharedViewModel = facultySharedViewModel,
                         id = uidTextState,
                         password = passwordState,
-                        onSubmit = onSubmit,
-                        facultySharedViewModel = facultySharedViewModel
+                        onSubmit = onSubmit
+                    ) },
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    shape = CircleShape,
+                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.White)
+                ) {
+                    Text(
+                        text = "Sign In",
+                        color = DarkBlueText,
+                        fontSize = 20.sp,
+                        modifier = Modifier
+                            .padding(top = 5.dp, bottom = 5.dp)
                     )
-                },
-                modifier = Modifier.width(150.dp),
-            ) {
-                Text(text = "LOG IN")
+                }
             }
         }
     }
+
+
 }
 
-@Composable
-@Preview(showBackground = true)
-fun LoginScreenPreview() {
-    LoginScreenFacultyComposable(name = "Faculty", onSubmit = {})
+fun loginFaculty(
+    id: String,
+    password: String,
+    onSubmit: () -> Unit,
+    facultySharedViewModel: FacultySharedViewModel
+) {
+
+    val firebaseFirestore = FirebaseFirestore.getInstance()
+    firebaseFirestore.collection("faculty").whereEqualTo("id", id)
+        .whereEqualTo("password", password).get().addOnSuccessListener {
+            if (it.size() != 0) {
+                val documentSnapshot = it.documents[0]
+                val user = FacultyDataClass(
+                    id = documentSnapshot.getString("id"),
+                    email = documentSnapshot.getString("email"),
+                    name = documentSnapshot.getString("name"),
+                    classes = documentSnapshot.get("classes") as HashMap<String, String>
+                )
+
+                facultySharedViewModel.addFacultyUser(user)
+                onSubmit()
+            }
+        }.addOnFailureListener {
+            Log.e("Auth", "Invalid User id password")
+        }
 }
