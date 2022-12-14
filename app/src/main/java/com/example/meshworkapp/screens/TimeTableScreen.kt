@@ -19,6 +19,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.meshworkapp.TimeTableDataClass
 import com.example.meshworkapp.TimeTableViewModel
+import com.example.meshworkapp.composables.GradientBackGround
+import com.example.meshworkapp.ui.theme.DarkBlueText
 import java.text.DateFormatSymbols
 import java.util.*
 import kotlin.collections.ArrayList
@@ -28,10 +30,13 @@ fun TimeTableScreen(timeTableList: Array<Array<TimeTableDataClass>>) {
     val date: Calendar = Calendar.getInstance()
     val currentDay = date.get(Calendar.DAY_OF_WEEK)
 
-    Column(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        DayChipComposable(currentDay, timeTableList)
+    Box {
+        GradientBackGround()
+        Column(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            DayChipComposable(currentDay, timeTableList)
+        }
     }
 }
 
@@ -72,8 +77,8 @@ fun DayChipComposable(currentDay: Int, timeTableList: Array<Array<TimeTableDataC
                         }
                     },
                     shape = CircleShape,
-                    colors = if (index == pressedDay) ButtonDefaults.buttonColors(backgroundColor = Color.Blue)
-                    else ButtonDefaults.buttonColors(backgroundColor = Color.Gray),
+                    colors = if (index == pressedDay) ButtonDefaults.buttonColors(backgroundColor = Color.Gray)
+                    else ButtonDefaults.buttonColors(backgroundColor = Color.White),
                     modifier = Modifier
                         .padding(end = 5.dp, top = 5.dp)
                         .size(55.dp),
@@ -162,8 +167,14 @@ fun TimeTableCard(timeTable: TimeTableDataClass) {
 @Composable
 fun TimeStampComposable(Time: TimeTableDataClass) {
     Column(verticalArrangement = Arrangement.Center,
-    modifier = Modifier.padding(5.dp).fillMaxHeight()) {
-        Text(text = Time.time, textAlign = TextAlign.Center)
+    modifier = Modifier
+        .padding(5.dp)
+        .fillMaxHeight()) {
+        Text(
+            text = Time.time,
+            textAlign = TextAlign.Center,
+            color = DarkBlueText
+        )
     }
 }
 
@@ -171,7 +182,10 @@ fun TimeStampComposable(Time: TimeTableDataClass) {
 @Composable
 fun SubjectComposable(Subject: TimeTableDataClass) {
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-        Text(text = Subject.subject)
+        Text(
+            text = Subject.subject,
+            color = DarkBlueText
+        )
     }
 }
 
@@ -181,15 +195,24 @@ fun GroupAndBlockComposable(GroupBlock: TimeTableDataClass) {
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Text(text = GroupBlock.group)
-        Text(text = GroupBlock.block)
+        Text(
+            text = GroupBlock.group,
+            color = DarkBlueText
+        )
+        Text(
+            text = GroupBlock.block,
+            color = DarkBlueText
+        )
     }
 }
 
 @Composable
 fun TeacherNameComposable(Teacher: TimeTableDataClass) {
     Row(modifier = Modifier.fillMaxWidth(),horizontalArrangement = Arrangement.Center) {
-        Text(text = Teacher.teacherName)
+        Text(
+            text = Teacher.teacherName,
+            color = DarkBlueText
+        )
     }
 }
 

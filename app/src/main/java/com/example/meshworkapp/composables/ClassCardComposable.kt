@@ -1,5 +1,6 @@
 package com.example.meshworkapp.composables
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -19,6 +20,7 @@ import com.example.meshworkapp.ui.theme.DarkBlueAnimation
 import com.example.meshworkapp.ui.theme.LightBlueAnimation
 import androidx.navigation.NavHostController
 import com.example.meshworkapp.navigationgraphs.HubNavigationScreens
+import com.example.meshworkapp.ui.theme.DarkBlueText
 
 @Composable
 fun ClassCardComposable(
@@ -33,7 +35,7 @@ fun ClassCardComposable(
             .clickable {
                 navHostController.navigate(HubNavigationScreens.StudentsList.route)
             },
-        backgroundColor = DarkBlueAnimation ,
+        backgroundColor = Color.White ,
         elevation = 10.dp,
         shape = RoundedCornerShape(20.dp),
     ) {
@@ -46,6 +48,7 @@ fun ClassCardComposable(
         ) {
             Text(
                 text = className,
+                color = DarkBlueText,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Start,
@@ -55,6 +58,7 @@ fun ClassCardComposable(
             )
             Text(
                 text = subjectName,
+                color = DarkBlueText,
                 fontSize = 15.sp,
                 fontWeight = FontWeight.SemiBold,
                 textAlign = TextAlign.Start,

@@ -84,7 +84,7 @@ fun StudentListCardComposable(
         elevation = 8.dp,
         shape = RoundedCornerShape(10.dp),
         modifier = Modifier
-            .padding(10.dp)
+            .padding(5.dp)
 //        .clickable{ onClick() },
     ) {
         Row(
@@ -164,7 +164,7 @@ fun StudentProfileImageComposable(student : StudentsDataClass) {
         contentScale = ContentScale.Crop,
         modifier = Modifier
             .padding(5.dp)
-            .size(60.dp)
+            .size(50.dp)
             .clip(CircleShape)
     )
 }

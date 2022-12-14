@@ -49,7 +49,6 @@ fun HubNavGraph(
         composable(
             route = HubNavigationScreens.Chats.route
         ) {
-//            StudentListScreen(studentDataList = fetchChatsList())
             ChatListScreen(chatDataList = fetchChatsList())
         }
         composable(

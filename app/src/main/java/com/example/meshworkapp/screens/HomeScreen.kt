@@ -27,7 +27,9 @@ import com.example.meshworkapp.AssignedClassDataClass
 import com.example.meshworkapp.composables.ClassCardComposable
 import com.example.meshworkapp.R
 import com.example.meshworkapp.UserInfoDataClass
+import com.example.meshworkapp.composables.GradientBackGround
 import com.example.meshworkapp.navigationgraphs.fetchAssignedCLassesList
+import com.example.meshworkapp.ui.theme.DarkBlueText
 import com.example.meshworkapp.ui.theme.LightBlueAnimation
 import com.example.meshworkapp.ui.theme.LightBlueText
 import com.example.meshworkapp.viewmodels.FacultySharedViewModel
@@ -43,27 +45,34 @@ fun HomeScreen(
         id = facultySharedViewModel.facultyUser?.id!!,
         profilePhoto = painterResource(id = R.drawable.profile_image_dummy)
     )
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(0.dp)
-//            .verticalScroll(rememberScrollState())
-    ) {
-        Spacer(modifier = Modifier.height(10.dp))
-        OrganizationNameAndLogoComposable(
-            name = "Chandigarh University",
-            logo = painterResource(id = R.drawable.cu_logo),
-            modifier = Modifier.padding(top = 30.dp, bottom = 20.dp, start = 30.dp, end = 30.dp)
-        )
-        Spacer(modifier = Modifier.height(10.dp))
-        UserInfoCard(userInfo = userInfo, modifier = Modifier.padding(start = 30.dp, bottom = 20.dp, end = 30.dp, top = 10.dp))
-        Spacer(modifier = Modifier.height(0.dp))
-        AssignedClassesComposable(modifier = Modifier.padding(start = 30.dp))
-        Spacer(modifier = Modifier.height(0.dp))
-        ClassesGridComposable(
-            assignedClasses = assignedClassesList,
-            navHostController = navHostController
-        )
+    Box {
+        GradientBackGround()
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(0.dp)
+            //            .verticalScroll(rememberScrollState())
+        ) {
+            Spacer(modifier = Modifier.height(10.dp))
+            OrganizationNameAndLogoComposable(
+                name = "Chandigarh University",
+                logo = painterResource(id = R.drawable.cu_logo),
+                modifier = Modifier.padding(top = 30.dp, bottom = 20.dp, start = 30.dp, end = 30.dp)
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+            UserInfoCard(userInfo = userInfo,
+                modifier = Modifier.padding(start = 30.dp,
+                    bottom = 20.dp,
+                    end = 30.dp,
+                    top = 10.dp))
+            Spacer(modifier = Modifier.height(0.dp))
+            AssignedClassesComposable(modifier = Modifier.padding(start = 30.dp))
+            Spacer(modifier = Modifier.height(0.dp))
+            ClassesGridComposable(
+                assignedClasses = assignedClassesList,
+                navHostController = navHostController
+            )
+        }
     }
 }
 
@@ -76,15 +85,23 @@ fun OrganizationNameAndLogoComposable(
     Row {
         Column(
             horizontalAlignment = Alignment.Start,
-            modifier = modifier.fillMaxWidth().weight(7f)
+            modifier = modifier
+                .fillMaxWidth()
+                .weight(7f)
         ) {
 
-            Text(text = "MeshWork", fontSize = 30.sp,fontWeight = FontWeight.ExtraBold)
+            Text(
+                text = "MeshWork",
+                fontSize = 30.sp,
+                fontWeight = FontWeight.ExtraBold,
+                color = Color.White
+            )
             Text(
                 text = name,
                 fontWeight = FontWeight.Bold,
                 fontSize = 28.sp,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Start,
+                color = Color.White
             )
         }
         Image(
@@ -107,7 +124,8 @@ fun AssignedClassesComposable(
         text = "Assigned Classes",
         fontSize = 22.sp,
         fontWeight = FontWeight.SemiBold,
-        modifier = modifier
+        modifier = modifier,
+        color = Color.White
     )
 }
 
@@ -119,7 +137,7 @@ fun UserInfoCard(
     Card(
         modifier = modifier
             .fillMaxWidth(),
-        backgroundColor = LightBlueText,
+        backgroundColor =Color.White,
         elevation = 8.dp,
         shape = RoundedCornerShape(20.dp)
     ) {
@@ -145,14 +163,14 @@ fun UserInfoCard(
                     text = userInfo.name,
                         fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color.White
+                    color = LightBlueText
                 )
                 Text(
                     text = userInfo.id,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.SemiBold,
                     textAlign = TextAlign.End,
-                    color = Color.White
+                    color = LightBlueText
                 )
             }
         }
@@ -177,7 +195,8 @@ fun ClassesGridComposable(
                 ClassCardComposable(
                     className = assignedClass.className,
                     subjectName = assignedClass.subject,
-                    modifier = Modifier.size(150.dp),
+                    modifier = Modifier
+                        .size(150.dp),
                     navHostController = navHostController
                 )
             })

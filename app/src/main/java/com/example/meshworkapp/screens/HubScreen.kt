@@ -1,12 +1,12 @@
 package com.example.meshworkapp.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -17,6 +17,7 @@ import com.example.meshworkapp.dataclassfiles.FacultyDataClass
 import com.example.meshworkapp.navigationgraphs.HubNavigationScreens
 import com.example.meshworkapp.navigationgraphs.HubNavGraph
 import com.example.meshworkapp.viewmodels.FacultySharedViewModel
+import com.example.meshworkapp.ui.theme.DarkBlueText
 
 @Composable
 fun HubScreen(
@@ -79,6 +80,7 @@ fun RowScope.AddItem(
         },
         selected = item.route == currentDestination?.route,
         unselectedContentColor = LocalContentColor.current.copy(alpha = ContentAlpha.disabled),
+        modifier = Modifier.background(DarkBlueText),
         onClick = {
             navHostController.navigate(item.route) {
                 popUpTo(navHostController.graph.findStartDestination().id)
@@ -86,10 +88,4 @@ fun RowScope.AddItem(
             }
         }
     )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun HubScreenPreview(){
-//    HubScreen(facultyDataClass = null)
 }
