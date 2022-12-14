@@ -162,7 +162,7 @@ fun LoginScreenFacultyComposable(
 
                     colors = TextFieldDefaults.textFieldColors(
                         backgroundColor = Color.Transparent,
-                        focusedIndicatorColor = Color.White,
+                        focusedIndicatorColor = Color.Transparent,
                         unfocusedIndicatorColor = Color.Transparent
                     ),
 
