@@ -97,8 +97,8 @@ fun ChatListTopBar() {
         Text(
             text = "Chats",
             style = MaterialTheme.typography.h4,
-            textAlign = TextAlign.Start
-//            color = Color.White
+            textAlign = TextAlign.Start,
+            color = Color.White
         )
     }
 

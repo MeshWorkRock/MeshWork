@@ -106,18 +106,16 @@ fun StudentListTopBar(className: String) {
             text = "Student List",
             style = MaterialTheme.typography.h4,
             textAlign = TextAlign.Start,
-//            fontWeight = FontWeight.Bold
-//            color = Color.White
+            color = Color.White
         )
         Box(
             modifier = Modifier.fillMaxSize()
-//                .background(Color.Red),
         ) {
             Text(
                 text = className,
                 style = MaterialTheme.typography.h6,
-                modifier = Modifier.align(Alignment.BottomEnd)
-                //            color = Color.White
+                modifier = Modifier.align(Alignment.BottomEnd),
+                color = Color.White
             )
         }
     }

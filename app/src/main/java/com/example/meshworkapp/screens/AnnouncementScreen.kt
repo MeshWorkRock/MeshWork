@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.meshworkapp.AnnouncementDataClass
+import com.example.meshworkapp.composables.GradientBackGround
 import com.example.meshworkapp.navigationgraphs.HubNavigationScreens
 import com.example.meshworkapp.ui.theme.DarkBlueText
 
@@ -33,76 +34,20 @@ import com.example.meshworkapp.ui.theme.DarkBlueText
 @Composable
 fun AnnouncementScreen(
     announcementMessages: List<AnnouncementDataClass>,
-    navHostController: NavHostController
+    navHostController: NavHostController,
 ) {
 
     //Composable for Announcement Screen
-    Column {
-        AnnouncementTopBar()
-        AnnouncementSearchBarComposable()
 
-        Scaffold(floatingActionButton = {
-            FloatingActionButton(
-                onClick = { navigateToMakeAnnouncementScreen(navHostController) },
-                modifier = Modifier
-                    .padding(bottom = 55.dp)
-            ) {
-                Text(
-                    text = "+",
-                    fontSize = 30.sp,
-                )
-            }
-        }) {
-            LazyColumn(modifier = Modifier.fillMaxSize()) {
-                items(items = announcementMessages, itemContent = { announcement ->
-                    Card(
-                        shape = RoundedCornerShape(20.dp),
-                        elevation = 8.dp,
-                        modifier = Modifier
-                            .padding(10.dp)
-                    ) {
-                        Column(
-                            modifier = Modifier
-                                .padding(5.dp)
-                                .fillMaxWidth()
-                                .padding(5.dp)
-                        ) {
-                            Row() {
-                                Text(
-                                    text = announcement.Heading,
-                                    textAlign = TextAlign.Start,
-                                    modifier = Modifier.weight(1f),
-                                    style = MaterialTheme.typography.h6,
-                                    color = DarkBlueText
-                                )
-                                Text(
-                                    text = announcement.Date,
-                                    textAlign = TextAlign.End,
-                                    modifier = Modifier.weight(1f),
-                                    style = MaterialTheme.typography.body2,
-                                    color = DarkBlueText
-                                )
-                            }
-                            Text(
-                                text = announcement.announcementBody,
-                                fontSize = 18.sp,
-                                textAlign = TextAlign.Left,
-                                color = DarkBlueText,
-                                modifier = Modifier
-                                    .padding(top = 5.dp)
-                            )
-                        }
-                    }
-                })
-            }
-        }
-    }
+    AnnouncementListWithActionBarComposable(announcementMessages, navHostController)
+
+
 
 }
 
 fun navigateToMakeAnnouncementScreen(
-    navHostController: NavHostController
-){
+    navHostController: NavHostController,
+) {
     navHostController.navigate(HubNavigationScreens.MakeAnnouncement.route)
 }
 
@@ -157,7 +102,7 @@ fun AnnouncementSearchBarComposable() {
         modifier = Modifier
             .padding(10.dp)
             .fillMaxWidth(90f)
-            .background(color = Color.LightGray, shape = CircleShape)
+            .background(color = Color.White, shape = CircleShape)
     )
 }
 
@@ -174,9 +119,82 @@ fun AnnouncementTopBar() {
         Text(
             text = "Announcements",
             style = MaterialTheme.typography.h4,
-            textAlign = TextAlign.Start
-//            color = Color.White
+            textAlign = TextAlign.Start,
+            color = Color.White
         )
+    }
+
+}
+
+@Composable
+fun AnnouncementListWithActionBarComposable(
+    announcementMessages: List<AnnouncementDataClass>,
+    navHostController: NavHostController,
+) {
+
+
+    Scaffold(floatingActionButton = {
+        FloatingActionButton(
+            onClick = { navigateToMakeAnnouncementScreen(navHostController) },
+            modifier = Modifier
+                .padding(bottom = 55.dp)
+        ) {
+            Text(
+                text = "+",
+                fontSize = 30.sp,
+            )
+        }
+    }) {
+        Box {
+            GradientBackGround()
+            Column {
+                AnnouncementTopBar()
+                AnnouncementSearchBarComposable()
+                LazyColumn(modifier = Modifier.fillMaxSize()) {
+                    items(items = announcementMessages, itemContent = { announcement ->
+                        Card(
+                            shape = RoundedCornerShape(20.dp),
+                            elevation = 8.dp,
+                            modifier = Modifier
+                                .padding(10.dp)
+                        ) {
+                            Column(
+                                modifier = Modifier
+                                    .padding(5.dp)
+                                    .fillMaxWidth()
+                                    .padding(5.dp)
+                            ) {
+                                Row() {
+                                    Text(
+                                        text = announcement.Heading,
+                                        textAlign = TextAlign.Start,
+                                        modifier = Modifier.weight(1f),
+                                        style = MaterialTheme.typography.h6,
+                                        color = DarkBlueText
+                                    )
+                                    Text(
+                                        text = announcement.Date,
+                                        textAlign = TextAlign.End,
+                                        modifier = Modifier.weight(1f),
+                                        style = MaterialTheme.typography.body2,
+                                        color = DarkBlueText
+                                    )
+                                }
+                                Text(
+                                    text = announcement.announcementBody,
+                                    fontSize = 18.sp,
+                                    textAlign = TextAlign.Left,
+                                    color = DarkBlueText,
+                                    modifier = Modifier
+                                        .padding(top = 5.dp)
+                                )
+                            }
+                        }
+                    })
+                }
+            }
+        }
+
     }
 
 }
