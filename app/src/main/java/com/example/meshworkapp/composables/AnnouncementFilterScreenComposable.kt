@@ -29,12 +29,13 @@ import androidx.compose.ui.unit.toSize
 import androidx.navigation.NavHostController
 import com.example.meshworkapp.dataclassfiles.ListItemDataClass
 import com.example.meshworkapp.navigationgraphs.HubNavigationScreens
+import kotlinx.coroutines.launch
 
 
 @Composable
 fun AnnouncementFilterScreenComposable(navHostController: NavHostController) {
 
-    val batchList = listOf("2022", "2021", "2020","2019")
+    val batchList = listOf("2022", "2021", "2020", "2019")
     val courseList = listOf("BCA", "MCA", "BSC")
     val sectionlist = listOf("1", "2", "3", "4", "5", "6", "7")
     val grouplist = listOf("A", "B")
@@ -68,7 +69,13 @@ fun AnnouncementFilterScreenComposable(navHostController: NavHostController) {
                     color = Color.White
                 )
             }
+            BatchFilterOption(batchList)
+            CourseFilterOption()
+            SectionFilterOption()
+            GroupFilterOption()
 
+
+            Spacer(modifier = Modifier.height(20.dp))
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier
@@ -109,14 +116,130 @@ fun AnnouncementFilterScreenComposable(navHostController: NavHostController) {
             }
 
 
-
-//
 //            AnnouncementFilterBottomScreenComposable(batchList = batchList)
-            AnnouncementFilterBottomScreenComposable(batchList = courseList)
+//            AnnouncementFilterBottomScreenComposable(batchList = courseList)
 //            AnnouncementFilterBottomScreenComposable(batchList = sectionlist)
 //            AnnouncementFilterBottomScreenComposable(batchList = grouplist)
 
 
+        }
+    }
+}
+
+@Composable
+fun BatchFilterOption(batchList: List<String>) {
+    Card(
+        shape = RoundedCornerShape(20.dp),
+        backgroundColor = Color.White,
+        elevation = 8.dp,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 16.dp)
+            .clickable(onClick = {
+//                AnnouncementFilterSelectorScreenComposable(batchList = batchList)
+            })
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+        )
+        {
+            Text(
+                text = "Batch",
+                Modifier.padding(start = 14.dp, top = 10.dp, end = 10.dp, bottom = 10.dp),
+                fontSize = 30.sp,
+                fontWeight = FontWeight.ExtraBold,
+            )
+        }
+    }
+}
+
+//Course Filter
+@Composable
+fun CourseFilterOption() {
+    Card(
+        shape = RoundedCornerShape(20.dp),
+        backgroundColor = Color.White,
+        elevation = 8.dp,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 16.dp)
+            .clickable(onClick = {}),
+
+        ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+        )
+        {
+            Text(
+                text = "Course",
+                Modifier
+                    .padding(start = 14.dp, top = 10.dp, end = 10.dp, bottom = 10.dp),
+                fontSize = 30.sp,
+                fontWeight = FontWeight.ExtraBold,
+            )
+        }
+    }
+}
+
+
+//Section Filter
+@Composable
+fun SectionFilterOption() {
+    Card(
+        shape = RoundedCornerShape(20.dp),
+        backgroundColor = Color.White,
+        elevation = 8.dp,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 16.dp)
+            .clickable(onClick = {})
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+        )
+        {
+            Text(
+                text = "Section",
+                Modifier
+                    .padding(start = 14.dp, top = 10.dp, end = 10.dp, bottom = 10.dp),
+                fontSize = 30.sp,
+                fontWeight = FontWeight.ExtraBold,
+            )
+        }
+    }
+}
+
+//Group Filter
+@Composable
+fun GroupFilterOption() {
+    Card(
+        shape = RoundedCornerShape(20.dp),
+        backgroundColor = Color.White,
+        elevation = 8.dp,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 16.dp)
+            .clickable(onClick = {}),
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+        )
+        {
+            Text(
+                text = "Group",
+                Modifier
+                    .padding(start = 14.dp, top = 10.dp, end = 10.dp, bottom = 10.dp),
+                fontSize = 30.sp,
+                fontWeight = FontWeight.ExtraBold,
+            )
         }
     }
 }

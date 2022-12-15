@@ -1,15 +1,23 @@
 package com.example.meshworkapp.screens
 
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -21,26 +29,38 @@ import com.example.meshworkapp.ui.theme.DarkBlueText
 
 @Composable
 fun CreateAnnouncementScreen() {
+    val batchList = listOf("2022", "2021", "2020")
+    val courseList = listOf("BSC", "MCA")
+    val sectionList = listOf("1", "2", "3", "4")
+    val groupList = listOf("A")
+
+
+    // list to string
+    val batch = batchList.joinToString()
+    val course = courseList.joinToString()
+    val section = sectionList.joinToString()
+
+
     Box {
         GradientBackGround()
         Column(horizontalAlignment = Alignment.Start) {
             Text(
                 text = "Create ",
                 fontSize = 30.sp,
-                modifier = Modifier.padding(top = 35.dp, start = 10.dp),
+                modifier = Modifier.padding(top = 35.dp, start = 15.dp),
                 fontWeight = FontWeight.ExtraBold,
                 color = Color.White
             )
             Text(
                 text = "Announcement",
                 fontSize = 30.sp,
-                modifier = Modifier.padding(bottom = 10.dp, start = 10.dp),
+                modifier = Modifier.padding(bottom = 10.dp, start = 15.dp),
                 fontWeight = FontWeight.ExtraBold,
                 color = Color.White
             )
 
-            CreateAnnouncementInfoScreen()
-            AnnouncementDataEnterScreen()
+            CreateAnnouncementInfoScreen(batch, course, section)
+            AnnouncementDataEnterScreen(batchList, courseList, sectionList, groupList)
         }
 
     }
@@ -49,7 +69,8 @@ fun CreateAnnouncementScreen() {
 }
 
 @Composable
-fun CreateAnnouncementInfoScreen() {
+fun CreateAnnouncementInfoScreen(batch: String, course: String, section: String) {
+
     Card(
         elevation = 10.dp,
         modifier = Modifier
@@ -63,19 +84,19 @@ fun CreateAnnouncementInfoScreen() {
                 .fillMaxWidth()
         ) {
             Text(
-                text = "Batch : 2022",
+                text = "Batch : $batch",
                 fontSize = 18.sp,
                 textAlign = TextAlign.Start,
                 fontWeight = FontWeight.SemiBold
             )
             Text(
-                text = "Course: BSc",
+                text = "Course: $course",
                 fontSize = 18.sp,
                 textAlign = TextAlign.Start,
                 fontWeight = FontWeight.SemiBold
             )
             Text(
-                text = "Section 1",
+                text = "Section: $section",
                 fontSize = 18.sp,
                 textAlign = TextAlign.Start,
                 fontWeight = FontWeight.SemiBold
@@ -85,47 +106,92 @@ fun CreateAnnouncementInfoScreen() {
 }
 
 @Composable
-fun AnnouncementDataEnterScreen() {
-    var value by remember { mutableStateOf("") }
+fun AnnouncementDataEnterScreen(
+    batchList: List<String>,
+    courseList: List<String>,
+    sectionList: List<String>,
+    groupList: List<String>,
+) {
+    var title by remember { mutableStateOf("") }
+    var announcementMessage by remember { mutableStateOf("") }
 
-    Box {
-        Column() {
-            TextField(
-                value = value,
-                onValueChange = { value = it },
-                placeholder = {
-                    Column {
+    Card(
+        modifier = Modifier
+            .padding(top = 25.dp, start = 10.dp, end = 10.dp, bottom = 15.dp)
+            .fillMaxHeight()
+            .fillMaxWidth(),
+        shape = RoundedCornerShape(20.dp)
+    ) {
+        Box() {
+            Column() {
+                //Title Field
+                TextField(
+                    value = title,
+                    onValueChange = { title = it },
+                    placeholder = {
                         Text("Title",
-                            color = Color.Black,
+                            color = Color.White,
                             fontWeight = FontWeight.SemiBold,
                             fontSize = 25.sp,
-                            modifier = Modifier.padding(bottom = 10.dp))
-                        Text("Type your announcement here...",
-                            color = Color.Black,
+                            modifier = Modifier.padding(start = 8.dp)
+                        )
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 10.dp, start = 4.dp, end = 4.dp),
+                    colors = TextFieldDefaults.textFieldColors(
+                        backgroundColor = DarkBlueText,
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent
+                    ),
+                    shape = RoundedCornerShape(20.dp)
+                )
+
+
+                //Announcement Field
+                TextField(
+                    value = announcementMessage,
+                    onValueChange = { announcementMessage = it },
+                    placeholder = {
+                        Text("Type your message here...",
+                            color = DarkBlueText,
+                            fontWeight = FontWeight.Bold,
                             fontSize = 18.sp,
-                            fontWeight = FontWeight.SemiBold)
-                    }
-                },
+                            modifier = Modifier
+                                .padding(start = 10.dp)
+                                .verticalScroll(
+                                    rememberScrollState())
+                        )
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight()
+                        .padding(start = 4.dp, end = 4.dp),
+                    colors = TextFieldDefaults.textFieldColors(
+                        backgroundColor = Color.White
+                    ),
+                )
+
+            }
+
+
+            //Send button
+            Button(onClick = { },
                 modifier = Modifier
-                    .padding(top = 35.dp, start = 15.dp, end = 15.dp)
-                    .fillMaxHeight()
-                    .fillMaxWidth(),
-                colors = TextFieldDefaults.textFieldColors(
-                    backgroundColor = Color.White
-                ),
-                shape = RoundedCornerShape(20.dp)
-            )
-        }
-        Row(Modifier
-            .align(Alignment.BottomEnd)
-            .padding(15.dp)
-            .background(color = DarkBlueText)) {
-            Button(onClick = {}, modifier = Modifier.background(color = DarkBlueText)) {
-                Image(
-                    painter = painterResource(id = R.drawable.paper_plane),
-                    contentDescription = "Icon",
-                    Modifier.size(40.dp),
-                    alignment = Alignment.BottomEnd,
+                    .align(alignment = Alignment.BottomEnd)
+                    .padding(13.dp)
+                    .clip(RoundedCornerShape(10.dp))
+                    .background(color = DarkBlueText),
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = DarkBlueText
+                )) {
+                Icon(
+                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_baseline_send_24),
+                    modifier = Modifier
+                        .size(25.dp)
+                        .padding(0.dp),
+                    contentDescription = "send_icon",
+                    tint = Color.White
                 )
             }
         }
