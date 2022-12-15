@@ -14,7 +14,7 @@ class StudentViewModel() : ViewModel() {
     //    Only Declare Variables from here on
     private var studentList = ArrayList<StudentsDataClass>()
 
-    fun loadStudents(studentDataList: List<StudentsDataClass>) {
+    fun loadStudents(studentDataList: List<StudentsDataClass>?) {
 
         initializeStudentList(studentDataList)
         this._liveMutableStudentsList = MutableLiveData<List<StudentsDataClass>>()
@@ -28,8 +28,8 @@ class StudentViewModel() : ViewModel() {
 //        Log.i("queryn7", ":1")
         val filteredList = ArrayList<StudentsDataClass>()
         studentList.forEach { student ->
-            if (student.studentName.lowercase()
-                    .contains(query.lowercase()) || student.studentUID.lowercase()
+            if (student.studentName?.lowercase()!!
+                    .contains(query.lowercase()) || student.studentUID!!.lowercase()
                     .contains(query.lowercase())
             ) {
                 filteredList.add(student)
@@ -39,7 +39,7 @@ class StudentViewModel() : ViewModel() {
         this._liveMutableStudentsList.postValue(filteredList)
     }
 
-    private fun initializeStudentList(studentDataList: List<StudentsDataClass>) {
+    private fun initializeStudentList(studentDataList: List<StudentsDataClass>?) {
 
         val data = studentDataList
 //        val data = listOf(
@@ -93,7 +93,7 @@ class StudentViewModel() : ViewModel() {
 //            )
 //        )
 
-        data.forEach {
+        data?.forEach {
             studentList.add(it)
         }
 

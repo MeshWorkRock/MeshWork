@@ -36,20 +36,22 @@ import com.example.meshworkapp.ui.theme.DarkBlueAnimation
 import com.example.meshworkapp.ui.theme.DarkBlueText
 import com.example.meshworkapp.ui.theme.LightBlueAnimation
 import com.example.meshworkapp.ui.theme.LightBlueText
+import com.example.meshworkapp.viewmodels.CurrentCourseSharedViewModel
 
 // It will show list of students
 @Composable
 fun StudentListComposable(
     searchViewModel: StudentViewModel,
-    studentDataList: List<StudentsDataClass>
+    currentCourseSharedViewModel: CurrentCourseSharedViewModel
+//    studentDataList: List<StudentsDataClass>
 //    onClick: () -> Unit
 ) {
 
     var initializedStudentList by remember {
         mutableStateOf(false)
     }
-    if(!initializedStudentList){
-        searchViewModel.loadStudents(studentDataList)
+    if(!initializedStudentList && currentCourseSharedViewModel.currentCourse.value?.studentsList != null){
+        searchViewModel.loadStudents(currentCourseSharedViewModel.currentCourse.value?.studentsList)
         initializedStudentList = true
     }
 
@@ -60,7 +62,7 @@ fun StudentListComposable(
         modifier = Modifier.padding(bottom = 48.dp)
     ) {
         if (!studentList.isNullOrEmpty()) {
-            items(items = studentList) { student ->                            //TODO Optimise By using Other than List.distinct()
+            items(items = studentList) { student ->
                 val studentDesignationBadge = student.studentDesignation
                 StudentListCardComposable(
                     student = student,
@@ -137,7 +139,7 @@ fun StudentNameAndUIDComposable(student: StudentsDataClass) {
         modifier = Modifier.padding(top = 5.dp)
     ) {
         Text(
-            text = student.studentName,
+            text = student.studentName!!,
             style = MaterialTheme.typography.h6,
             color = DarkBlueText,
             modifier = Modifier
@@ -145,7 +147,7 @@ fun StudentNameAndUIDComposable(student: StudentsDataClass) {
                 .wrapContentWidth(Alignment.Start)
         )
         Text(
-            text = student.studentUID,
+            text = student.studentUID!!,
             style = MaterialTheme.typography.body2,
             color = DarkBlueText,
             modifier = Modifier
@@ -159,7 +161,7 @@ fun StudentNameAndUIDComposable(student: StudentsDataClass) {
 @Composable
 fun StudentProfileImageComposable(student : StudentsDataClass) {
     Image(
-        painter = painterResource(id = student.studentProfile),
+        painter = painterResource(id = student.studentProfile!!),
         contentDescription = null,
         contentScale = ContentScale.Crop,
         modifier = Modifier

@@ -19,8 +19,11 @@ import androidx.compose.ui.unit.sp
 import com.example.meshworkapp.ui.theme.DarkBlueAnimation
 import com.example.meshworkapp.ui.theme.LightBlueAnimation
 import androidx.navigation.NavHostController
+import com.example.meshworkapp.dataclassfiles.AssignedClassDataClass
 import com.example.meshworkapp.navigationgraphs.HubNavigationScreens
 import com.example.meshworkapp.ui.theme.DarkBlueText
+import com.example.meshworkapp.viewmodels.CurrentCourseSharedViewModel
+import com.example.meshworkapp.viewmodels.FacultySharedViewModel
 
 @Composable
 fun ClassCardComposable(
@@ -28,11 +31,17 @@ fun ClassCardComposable(
     subjectName: String,
     modifier: Modifier = Modifier,
     navHostController: NavHostController,
+    currentCourseSharedViewModel: CurrentCourseSharedViewModel
 ) {
     Card(
         modifier = modifier
             .padding(start = 20.dp, end = 20.dp, top = 10.dp, bottom = 20.dp)
             .clickable {
+                currentCourseSharedViewModel.addCurrentCourse(AssignedClassDataClass(
+                    className = className,
+                    subject = subjectName,
+                    studentsList = null
+                ))
                 navHostController.navigate(HubNavigationScreens.StudentsList.route)
             },
         backgroundColor = Color.White ,
@@ -73,10 +82,10 @@ fun ClassCardComposable(
 @Preview(showBackground = true)
 @Composable
 fun ClassCardPreview() {
-    ClassCardComposable(
-        className = "22MCD-1",
-        subjectName = "Digital Electronics and computing",
-        modifier = Modifier.size(200.dp),
-        navHostController = NavHostController(LocalContext.current)
-    )
+//    ClassCardComposable(
+//        className = "22MCD-1",
+//        subjectName = "Digital Electronics and computing",
+//        modifier = Modifier.size(200.dp),
+//        navHostController = NavHostController(LocalContext.current)
+//    )
 }

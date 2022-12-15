@@ -10,14 +10,19 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.meshworkapp.*
 import com.example.meshworkapp.R
 import com.example.meshworkapp.composables.AnnouncementFilterScreenComposable
+import com.example.meshworkapp.dataclassfiles.AssignedClassDataClass
+import com.example.meshworkapp.dataclassfiles.TimeTableDataClass
 import com.example.meshworkapp.screens.*
+import com.example.meshworkapp.viewmodels.CurrentCourseSharedViewModel
 import com.example.meshworkapp.viewmodels.FacultySharedViewModel
+import com.google.firebase.firestore.FirebaseFirestore
 
 @Composable
 fun HubNavGraph(
@@ -25,7 +30,7 @@ fun HubNavGraph(
     facultySharedViewModel: FacultySharedViewModel
 ) {
 
-    Toast.makeText(LocalContext.current, "HubNavGraph", Toast.LENGTH_SHORT).show()
+    val currentCourseSharedViewModel: CurrentCourseSharedViewModel = viewModel()
 
     NavHost(
         navController = navHostController,
@@ -38,13 +43,17 @@ fun HubNavGraph(
             HomeScreen(
                 navHostController = navHostController,
                 assignedClassesList = fetchAssignedCLassesList(facultySharedViewModel = facultySharedViewModel),
-                facultySharedViewModel = facultySharedViewModel
+                facultySharedViewModel = facultySharedViewModel,
+                currentCourseSharedViewModel = currentCourseSharedViewModel
             )
         }
         composable(
             route = HubNavigationScreens.StudentsList.route
         ) {
-            StudentListScreen(studentDataList = fetchStudentsList())
+            StudentListScreen(
+                facultySharedViewModel = facultySharedViewModel,
+                currentCourseSharedViewModel = currentCourseSharedViewModel
+            )
         }
         composable(
             route = HubNavigationScreens.Chats.route
@@ -57,7 +66,8 @@ fun HubNavGraph(
             TimeTableScreen(timeTableList = fetchTimeTableList())
         }
         composable(
-            route = HubNavigationScreens.Announcements.route
+            route = HubNavigationScreens.Announcements.route,
+
         ) {
             AnnouncementScreen(announcementMessages = fetchAnnouncementsList(), navHostController = navHostController)
         }
@@ -69,7 +79,7 @@ fun HubNavGraph(
         composable(
             route = HubNavigationScreens.CreatAndPostAnnouncement.route
         ) {
-            CreateAnnouncementScreen()                    //TODO Chane file name
+            CreateAnnouncementScreen()                    //TODO Change file name
         }
     }
 }
@@ -121,61 +131,81 @@ sealed class HubNavigationScreens(
 }
 
 
-fun fetchStudentsList(): List<StudentsDataClass> {
-
-    //    Toast.makeText(LocalContext.current, "list count = ${studentList.size}", Toast.LENGTH_SHORT).show()
-
-    return listOf(
-        StudentsDataClass(
-            studentName = "Pankaj Singh",
-            studentUID = "22MCC20049",
-            studentProfile = R.drawable.dummy_profile_pic,
-            studentDesignation = "CR"
-        ),
-        StudentsDataClass(
-            studentName = "Sahil Vishwakarma",
-            studentUID = "22MCC20030",
-            studentProfile = R.drawable.dummy_profile_pic,
-            studentDesignation = null
-        ),
-        StudentsDataClass(
-            studentName = "Amandeep Singh",
-            studentUID = "22MCC20050",
-            studentProfile = R.drawable.dummy_profile_pic,
-            studentDesignation = null
-        ),
-        StudentsDataClass(
-            studentName = "Mrinal Sahni",
-            studentUID = "22MCC20059",
-            studentProfile = R.drawable.dummy_profile_pic,
-            studentDesignation = null
-        ),
-        StudentsDataClass(
-            studentName = "Mercy",
-            studentUID = "22MCC20090",
-            studentProfile = R.drawable.dummy_profile_pic,
-            studentDesignation = null
-        ),
-        StudentsDataClass(
-            studentName = "Tejas",
-            studentUID = "22MCC20088",
-            studentProfile = R.drawable.dummy_profile_pic,
-            studentDesignation = "CR"
-        ),
-        StudentsDataClass(
-            studentName = "Tejveer",
-            studentUID = "22MCC20072",
-            studentProfile = R.drawable.dummy_profile_pic,
-            studentDesignation = null
-        ),
-        StudentsDataClass(
-            studentName = "Isha Nagpal",
-            studentUID = "22MCC20066",
-            studentProfile = R.drawable.dummy_profile_pic,
-            studentDesignation = null
-        )
-    )
-}
+//fun fetchStudentsList(
+//    facultySharedViewModel: FacultySharedViewModel,
+//    currentCourseSharedViewModel: CurrentCourseSharedViewModel,
+//): List<StudentsDataClass> {
+//
+//    //    Toast.makeText(LocalContext.current, "list count = ${studentList.size}", Toast.LENGTH_SHORT).show()
+//    val studentsList = ArrayList<StudentsDataClass>()
+//    val firebaseFirestore = FirebaseFirestore.getInstance()
+//    firebaseFirestore.collection("students").whereEqualTo(
+//        "course",
+//        currentCourseSharedViewModel.currentCourse?.className
+//    ).get().addOnSuccessListener {
+//        it.forEach{doc->
+//            studentsList.add(StudentsDataClass(
+//                studentName = doc.getString("name"),
+//                studentUID = doc.getString("name"),
+//                studentProfile = R.drawable.dummy_profile_pic,
+//                studentDesignation = null
+//            ))
+//        }
+//    }
+//        Log.e("List", "${studentsList.size}")
+//
+//
+//    /*return listOf(
+//        StudentsDataClass(
+//            studentName = "Pankaj Singh",
+//            studentUID = "22MCC20049",
+//            studentProfile = R.drawable.dummy_profile_pic,
+//            studentDesignation = "CR"
+//        ),
+//        StudentsDataClass(
+//            studentName = "Sahil Vishwakarma",
+//            studentUID = "22MCC20030",
+//            studentProfile = R.drawable.dummy_profile_pic,
+//            studentDesignation = null
+//        ),
+//        StudentsDataClass(
+//            studentName = "Amandeep Singh",
+//            studentUID = "22MCC20050",
+//            studentProfile = R.drawable.dummy_profile_pic,
+//            studentDesignation = null
+//        ),
+//        StudentsDataClass(
+//            studentName = "Mrinal Sahni",
+//            studentUID = "22MCC20059",
+//            studentProfile = R.drawable.dummy_profile_pic,
+//            studentDesignation = null
+//        ),
+//        StudentsDataClass(
+//            studentName = "Mercy",
+//            studentUID = "22MCC20090",
+//            studentProfile = R.drawable.dummy_profile_pic,
+//            studentDesignation = null
+//        ),
+//        StudentsDataClass(
+//            studentName = "Tejas",
+//            studentUID = "22MCC20088",
+//            studentProfile = R.drawable.dummy_profile_pic,
+//            studentDesignation = "CR"
+//        ),
+//        StudentsDataClass(
+//            studentName = "Tejveer",
+//            studentUID = "22MCC20072",
+//            studentProfile = R.drawable.dummy_profile_pic,
+//            studentDesignation = null
+//        ),
+//        StudentsDataClass(
+//            studentName = "Isha Nagpal",
+//            studentUID = "22MCC20066",
+//            studentProfile = R.drawable.dummy_profile_pic,
+//            studentDesignation = null
+//        )
+//    )*/
+//}
 
 fun fetchChatsList(): List<ChatListDataClass> {
 
@@ -220,7 +250,7 @@ fun fetchAssignedCLassesList(facultySharedViewModel: FacultySharedViewModel): Li
     var classesList = ArrayList<AssignedClassDataClass>()
 
     for ((key, value) in facultySharedViewModel.facultyUser?.classes!!){
-        classesList.add(AssignedClassDataClass(className = key, subject = value))
+        classesList.add(AssignedClassDataClass(className = key, subject = value, studentsList = null))
     }
     return classesList.toList()
 }

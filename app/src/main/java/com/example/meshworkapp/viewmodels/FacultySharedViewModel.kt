@@ -4,6 +4,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.example.meshworkapp.dataclassfiles.AssignedClassDataClass
 import com.example.meshworkapp.dataclassfiles.FacultyDataClass
 
 class FacultySharedViewModel: ViewModel() {

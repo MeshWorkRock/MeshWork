@@ -15,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -23,22 +22,21 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.example.meshworkapp.AssignedClassDataClass
+import com.example.meshworkapp.dataclassfiles.AssignedClassDataClass
 import com.example.meshworkapp.composables.ClassCardComposable
 import com.example.meshworkapp.R
 import com.example.meshworkapp.UserInfoDataClass
 import com.example.meshworkapp.composables.GradientBackGround
-import com.example.meshworkapp.navigationgraphs.fetchAssignedCLassesList
-import com.example.meshworkapp.ui.theme.DarkBlueText
-import com.example.meshworkapp.ui.theme.LightBlueAnimation
 import com.example.meshworkapp.ui.theme.LightBlueText
+import com.example.meshworkapp.viewmodels.CurrentCourseSharedViewModel
 import com.example.meshworkapp.viewmodels.FacultySharedViewModel
 
 @Composable
 fun HomeScreen(
-        navHostController: NavHostController,
-        assignedClassesList: List<AssignedClassDataClass>,
-        facultySharedViewModel: FacultySharedViewModel
+    navHostController: NavHostController,
+    assignedClassesList: List<AssignedClassDataClass>,
+    facultySharedViewModel: FacultySharedViewModel,
+    currentCourseSharedViewModel: CurrentCourseSharedViewModel
 ) {
     val userInfo = UserInfoDataClass(
         name = facultySharedViewModel.facultyUser?.name!!,
@@ -70,7 +68,9 @@ fun HomeScreen(
             Spacer(modifier = Modifier.height(0.dp))
             ClassesGridComposable(
                 assignedClasses = assignedClassesList,
-                navHostController = navHostController
+                navHostController = navHostController,
+                facultySharedViewModel = facultySharedViewModel,
+                currentCourseSharedViewModel = currentCourseSharedViewModel
             )
         }
     }
@@ -181,7 +181,9 @@ fun UserInfoCard(
 @Composable
 fun ClassesGridComposable(
     assignedClasses: List<AssignedClassDataClass>,
-    navHostController: NavHostController
+    navHostController: NavHostController,
+    facultySharedViewModel: FacultySharedViewModel,
+    currentCourseSharedViewModel: CurrentCourseSharedViewModel
 ){
     LazyVerticalGrid(
         cells = GridCells.Fixed(2),
@@ -197,7 +199,8 @@ fun ClassesGridComposable(
                     subjectName = assignedClass.subject,
                     modifier = Modifier
                         .size(150.dp),
-                    navHostController = navHostController
+                    navHostController = navHostController,
+                    currentCourseSharedViewModel = currentCourseSharedViewModel
                 )
             })
         }

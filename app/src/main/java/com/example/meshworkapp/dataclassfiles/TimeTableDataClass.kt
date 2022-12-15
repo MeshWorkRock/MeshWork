@@ -1,4 +1,4 @@
-package com.example.meshworkapp
+package com.example.meshworkapp.dataclassfiles
 
 data class TimeTableDataClass(
     val time : String,
