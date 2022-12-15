@@ -30,40 +30,41 @@ fun ClassCardComposable(
     navHostController: NavHostController,
 ) {
     Card(
-        modifier = modifier
-            .padding(start = 20.dp, end = 20.dp, top = 10.dp, bottom = 20.dp)
+        modifier = Modifier
+            .padding(5.dp)
             .clickable {
                 navHostController.navigate(HubNavigationScreens.StudentsList.route)
             },
-        backgroundColor = Color.White ,
         elevation = 10.dp,
         shape = RoundedCornerShape(20.dp),
     ) {
         Column(
-            verticalArrangement = Arrangement.SpaceBetween,
-            horizontalAlignment = Alignment.CenterHorizontally,
+//            verticalArrangement = Arrangement.SpaceBetween,
+//            horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxSize()
+                .background(CardBackground())
                 .padding(start = 5.dp)
         ) {
+
+            Text(
+                text = subjectName,
+                color = Color.White,
+                fontSize = 15.sp,
+                fontWeight = FontWeight.SemiBold,
+                textAlign = TextAlign.Start,
+                modifier = Modifier
+//                    .padding(bottom = 15.dp)
+                    .fillMaxWidth()
+            )
             Text(
                 text = className,
-                color = DarkBlueText,
+                color = Color.White,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Start,
                 modifier = Modifier
                     .padding(4.dp)
-                    .fillMaxWidth()
-            )
-            Text(
-                text = subjectName,
-                color = DarkBlueText,
-                fontSize = 15.sp,
-                fontWeight = FontWeight.SemiBold,
-                textAlign = TextAlign.Start,
-                modifier = Modifier
-                    .padding(bottom = 15.dp)
                     .fillMaxWidth()
             )
         }
@@ -76,7 +77,7 @@ fun ClassCardPreview() {
     ClassCardComposable(
         className = "22MCD-1",
         subjectName = "Digital Electronics and computing",
-        modifier = Modifier.size(200.dp),
+//        modifier = Modifier.size(180.dp),
         navHostController = NavHostController(LocalContext.current)
     )
 }

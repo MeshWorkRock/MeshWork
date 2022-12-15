@@ -19,7 +19,6 @@ import com.example.meshworkapp.common.composable.ChatListComposable
 import com.example.meshworkapp.common.dataclass.ChatListDataClass
 import com.example.meshworkapp.common.viewmodel.ChatListViewModel
 import com.example.meshworkapp.composables.*
-import com.example.meshworkapp.studentmodule.StudentChatListScreen
 
 @Composable
 fun TeacherChatListScreen(
@@ -32,7 +31,7 @@ fun TeacherChatListScreen(
     ) {
         Scaffold {
             Box {
-                GradientBackGround()
+                StudentListBackground()
                 Column {
                     ChatListTopBar()
                     ChatSearchBarComposable(viewModel = chatViewModel, modifier = Modifier

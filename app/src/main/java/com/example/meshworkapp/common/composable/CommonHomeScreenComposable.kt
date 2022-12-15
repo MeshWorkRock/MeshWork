@@ -1,6 +1,7 @@
 package com.example.meshworkapp.common
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -18,11 +19,13 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.meshworkapp.R
 import com.example.meshworkapp.UserInfoDataClass
 import com.example.meshworkapp.common.dataclass.AnnouncementDataClass
+import com.example.meshworkapp.composables.CardBackground
 import com.example.meshworkapp.ui.theme.DarkBlueText
 import com.example.meshworkapp.ui.theme.LightBlueText
 
@@ -72,15 +75,19 @@ fun UserInfoCard(
 ) {
     Card(
         modifier = modifier
-            .fillMaxWidth(),
-        backgroundColor =Color.White,
+            .fillMaxWidth()
+//            .padding(12.dp)
+            .background(Color.Transparent),
+        backgroundColor = Color.Transparent,
         elevation = 8.dp,
         shape = RoundedCornerShape(20.dp)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start,
-            modifier = Modifier.padding(5.dp)
+            modifier = Modifier
+                .padding(vertical = 10.dp)
+                .background(CardBackground())
         ) {
             Image(
                 painter = userInfo.profilePhoto,
@@ -99,14 +106,14 @@ fun UserInfoCard(
                     text = userInfo.name,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
-                    color = LightBlueText
+                    color = Color.White
                 )
                 Text(
                     text = userInfo.id,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.SemiBold,
                     textAlign = TextAlign.End,
-                    color = LightBlueText
+                    color = Color.White
                 )
             }
         }
@@ -161,3 +168,12 @@ fun AnnouncementList(
     }
 
 }
+
+//@Preview(showBackground = true)
+//@Composable
+//fun UserInfoCardPreview() {
+//    val data =
+//
+//    UserInfoCard()
+//
+//}

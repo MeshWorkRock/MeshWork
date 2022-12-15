@@ -7,14 +7,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import com.example.meshworkapp.R
 import com.example.meshworkapp.UserInfoDataClass
 import com.example.meshworkapp.common.AnnouncementList
 import com.example.meshworkapp.common.OrganizationNameAndLogoComposable
 import com.example.meshworkapp.common.UserInfoCard
 import com.example.meshworkapp.common.dataclass.AnnouncementDataClass
-import com.example.meshworkapp.composables.GradientBackGround
+import com.example.meshworkapp.composables.HomeBackGround
 
 @Composable
 fun StudentHomeScreen(
@@ -28,7 +27,7 @@ fun StudentHomeScreen(
         profilePhoto = painterResource(id = R.drawable.profile_image_dummy)
     )
     Box {
-        GradientBackGround()
+        HomeBackGround()
         Column(
             modifier = Modifier
                 .fillMaxSize()

@@ -3,7 +3,6 @@ package com.example.meshworkapp.composables
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -38,7 +37,7 @@ fun AnnouncementFilterScreenComposable(navHostController: NavHostController) {
     val sectionlist = listOf("1", "2", "3", "4", "5", "6", "7")
     val grouplist = listOf("A", "B")
     Box {
-        GradientBackGround()
+        CreateAnnouncementBackground()
         Column(
             modifier = Modifier
                 .fillMaxSize()

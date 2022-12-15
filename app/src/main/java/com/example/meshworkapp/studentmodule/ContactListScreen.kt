@@ -12,17 +12,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.meshworkapp.R
+import com.example.meshworkapp.composables.AnnouncementBackground
 import com.example.meshworkapp.composables.ContactCardComposable
-import com.example.meshworkapp.composables.GradientBackGround
-import com.example.meshworkapp.composables.StudentListCardComposable
+import com.example.meshworkapp.composables.HomeBackGround
 import com.example.meshworkapp.dataclassfiles.ContactDataClass
-import com.example.meshworkapp.screens.AnnouncementTopBar
 
 @Composable
 fun ContactListScreen(contactList: List<ContactDataClass>) {
 
     Box {
-        GradientBackGround()
+        AnnouncementBackground()
         Column {
             Row(
                 modifier = Modifier
@@ -31,7 +30,7 @@ fun ContactListScreen(contactList: List<ContactDataClass>) {
                     .padding(10.dp),
             ) {
                 Text(
-                    text = "Chats",
+                    text = "Contacts",
                     style = MaterialTheme.typography.h4,
                     textAlign = TextAlign.Start,
                     color = Color.White
