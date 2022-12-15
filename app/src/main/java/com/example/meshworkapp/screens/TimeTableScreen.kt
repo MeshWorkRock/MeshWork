@@ -10,6 +10,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -17,10 +18,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.meshworkapp.dataclassfiles.TimeTableDataClass
+import com.example.meshworkapp.TimeTableViewModel
 import com.example.meshworkapp.composables.GradientBackGround
 import com.example.meshworkapp.ui.theme.DarkBlueText
 import java.text.DateFormatSymbols
 import java.util.*
+import kotlin.collections.ArrayList
 
 @Composable
 fun TimeTableScreen(timeTableList: Array<Array<TimeTableDataClass>>) {

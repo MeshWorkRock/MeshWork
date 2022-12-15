@@ -18,7 +18,6 @@ import com.example.meshworkapp.StudentListTopBar
 import com.example.meshworkapp.StudentSearchBarComposable
 import com.example.meshworkapp.StudentViewModel
 import com.example.meshworkapp.StudentsDataClass
-import com.example.meshworkapp.composables.ChatListComposable
 import com.example.meshworkapp.composables.GradientBackGround
 import com.example.meshworkapp.composables.StudentListComposable
 import com.example.meshworkapp.viewmodels.CurrentCourseSharedViewModel

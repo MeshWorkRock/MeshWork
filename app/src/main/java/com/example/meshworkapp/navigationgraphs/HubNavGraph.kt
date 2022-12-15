@@ -16,9 +16,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.meshworkapp.*
 import com.example.meshworkapp.R
+import com.example.meshworkapp.common.dataclass.AnnouncementDataClass
+import com.example.meshworkapp.common.dataclass.ChatListDataClass
 import com.example.meshworkapp.composables.AnnouncementFilterScreenComposable
 import com.example.meshworkapp.dataclassfiles.AssignedClassDataClass
-import com.example.meshworkapp.dataclassfiles.TimeTableDataClass
 import com.example.meshworkapp.screens.*
 import com.example.meshworkapp.viewmodels.CurrentCourseSharedViewModel
 import com.example.meshworkapp.viewmodels.FacultySharedViewModel
@@ -66,8 +67,7 @@ fun HubNavGraph(
             TimeTableScreen(timeTableList = fetchTimeTableList())
         }
         composable(
-            route = HubNavigationScreens.Announcements.route,
-
+            route = HubNavigationScreens.Announcements.route
         ) {
             AnnouncementScreen(announcementMessages = fetchAnnouncementsList(), navHostController = navHostController)
         }
@@ -79,7 +79,7 @@ fun HubNavGraph(
         composable(
             route = HubNavigationScreens.CreatAndPostAnnouncement.route
         ) {
-            CreateAnnouncementScreen()                    //TODO Change file name
+            CreateAnnouncementScreen()                    //TODO Chane file name
         }
     }
 }
@@ -129,7 +129,6 @@ sealed class HubNavigationScreens(
         icon = Icons.Default.Person
     )
 }
-
 
 //fun fetchStudentsList(
 //    facultySharedViewModel: FacultySharedViewModel,

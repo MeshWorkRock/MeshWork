@@ -3,6 +3,7 @@ package com.example.meshworkapp.composables
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -20,6 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -35,55 +37,73 @@ fun AnnouncementFilterScreenComposable(navHostController: NavHostController) {
     val courseList = listOf("BCA", "MCA", "BSC")
     val sectionlist = listOf("1", "2", "3", "4", "5", "6", "7")
     val grouplist = listOf("A", "B")
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 15.dp)
-    ) {
-
-        Column(horizontalAlignment = Alignment.Start) {
-            Text(
-                text = "Create ",
-                fontSize = 30.sp,
-                modifier = Modifier.padding(top = 35.dp, start = 10.dp)
-            )
-            Text(
-                text = "Announcement",
-                fontSize = 30.sp,
-                modifier = Modifier.padding(bottom = 20.dp, start = 10.dp)
-            )
-        }
-
-        BatchSelectorBlockComposable(batchList)
-        CourseSelectorBlockComposable(courseList)
-        SectionSelectorBlockComposable(sectionlist)
-        GroupSelectorBlockComposable(grouplist)
-
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
+    Box {
+        GradientBackGround()
+        Column(
             modifier = Modifier
-                .padding(horizontal = 20.dp, vertical = 20.dp)
-                .fillMaxWidth()
+                .fillMaxSize()
+                .padding(horizontal = 15.dp)
         ) {
-            Button(onClick = { navHostController.popBackStack()}, shape = RoundedCornerShape(20.dp)) {
+
+            Column(horizontalAlignment = Alignment.Start) {
                 Text(
-                    text = "Cancel",
-                    fontSize = 20.sp,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .height(30.dp)
-                        .width(100.dp)
+                    text = "Create ",
+                    fontSize = 30.sp,
+                    modifier = Modifier.padding(top = 35.dp, start = 10.dp),
+                    fontWeight = FontWeight.ExtraBold,
+                    color = Color.White
+                )
+                Text(
+                    text = "Announcement",
+                    fontSize = 30.sp,
+                    modifier = Modifier.padding(bottom = 20.dp, start = 10.dp),
+                    fontWeight = FontWeight.ExtraBold,
+                    color = Color.White
                 )
             }
 
-            Button(onClick = { navigateToCreateAnnouncementScreen(navHostController) }, shape = RoundedCornerShape(20.dp)) {
-                Text(
-                    text = "Create", fontSize = 20.sp,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .height(30.dp)
-                        .width(100.dp)
-                )
+            BatchSelectorBlockComposable(batchList)
+            CourseSelectorBlockComposable(courseList)
+            SectionSelectorBlockComposable(sectionlist)
+            GroupSelectorBlockComposable(grouplist)
+
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier
+                    .padding(horizontal = 20.dp, vertical = 20.dp)
+                    .fillMaxWidth()
+            ) {
+                Button(onClick = {
+                    navHostController.popBackStack()
+                    Modifier.background(Color.White)
+                },
+                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
+                    shape = RoundedCornerShape(20.dp)) {
+                    Text(
+                        text = "Cancel",
+                        fontSize = 20.sp,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier
+                            .height(30.dp)
+                            .width(100.dp),
+                        color = Color.Black
+                    )
+                }
+
+                Button(onClick = {
+                    navigateToCreateAnnouncementScreen(navHostController)
+                },
+                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
+                    shape = RoundedCornerShape(20.dp)) {
+                    Text(
+                        text = "Create", fontSize = 20.sp,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier
+                            .height(30.dp)
+                            .width(100.dp),
+                        color = Color.Black
+                    )
+                }
             }
         }
     }
@@ -105,9 +125,10 @@ fun BatchSelectorBlockComposable(batchList: List<String>) {
                 .weight(1f)
                 .align(alignment = Alignment.CenterVertically)
                 .padding(start = 10.dp),
-            fontSize = 30.sp
+            fontSize = 30.sp,
+            fontWeight = FontWeight.ExtraBold,
         )
-        BatchFilterBlockComposable(modifier = Modifier.weight(2f), batchList)
+        BatchFilterBlockComposable(modifier = Modifier.weight(1f), batchList)
     }
 }
 
@@ -126,9 +147,10 @@ fun CourseSelectorBlockComposable(courseList: List<String>) {
                 .weight(1f)
                 .align(alignment = Alignment.CenterVertically)
                 .padding(start = 10.dp),
-            fontSize = 30.sp
+            fontSize = 30.sp,
+            fontWeight = FontWeight.ExtraBold,
         )
-        BatchFilterBlockComposable(modifier = Modifier.weight(2f), courseList)
+        BatchFilterBlockComposable(modifier = Modifier.weight(1f), courseList)
     }
 }
 
@@ -146,9 +168,10 @@ fun SectionSelectorBlockComposable(sectionlist: List<String>) {
                 .weight(1f)
                 .align(alignment = Alignment.CenterVertically)
                 .padding(start = 10.dp),
-            fontSize = 30.sp
+            fontSize = 30.sp,
+            fontWeight = FontWeight.ExtraBold,
         )
-        BatchFilterBlockComposable(modifier = Modifier.weight(2f), sectionlist)
+        BatchFilterBlockComposable(modifier = Modifier.weight(1f), sectionlist)
     }
 }
 
@@ -166,9 +189,10 @@ fun GroupSelectorBlockComposable(grouplist: List<String>) {
                 .weight(1f)
                 .align(alignment = Alignment.CenterVertically)
                 .padding(start = 10.dp),
-            fontSize = 30.sp
+            fontSize = 30.sp,
+            fontWeight = FontWeight.ExtraBold,
         )
-        BatchFilterBlockComposable(modifier = Modifier.weight(2f), grouplist)
+        BatchFilterBlockComposable(modifier = Modifier.weight(1f), grouplist)
     }
 }
 
@@ -199,7 +223,6 @@ fun BatchFilterBlockComposable(modifier: Modifier, list: List<String>) {
             value = mSelectedText,
             onValueChange = { mSelectedText = it },
             modifier = Modifier
-                .fillMaxWidth()
                 .onGloballyPositioned { coordinates ->
                     // This value is used to assign to
                     // the DropDown the same width
@@ -231,7 +254,7 @@ fun BatchFilterBlockComposable(modifier: Modifier, list: List<String>) {
     }
 }
 
-fun navigateToCreateAnnouncementScreen(navHostController: NavHostController){
+fun navigateToCreateAnnouncementScreen(navHostController: NavHostController) {
     navHostController.navigate(HubNavigationScreens.CreatAndPostAnnouncement.route)
 }
 

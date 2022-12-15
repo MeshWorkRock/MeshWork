@@ -28,8 +28,8 @@ class StudentViewModel() : ViewModel() {
 //        Log.i("queryn7", ":1")
         val filteredList = ArrayList<StudentsDataClass>()
         studentList.forEach { student ->
-            if (student.studentName?.lowercase()!!
-                    .contains(query.lowercase()) || student.studentUID!!.lowercase()
+            if (student.studentName.lowercase()
+                    .contains(query.lowercase()) || student.studentUID.lowercase()
                     .contains(query.lowercase())
             ) {
                 filteredList.add(student)
