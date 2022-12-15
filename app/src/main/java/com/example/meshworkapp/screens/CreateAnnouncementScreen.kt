@@ -24,7 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.meshworkapp.R
-import com.example.meshworkapp.composables.GradientBackGround
+import com.example.meshworkapp.composables.HomeBackGround
 import com.example.meshworkapp.ui.theme.DarkBlueText
 
 @Composable
@@ -42,7 +42,7 @@ fun CreateAnnouncementScreen() {
 
 
     Box {
-        GradientBackGround()
+        HomeBackGround()
         Column(horizontalAlignment = Alignment.Start) {
             Text(
                 text = "Create ",

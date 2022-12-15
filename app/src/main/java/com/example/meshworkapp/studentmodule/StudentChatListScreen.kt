@@ -14,13 +14,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.meshworkapp.R
 import com.example.meshworkapp.common.composable.ChatListComposable
 import com.example.meshworkapp.common.dataclass.ChatListDataClass
 import com.example.meshworkapp.common.viewmodel.ChatListViewModel
 import com.example.meshworkapp.composables.ChatListTopBar
 import com.example.meshworkapp.composables.ChatSearchBarComposable
-import com.example.meshworkapp.composables.GradientBackGround
+import com.example.meshworkapp.composables.HomeBackGround
 import com.example.meshworkapp.navigationgraphs.fetchChatsList
 
 @Composable
@@ -35,7 +34,7 @@ fun StudentChatListScreen(
 
         Scaffold {
             Box {
-                GradientBackGround()
+                HomeBackGround()
                 Column {
                     ChatListTopBar()
                     ChatSearchBarComposable(viewModel = chatViewModel, modifier = Modifier

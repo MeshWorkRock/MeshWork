@@ -9,8 +9,9 @@ import com.example.meshworkapp.screens.TimeTableScreen
 fun StudentTimeTableScreen() {
 
     val timetable = fetchTimeTableList()
-    
-    TimeTableScreen(timeTableList = timetable)
+    TimeTableScreen(
+        timeTableList = timetable
+    )
     
 }
 

@@ -46,7 +46,7 @@ fun AnnouncementFilterScreenComposable(navHostController: NavHostController) {
     val updatedGrouplist = listOf("A", "B")
 
     Box {
-        GradientBackGround()
+        CreateAnnouncementBackground()
         Column(
             modifier = Modifier
                 .fillMaxSize()

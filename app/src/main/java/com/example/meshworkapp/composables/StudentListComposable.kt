@@ -1,6 +1,7 @@
 package com.example.meshworkapp.composables
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -20,6 +21,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -27,6 +30,8 @@ import com.example.meshworkapp.StudentViewModel
 import com.example.meshworkapp.StudentsDataClass
 import com.example.meshworkapp.R
 import com.example.meshworkapp.ui.theme.DarkBlueText
+import com.example.meshworkapp.ui.theme.GradientHigh
+import com.example.meshworkapp.ui.theme.GradientLow
 import com.example.meshworkapp.ui.theme.LightBlueText
 
 // It will show list of students
@@ -49,7 +54,7 @@ fun StudentListComposable(
     studentList = studentList?.distinct()
 //    Toast.makeText(LocalContext.current, "list count = ${studentList?.size}", Toast.LENGTH_SHORT).show()
     LazyColumn(
-        modifier = Modifier.padding(bottom = 48.dp)
+        modifier = Modifier.padding(10.dp)
     ) {
         if (!studentList.isNullOrEmpty()) {
             items(items = studentList) { student ->                            //TODO Optimise By using Other than List.distinct()
@@ -82,8 +87,9 @@ fun StudentListCardComposable(
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
+                .fillMaxWidth()
+                .background(CardBackground()),
+            horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             Row() {
                 StudentProfileImageComposable(student)
@@ -116,7 +122,7 @@ fun StudentDesignationBadgeComposable(student : StudentsDataClass, studentDesign
                 .size(30.dp),
             painter = painterResource(id = R.drawable.cr_badge_star),
             contentDescription = "Star Icon",
-            tint = LightBlueText
+            tint = Color.White
         )
 
     }
@@ -131,7 +137,7 @@ fun StudentNameAndUIDComposable(student: StudentsDataClass) {
         Text(
             text = student.studentName,
             style = MaterialTheme.typography.h6,
-            color = DarkBlueText,
+            color = Color.White,
             modifier = Modifier
 //                .padding(horizontal = 20.dp, vertical = 5.dp)
                 .wrapContentWidth(Alignment.Start)
@@ -139,7 +145,7 @@ fun StudentNameAndUIDComposable(student: StudentsDataClass) {
         Text(
             text = student.studentUID,
             style = MaterialTheme.typography.body2,
-            color = DarkBlueText,
+            color = Color.White,
             modifier = Modifier
 //                .padding(horizontal = 20.dp, vertical = 5.dp)
                 .wrapContentWidth(Alignment.Start)

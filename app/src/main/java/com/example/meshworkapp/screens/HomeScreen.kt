@@ -21,7 +21,7 @@ import com.example.meshworkapp.R
 import com.example.meshworkapp.UserInfoDataClass
 import com.example.meshworkapp.common.OrganizationNameAndLogoComposable
 import com.example.meshworkapp.common.UserInfoCard
-import com.example.meshworkapp.composables.GradientBackGround
+import com.example.meshworkapp.composables.HomeBackGround
 import com.example.meshworkapp.viewmodels.FacultySharedViewModel
 
 @Composable
@@ -36,7 +36,7 @@ fun HomeScreen(
         profilePhoto = painterResource(id = R.drawable.profile_image_dummy)
     )
     Box {
-        GradientBackGround()
+        HomeBackGround()
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -174,7 +174,7 @@ fun ClassesGridComposable(
     navHostController: NavHostController
 ){
     LazyVerticalGrid(
-        cells = GridCells.Fixed(2),
+        cells = GridCells.Fixed(1),
         contentPadding = PaddingValues(
             start = 20.dp,
             end = 20.dp,

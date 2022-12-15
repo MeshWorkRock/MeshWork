@@ -9,16 +9,18 @@ import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.material.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.meshworkapp.R
 import com.example.meshworkapp.StudentListTopBar
 import com.example.meshworkapp.StudentSearchBarComposable
 import com.example.meshworkapp.StudentViewModel
 import com.example.meshworkapp.StudentsDataClass
-import com.example.meshworkapp.composables.GradientBackGround
+import com.example.meshworkapp.composables.HomeBackGround
+import com.example.meshworkapp.composables.StudentListBackground
 import com.example.meshworkapp.composables.StudentListComposable
+import com.example.meshworkapp.navigationgraphs.fetchStudentsList
 
 @Composable
 fun StudentListScreen(
@@ -31,7 +33,7 @@ fun StudentListScreen(
     ) {
         Scaffold {
             Box {
-                GradientBackGround()
+                StudentListBackground()
                 Column {
                     StudentListTopBar(className = "22BSc - 1")
                     StudentSearchBarComposable(
@@ -39,7 +41,8 @@ fun StudentListScreen(
                         modifier = Modifier
                             .padding(10.dp)
                             .fillMaxWidth(90f)
-                            .background(color = Color.White, shape = CircleShape),
+                            .background(color = Color.White, shape = CircleShape)
+//                            .alpha(0.7f)
                     )
                     StudentListComposable(
                         searchViewModel = studentViewModel,
@@ -50,4 +53,10 @@ fun StudentListScreen(
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun StudentListScreenPreview() {
+    StudentListScreen(studentViewModel = StudentViewModel(), fetchStudentsList())
 }

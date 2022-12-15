@@ -2,10 +2,7 @@ package com.example.meshworkapp.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -22,9 +19,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.meshworkapp.common.AnnouncementList
 import com.example.meshworkapp.common.dataclass.AnnouncementDataClass
-import com.example.meshworkapp.composables.GradientBackGround
+import com.example.meshworkapp.composables.AnnouncementBackground
 import com.example.meshworkapp.navigationgraphs.HubNavigationScreens
-import com.example.meshworkapp.ui.theme.DarkBlueText
 
 
 //Announcement Screen Code
@@ -143,7 +139,7 @@ fun AnnouncementListWithActionBarComposable(
         }
     }) {
         Box {
-            GradientBackGround()
+            AnnouncementBackground()
             Column {
                 AnnouncementTopBar()
                 AnnouncementSearchBarComposable()
