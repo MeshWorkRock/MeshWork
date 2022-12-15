@@ -1,8 +1,9 @@
-package com.example.meshworkapp
+package com.example.meshworkapp.common.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.meshworkapp.common.dataclass.ChatListDataClass
 
 class ChatListViewModel(): ViewModel() {
 
@@ -28,7 +29,7 @@ class ChatListViewModel(): ViewModel() {
 //        Log.i("queryn7", ":1")
         val filteredList = ArrayList<ChatListDataClass>()
         chatList.forEach { chat ->
-            if (chat.studentName.lowercase()
+            if (chat.name.lowercase()
                     .contains(query.lowercase())
             ) {
                 filteredList.add(chat)

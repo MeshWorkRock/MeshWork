@@ -16,5 +16,5 @@ val LightBlueAnimation = Color(0xFFCCFEFB)
 val DarkBlueAnimation = Color(0xFF7CBBE5)
 
 // Gradient Colors
-val GradientHigh = Color(0xFF40D1FF)
-val GradientLow = Color(0xFF76FD9C)
+val GradientHigh = Color(0xFF451583)
+val GradientLow = Color(0xFF40D1FF)

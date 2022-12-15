@@ -1,4 +1,4 @@
-package com.example.meshworkapp.screens
+package com.example.meshworkapp.studentmodule
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
@@ -15,11 +14,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.meshworkapp.*
-import com.example.meshworkapp.composables.*
+import com.example.meshworkapp.R
+import com.example.meshworkapp.common.composable.ChatListComposable
+import com.example.meshworkapp.common.dataclass.ChatListDataClass
+import com.example.meshworkapp.common.viewmodel.ChatListViewModel
+import com.example.meshworkapp.composables.ChatListTopBar
+import com.example.meshworkapp.composables.ChatSearchBarComposable
+import com.example.meshworkapp.composables.GradientBackGround
+import com.example.meshworkapp.navigationgraphs.fetchChatsList
 
 @Composable
-fun ChatListScreen(
+fun StudentChatListScreen(
     chatViewModel: ChatListViewModel = viewModel(),
     chatDataList: List<ChatListDataClass>
 //    onClick: () -> Unit
@@ -27,6 +32,7 @@ fun ChatListScreen(
     Surface(
 //        color = MaterialTheme.colors.background
     ) {
+
         Scaffold {
             Box {
                 GradientBackGround()
@@ -48,3 +54,11 @@ fun ChatListScreen(
     }
 }
 
+@Preview(showBackground = true)
+@Composable
+fun StudentChatListScreenPreview() {
+
+    val data = fetchChatsList()
+    StudentChatListScreen(chatViewModel = ChatListViewModel(),data)
+
+}

@@ -128,7 +128,7 @@ fun BatchSelectorBlockComposable(batchList: List<String>) {
             fontSize = 30.sp,
             fontWeight = FontWeight.ExtraBold,
         )
-        BatchFilterBlockComposable(modifier = Modifier.weight(2f), batchList)
+        BatchFilterBlockComposable(modifier = Modifier.weight(1f), batchList)
     }
 }
 
@@ -150,7 +150,7 @@ fun CourseSelectorBlockComposable(courseList: List<String>) {
             fontSize = 30.sp,
             fontWeight = FontWeight.ExtraBold,
         )
-        BatchFilterBlockComposable(modifier = Modifier.weight(2f), courseList)
+        BatchFilterBlockComposable(modifier = Modifier.weight(1f), courseList)
     }
 }
 
@@ -171,7 +171,7 @@ fun SectionSelectorBlockComposable(sectionlist: List<String>) {
             fontSize = 30.sp,
             fontWeight = FontWeight.ExtraBold,
         )
-        BatchFilterBlockComposable(modifier = Modifier.weight(2f), sectionlist)
+        BatchFilterBlockComposable(modifier = Modifier.weight(1f), sectionlist)
     }
 }
 
@@ -192,7 +192,7 @@ fun GroupSelectorBlockComposable(grouplist: List<String>) {
             fontSize = 30.sp,
             fontWeight = FontWeight.ExtraBold,
         )
-        BatchFilterBlockComposable(modifier = Modifier.weight(2f), grouplist)
+        BatchFilterBlockComposable(modifier = Modifier.weight(1f), grouplist)
     }
 }
 
@@ -223,7 +223,6 @@ fun BatchFilterBlockComposable(modifier: Modifier, list: List<String>) {
             value = mSelectedText,
             onValueChange = { mSelectedText = it },
             modifier = Modifier
-                .fillMaxWidth()
                 .onGloballyPositioned { coordinates ->
                     // This value is used to assign to
                     // the DropDown the same width
