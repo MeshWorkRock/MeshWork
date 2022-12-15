@@ -41,59 +41,7 @@ class StudentViewModel() : ViewModel() {
 
     private fun initializeStudentList(studentDataList: List<StudentsDataClass>) {
 
-        val data = studentDataList
-//        val data = listOf(
-//            StudentsDataClass(
-//                studentName = "Pankaj Singh",
-//                studentUID = "22MCC20049",
-//                studentProfile = R.drawable.dummy_profile_pic,
-//                studentDesignation = "CR"
-//            ),
-//            StudentsDataClass(
-//                studentName = "Sahil Vishwakarma",
-//                studentUID = "22MCC20030",
-//                studentProfile = R.drawable.dummy_profile_pic,
-//                studentDesignation = null
-//            ),
-//            StudentsDataClass(
-//                studentName = "Amandeep Singh",
-//                studentUID = "22MCC20050",
-//                studentProfile = R.drawable.dummy_profile_pic,
-//                studentDesignation = null
-//            ),
-//            StudentsDataClass(
-//                studentName = "Mrinal Sahni",
-//                studentUID = "22MCC20059",
-//                studentProfile = R.drawable.dummy_profile_pic,
-//                studentDesignation = null
-//            ),
-//            StudentsDataClass(
-//                studentName = "Mercy",
-//                studentUID = "22MCC20090",
-//                studentProfile = R.drawable.dummy_profile_pic,
-//                studentDesignation = null
-//            ),
-//            StudentsDataClass(
-//                studentName = "Tejas",
-//                studentUID = "22MCC20088",
-//                studentProfile = R.drawable.dummy_profile_pic,
-//                studentDesignation = "CR"
-//            ),
-//            StudentsDataClass(
-//                studentName = "Tejveer",
-//                studentUID = "22MCC20072",
-//                studentProfile = R.drawable.dummy_profile_pic,
-//                studentDesignation = null
-//            ),
-//            StudentsDataClass(
-//                studentName = "Isha Nagpal",
-//                studentUID = "22MCC20066",
-//                studentProfile = R.drawable.dummy_profile_pic,
-//                studentDesignation = null
-//            )
-//        )
-
-        data.forEach {
+        studentDataList.forEach {
             studentList.add(it)
         }
 

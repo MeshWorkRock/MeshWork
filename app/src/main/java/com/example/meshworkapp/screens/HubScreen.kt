@@ -7,27 +7,29 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.meshworkapp.dataclassfiles.FacultyDataClass
 import com.example.meshworkapp.navigationgraphs.HubNavigationScreens
 import com.example.meshworkapp.navigationgraphs.HubNavGraph
+import com.example.meshworkapp.viewmodels.FacultySharedViewModel
 import com.example.meshworkapp.ui.theme.DarkBlueText
 
 @Composable
 fun HubScreen(
-    navHostController: NavHostController = rememberNavController()
+    navHostController: NavHostController = rememberNavController(),
+    facultySharedViewModel: FacultySharedViewModel
 ) {
     Scaffold(
         bottomBar = {
             BottomNavigationBarComposable(navHostController = navHostController)
-        }
+        },
     ) {
-        HubNavGraph(navHostController = navHostController)
+        HubNavGraph(navHostController = navHostController, facultySharedViewModel = facultySharedViewModel)
     }
 }
 
@@ -70,10 +72,10 @@ fun RowScope.AddItem(
 ) {
     BottomNavigationItem(
         icon = {
-            Icon(imageVector = item.icon,
+            Icon(
+                imageVector = item.icon,
                 contentDescription = item.label,
-                modifier = Modifier
-                    .size(30.dp),
+                modifier = Modifier.size(30.dp)
             )
         },
         selected = item.route == currentDestination?.route,

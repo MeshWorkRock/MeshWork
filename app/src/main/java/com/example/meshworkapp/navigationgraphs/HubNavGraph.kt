@@ -1,5 +1,6 @@
 package com.example.meshworkapp.navigationgraphs
 
+import android.widget.Toast
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Home
@@ -7,18 +8,26 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.meshworkapp.*
 import com.example.meshworkapp.R
+import com.example.meshworkapp.common.dataclass.AnnouncementDataClass
+import com.example.meshworkapp.common.dataclass.ChatListDataClass
 import com.example.meshworkapp.composables.AnnouncementFilterScreenComposable
+import com.example.meshworkapp.dataclassfiles.TimeTableDataClass
 import com.example.meshworkapp.screens.*
+import com.example.meshworkapp.viewmodels.FacultySharedViewModel
 
 @Composable
 fun HubNavGraph(
-    navHostController: NavHostController
+    navHostController: NavHostController,
+    facultySharedViewModel: FacultySharedViewModel
 ) {
+
+    Toast.makeText(LocalContext.current, "HubNavGraph", Toast.LENGTH_SHORT).show()
 
     NavHost(
         navController = navHostController,
@@ -30,7 +39,8 @@ fun HubNavGraph(
         ) {
             HomeScreen(
                 navHostController = navHostController,
-                assignedClassesList = fetchAssignedCLassesList()
+                assignedClassesList = fetchAssignedCLassesList(facultySharedViewModel = facultySharedViewModel),
+                facultySharedViewModel = facultySharedViewModel
             )
         }
         composable(
@@ -41,7 +51,7 @@ fun HubNavGraph(
         composable(
             route = HubNavigationScreens.Chats.route
         ) {
-            ChatListScreen(chatDataList = fetchChatsList())
+            TeacherChatListScreen(chatDataList = fetchChatsList())
         }
         composable(
             route = HubNavigationScreens.TimeTable.route
@@ -174,47 +184,47 @@ fun fetchChatsList(): List<ChatListDataClass> {
 
     return listOf(
         ChatListDataClass(
-            studentName = "Pankaj Singh",
+            name = "Pankaj Singh",
             lastText = "Hello",
-            studentProfile = R.drawable.dummy_profile_pic,
+            profile = R.drawable.dummy_profile_pic,
             lastTime = "11:00 PM"
         ),
         ChatListDataClass(
-            studentName = "Aman Singh",
+            name = "Aman Singh",
             lastText = "Hello",
-            studentProfile = R.drawable.dummy_profile_pic,
+            profile = R.drawable.dummy_profile_pic,
             lastTime = "10:00 PM"
         ),
         ChatListDataClass(
-            studentName = "Sahil Vishwakarma",
+            name = "Sahil Vishwakarma",
             lastText = "Hello",
-            studentProfile = R.drawable.dummy_profile_pic,
+            profile = R.drawable.dummy_profile_pic,
             lastTime = "12:00 PM"
         ),
         ChatListDataClass(
-            studentName = "Iqra Khan",
+            name = "Iqra Khan",
             lastText = "Hello",
-            studentProfile = R.drawable.dummy_profile_pic,
+            profile = R.drawable.dummy_profile_pic,
             lastTime = "09:00 PM"
         ),
         ChatListDataClass(
-            studentName = "Mrinal Sahni",
+            name = "Mrinal Sahni",
             lastText = "Hello",
-            studentProfile = R.drawable.dummy_profile_pic,
+            profile = R.drawable.dummy_profile_pic,
             lastTime = "05:00 PM"
         ),
     )
 
 }
 
-fun fetchAssignedCLassesList(): List<AssignedClassDataClass> {
-    return listOf(
-        AssignedClassDataClass("22BSC-1", "Digital Electronics"),
-        AssignedClassDataClass("22BSC-1", "Digital Electronics"),
-        AssignedClassDataClass("22BSC-1", "Digital Electronics"),
-        AssignedClassDataClass("22BSC-1", "Digital Electronics"),
-        AssignedClassDataClass("22BSC-1", "Digital Electronics")
-    )
+fun fetchAssignedCLassesList(facultySharedViewModel: FacultySharedViewModel): List<AssignedClassDataClass> {
+
+    var classesList = ArrayList<AssignedClassDataClass>()
+
+    for ((key, value) in facultySharedViewModel.facultyUser?.classes!!){
+        classesList.add(AssignedClassDataClass(className = key, subject = value))
+    }
+    return classesList.toList()
 }
 
 fun fetchAnnouncementsList(): List<AnnouncementDataClass> {

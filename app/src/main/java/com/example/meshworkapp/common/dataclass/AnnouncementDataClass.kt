@@ -1,4 +1,4 @@
-package com.example.meshworkapp
+package com.example.meshworkapp.common.dataclass
 
 data class AnnouncementDataClass(
     var Heading : String,
