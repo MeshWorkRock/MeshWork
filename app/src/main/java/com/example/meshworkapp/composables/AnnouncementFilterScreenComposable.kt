@@ -3,7 +3,6 @@ package com.example.meshworkapp.composables
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -28,15 +27,23 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
 import androidx.navigation.NavHostController
+import com.example.meshworkapp.dataclassfiles.ListItemDataClass
 import com.example.meshworkapp.navigationgraphs.HubNavigationScreens
 
 
 @Composable
 fun AnnouncementFilterScreenComposable(navHostController: NavHostController) {
-    val batchList = listOf("2018", "2019", "2020", "2021", "2022")
+
+    val batchList = listOf("2022", "2021", "2020","2019")
     val courseList = listOf("BCA", "MCA", "BSC")
     val sectionlist = listOf("1", "2", "3", "4", "5", "6", "7")
     val grouplist = listOf("A", "B")
+
+    var updatedBatchList = listOf<ListItemDataClass>()
+    val updatedCourseList = listOf("BCA", "MCA", "BSC")
+    val updatedSectionlist = listOf("1", "2", "3", "4", "5", "6", "7")
+    val updatedGrouplist = listOf("A", "B")
+
     Box {
         GradientBackGround()
         Column(
@@ -61,11 +68,6 @@ fun AnnouncementFilterScreenComposable(navHostController: NavHostController) {
                     color = Color.White
                 )
             }
-
-            BatchSelectorBlockComposable(batchList)
-            CourseSelectorBlockComposable(courseList)
-            SectionSelectorBlockComposable(sectionlist)
-            GroupSelectorBlockComposable(grouplist)
 
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -105,6 +107,16 @@ fun AnnouncementFilterScreenComposable(navHostController: NavHostController) {
                     )
                 }
             }
+
+
+
+//
+//            AnnouncementFilterBottomScreenComposable(batchList = batchList)
+            AnnouncementFilterBottomScreenComposable(batchList = courseList)
+//            AnnouncementFilterBottomScreenComposable(batchList = sectionlist)
+//            AnnouncementFilterBottomScreenComposable(batchList = grouplist)
+
+
         }
     }
 }
@@ -112,24 +124,12 @@ fun AnnouncementFilterScreenComposable(navHostController: NavHostController) {
 //Code of Batch Selection Block
 @Composable
 fun BatchSelectorBlockComposable(batchList: List<String>) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 10.dp),
-        horizontalArrangement = Arrangement.Center
-    )
-    {
-        Text(
-            text = "Batch",
-            Modifier
-                .weight(1f)
-                .align(alignment = Alignment.CenterVertically)
-                .padding(start = 10.dp),
-            fontSize = 30.sp,
-            fontWeight = FontWeight.ExtraBold,
-        )
-        BatchFilterBlockComposable(modifier = Modifier.weight(2f), batchList)
-    }
+//
+//    var selectedItems = listOf("")
+//    var showBottomScreen by remember {
+//         mutableStateOf(false)
+//     }
+
 }
 
 
@@ -150,7 +150,7 @@ fun CourseSelectorBlockComposable(courseList: List<String>) {
             fontSize = 30.sp,
             fontWeight = FontWeight.ExtraBold,
         )
-        BatchFilterBlockComposable(modifier = Modifier.weight(2f), courseList)
+        val courseValue = BatchFilterBlockComposable(modifier = Modifier.weight(1f), courseList)
     }
 }
 
@@ -171,7 +171,7 @@ fun SectionSelectorBlockComposable(sectionlist: List<String>) {
             fontSize = 30.sp,
             fontWeight = FontWeight.ExtraBold,
         )
-        BatchFilterBlockComposable(modifier = Modifier.weight(2f), sectionlist)
+        val section = BatchFilterBlockComposable(modifier = Modifier.weight(1f), sectionlist)
     }
 }
 
@@ -192,12 +192,12 @@ fun GroupSelectorBlockComposable(grouplist: List<String>) {
             fontSize = 30.sp,
             fontWeight = FontWeight.ExtraBold,
         )
-        BatchFilterBlockComposable(modifier = Modifier.weight(2f), grouplist)
+        val group = BatchFilterBlockComposable(modifier = Modifier.weight(1f), grouplist)
     }
 }
 
 @Composable
-fun BatchFilterBlockComposable(modifier: Modifier, list: List<String>) {
+fun BatchFilterBlockComposable(modifier: Modifier, list: List<String>): String {
     // Declaring a boolean value to store
     // the expanded state of the Text Field
     var mExpanded by remember { mutableStateOf(false) }
@@ -223,7 +223,6 @@ fun BatchFilterBlockComposable(modifier: Modifier, list: List<String>) {
             value = mSelectedText,
             onValueChange = { mSelectedText = it },
             modifier = Modifier
-                .fillMaxWidth()
                 .onGloballyPositioned { coordinates ->
                     // This value is used to assign to
                     // the DropDown the same width
@@ -253,6 +252,8 @@ fun BatchFilterBlockComposable(modifier: Modifier, list: List<String>) {
             }
         }
     }
+
+    return mSelectedText
 }
 
 fun navigateToCreateAnnouncementScreen(navHostController: NavHostController) {
