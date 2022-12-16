@@ -1,5 +1,8 @@
 package com.example.meshworkapp.studentmodule
 
+import AnnouncementList
+import OrganizationNameAndLogoComposable
+import UserInfoCard
 import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
@@ -16,9 +19,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.meshworkapp.R
 import com.example.meshworkapp.UserInfoDataClass
-import com.example.meshworkapp.common.AnnouncementList
-import com.example.meshworkapp.common.OrganizationNameAndLogoComposable
-import com.example.meshworkapp.common.UserInfoCard
 import com.example.meshworkapp.common.dataclass.AnnouncementDataClass
 import com.example.meshworkapp.composables.HomeBackGround
 import com.example.meshworkapp.ui.theme.DarkBlueText

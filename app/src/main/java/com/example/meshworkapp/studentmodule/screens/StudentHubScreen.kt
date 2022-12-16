@@ -40,6 +40,7 @@ fun StudentBottomNavigationBarComposable(
         StudentHubNavigationScreens.Chats,
         StudentHubNavigationScreens.Home,
         StudentHubNavigationScreens.TimeTable,
+        StudentHubNavigationScreens.Contacts
     )
 
     val backStackEntry by navHostController.currentBackStackEntryAsState()

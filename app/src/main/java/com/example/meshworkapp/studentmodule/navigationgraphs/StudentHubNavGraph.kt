@@ -5,8 +5,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Send
 import androidx.compose.runtime.*
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -15,15 +16,14 @@ import androidx.navigation.compose.composable
 import com.example.meshworkapp.R
 import com.example.meshworkapp.common.dataclass.AnnouncementDataClass
 import com.example.meshworkapp.common.dataclass.ChatListDataClass
-import com.example.meshworkapp.composables.AnnouncementFilterScreenComposable
-import com.example.meshworkapp.dataclassfiles.AssignedClassDataClass
+import com.example.meshworkapp.dataclassfiles.ContactDataClass
 import com.example.meshworkapp.dataclassfiles.TimeTableDataClass
 import com.example.meshworkapp.screens.*
+import com.example.meshworkapp.studentmodule.ContactListScreen
 import com.example.meshworkapp.studentmodule.StudentChatListScreen
 import com.example.meshworkapp.studentmodule.StudentHomeScreen
 import com.example.meshworkapp.studentmodule.StudentSharedViewModel
 import com.example.meshworkapp.viewmodels.AnnouncementsViewModel
-import com.example.meshworkapp.viewmodels.FacultySharedViewModel
 
 @Composable
 fun StudentHubNavGraph(
@@ -56,6 +56,11 @@ fun StudentHubNavGraph(
         ) {
             TimeTableScreen(timeTableList = fetchTimeTableList())
         }
+        composable(
+            route = StudentHubNavigationScreens.Contacts.route
+        ) {
+            ContactListScreen(contactList = fetchConactList())
+        }
     }
 }
 
@@ -81,10 +86,11 @@ sealed class StudentHubNavigationScreens(
         label = "Chat",
         icon = Icons.Default.Email
     )
+
     object Contacts : StudentHubNavigationScreens(
         route = "contacts_screen",
         label = "Contacts",
-        icon = Icons.Default.Email
+        icon = Icons.Default.Send
     )
 }
 
@@ -172,6 +178,46 @@ fun fetchAnnouncementsList(): List<AnnouncementDataClass> {
             "4.12.22",
             "Android Fest is an all-day event being hosted by UIC, Chandigarh University. Google Developer Experts will teach the basics of Android at the event anyone can attend. "
         )
+    )
+}
+
+fun fetchConactList(): List<ContactDataClass> {
+    return listOf(
+        ContactDataClass(
+            name = "Rydhm",
+            profile = R.drawable.dummy_profile_pic,
+            email = "Rydhm@gmail,com",
+            designation = "ProgramLead",
+            subject = "Android"
+        ),
+        ContactDataClass(
+            name = "Satyam",
+            profile = R.drawable.dummy_profile_pic,
+            email = "Satyam@gmail,com",
+            designation = "ProgramLead",
+            subject = "Linux"
+        ),
+        ContactDataClass(
+            name = "Vineet",
+            profile = R.drawable.dummy_profile_pic,
+            email = "Vineet@gmail,com",
+            designation = "ProgramLead",
+            subject = "Data Analytics"
+        ),
+        ContactDataClass(
+            name = "Rahul",
+            profile = R.drawable.dummy_profile_pic,
+            email = "Rahul@gmail,com",
+            designation = "ProgramLead",
+            subject = "Data Structure"
+        ),
+        ContactDataClass(
+            name = "Shilpa",
+            profile = R.drawable.dummy_profile_pic,
+            email = "Shilpa@gmail,com",
+            designation = "ProgramLead",
+            subject = "Python"
+        ),
     )
 }
 

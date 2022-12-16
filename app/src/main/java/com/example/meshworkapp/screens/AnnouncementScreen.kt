@@ -2,7 +2,10 @@ package com.example.meshworkapp.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -17,10 +20,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.example.meshworkapp.common.AnnouncementList
 import com.example.meshworkapp.common.dataclass.AnnouncementDataClass
 import com.example.meshworkapp.navigationgraphs.FacultyHubNavigationScreens
 import com.example.meshworkapp.composables.AnnouncementBackground
+import com.example.meshworkapp.ui.theme.DarkBlueText
 
 
 //Announcement Screen Code
@@ -143,50 +146,50 @@ fun AnnouncementListWithActionBarComposable(
             Column {
                 AnnouncementTopBar()
                 AnnouncementSearchBarComposable()
-//                AnnouncementList(announcementMessages)
+                AnnouncementList(announcementMessages)
 
-//                LazyColumn(modifier = Modifier.fillMaxSize()) {
-//                    items(items = announcementMessages, itemContent = { announcement ->
-//                        Card(
-//                            shape = RoundedCornerShape(20.dp),
-//                            elevation = 8.dp,
-//                            modifier = Modifier
-//                                .padding(10.dp)
-//                        ) {
-//                            Column(
-//                                modifier = Modifier
-//                                    .padding(5.dp)
-//                                    .fillMaxWidth()
-//                                    .padding(5.dp)
-//                            ) {
-//                                Row() {
-//                                    Text(
-//                                        text = announcement.Heading,
-//                                        textAlign = TextAlign.Start,
-//                                        modifier = Modifier.weight(1f),
-//                                        style = MaterialTheme.typography.h6,
-//                                        color = DarkBlueText
-//                                    )
-//                                    Text(
-//                                        text = announcement.Date,
-//                                        textAlign = TextAlign.End,
-//                                        modifier = Modifier.weight(1f),
-//                                        style = MaterialTheme.typography.body2,
-//                                        color = DarkBlueText
-//                                    )
-//                                }
-//                                Text(
-//                                    text = announcement.announcementBody,
-//                                    fontSize = 18.sp,
-//                                    textAlign = TextAlign.Left,
-//                                    color = DarkBlueText,
-//                                    modifier = Modifier
-//                                        .padding(top = 5.dp)
-//                                )
-//                            }
-//                        }
-//                    })
-//                }
+                LazyColumn(modifier = Modifier.fillMaxSize()) {
+                    items(items = announcementMessages, itemContent = { announcement ->
+                        Card(
+                            shape = RoundedCornerShape(20.dp),
+                            elevation = 8.dp,
+                            modifier = Modifier
+                                .padding(10.dp)
+                        ) {
+                            Column(
+                                modifier = Modifier
+                                    .padding(5.dp)
+                                    .fillMaxWidth()
+                                    .padding(5.dp)
+                            ) {
+                                Row() {
+                                    Text(
+                                        text = announcement.Heading,
+                                        textAlign = TextAlign.Start,
+                                        modifier = Modifier.weight(1f),
+                                        style = MaterialTheme.typography.h6,
+                                        color = DarkBlueText
+                                    )
+                                    Text(
+                                        text = announcement.Date,
+                                        textAlign = TextAlign.End,
+                                        modifier = Modifier.weight(1f),
+                                        style = MaterialTheme.typography.body2,
+                                        color = DarkBlueText
+                                    )
+                                }
+                                Text(
+                                    text = announcement.announcementBody,
+                                    fontSize = 18.sp,
+                                    textAlign = TextAlign.Left,
+                                    color = DarkBlueText,
+                                    modifier = Modifier
+                                        .padding(top = 5.dp)
+                                )
+                            }
+                        }
+                    })
+                }
             }
         }
 

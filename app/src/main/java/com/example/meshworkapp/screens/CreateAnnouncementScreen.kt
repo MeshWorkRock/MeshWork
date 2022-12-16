@@ -15,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
@@ -26,21 +25,11 @@ import androidx.compose.ui.unit.sp
 import com.example.meshworkapp.R
 import com.example.meshworkapp.composables.HomeBackGround
 import com.example.meshworkapp.ui.theme.DarkBlueText
+import com.example.meshworkapp.viewmodels.FacultySharedViewModel
+import com.google.firebase.firestore.FirebaseFirestore
 
 @Composable
-fun CreateAnnouncementScreen() {
-    val batchList = listOf("2022")
-    val courseList = listOf("MCA")
-    val sectionList = listOf("2")
-    val groupList = listOf("A")
-
-
-    // list to string
-    val batch = batchList.joinToString()
-    val course = courseList.joinToString()
-    val section = sectionList.joinToString()
-
-
+fun CreateAnnouncementScreen(facultySharedViewModel: FacultySharedViewModel) {
     Box {
         HomeBackGround()
         Column(horizontalAlignment = Alignment.Start) {
@@ -59,8 +48,8 @@ fun CreateAnnouncementScreen() {
                 color = Color.White
             )
 
-            CreateAnnouncementInfoScreen(batch, course, section)
-            AnnouncementDataEnterScreen(batchList, courseList, sectionList, groupList)
+            CreateAnnouncementInfoScreen()
+            AnnouncementDataEnterScreen(facultySharedViewModel = facultySharedViewModel)
         }
 
     }
@@ -69,8 +58,7 @@ fun CreateAnnouncementScreen() {
 }
 
 @Composable
-fun CreateAnnouncementInfoScreen(batch: String, course: String, section: String) {
-
+fun CreateAnnouncementInfoScreen() {
     Card(
         elevation = 10.dp,
         modifier = Modifier
@@ -84,19 +72,19 @@ fun CreateAnnouncementInfoScreen(batch: String, course: String, section: String)
                 .fillMaxWidth()
         ) {
             Text(
-                text = "Batch : $batch",
-                fontSize = 18.sp,
-                textAlign = TextAlign.Start,
-                fontWeight = FontWeight.SemiBold,
-            )
-            Text(
-                text = "Course: $course",
+                text = "Batch : 2022",
                 fontSize = 18.sp,
                 textAlign = TextAlign.Start,
                 fontWeight = FontWeight.SemiBold
             )
             Text(
-                text = "Section: $section",
+                text = "Course: BSc",
+                fontSize = 18.sp,
+                textAlign = TextAlign.Start,
+                fontWeight = FontWeight.SemiBold
+            )
+            Text(
+                text = "Section 1",
                 fontSize = 18.sp,
                 textAlign = TextAlign.Start,
                 fontWeight = FontWeight.SemiBold
@@ -106,14 +94,9 @@ fun CreateAnnouncementInfoScreen(batch: String, course: String, section: String)
 }
 
 @Composable
-fun AnnouncementDataEnterScreen(
-    batchList: List<String>,
-    courseList: List<String>,
-    sectionList: List<String>,
-    groupList: List<String>,
-) {
-    var title by remember { mutableStateOf("") }
-    var announcementMessage by remember { mutableStateOf("") }
+fun AnnouncementDataEnterScreen(facultySharedViewModel: FacultySharedViewModel) {
+    var  title by remember { mutableStateOf("") }
+    var message by remember { mutableStateOf("") }
 
     Card(
         modifier = Modifier
@@ -150,8 +133,8 @@ fun AnnouncementDataEnterScreen(
 
                 //Announcement Field
                 TextField(
-                    value = announcementMessage,
-                    onValueChange = { announcementMessage = it },
+                    value = message,
+                    onValueChange = { message = it },
                     placeholder = {
                         Text("Type your message here...",
                             color = DarkBlueText,
@@ -176,7 +159,7 @@ fun AnnouncementDataEnterScreen(
 
 
             //Send button
-            Button(onClick = { },
+            Button(onClick = { sendAnnouncement(title = title, message = message,facultySharedViewModel = facultySharedViewModel) },
                 modifier = Modifier
                     .align(alignment = Alignment.BottomEnd)
                     .padding(13.dp)
@@ -199,8 +182,31 @@ fun AnnouncementDataEnterScreen(
 
 }
 
-@Preview(showBackground = true)
-@Composable
-fun SamplePreviewFunction() {
-    CreateAnnouncementScreen()
+fun sendAnnouncement(
+//    coursesList: List<String>,
+    title: String,
+    message: String,
+    facultySharedViewModel: FacultySharedViewModel,
+) {
+    val firebaseFirestore = FirebaseFirestore.getInstance()
+
+    val data = hashMapOf(
+        "title" to title,
+        "message" to message,
+        "sender" to facultySharedViewModel.facultyUser?.name
+    )
+
+    firebaseFirestore
+        .collection("courses/22_mcd/announcements/1_b/announcements")
+        .document().set(data)
+//    coursesList.forEach { course ->
+//
+//    }
+
 }
+
+//@Preview(showBackground = true)
+//@Composable
+//fun SamplePreviewFunction() {
+//    CreateAnnouncementScreen()
+//}

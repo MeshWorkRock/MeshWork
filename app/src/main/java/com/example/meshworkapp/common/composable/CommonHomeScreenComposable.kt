@@ -1,5 +1,5 @@
-package com.example.meshworkapp.common
-
+//package com.example.meshworkapp.common
+//
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -25,9 +25,9 @@ import androidx.compose.ui.unit.sp
 import com.example.meshworkapp.R
 import com.example.meshworkapp.UserInfoDataClass
 import com.example.meshworkapp.common.dataclass.AnnouncementDataClass
-import com.example.meshworkapp.composables.CardBackground
 import com.example.meshworkapp.ui.theme.DarkBlueText
 import com.example.meshworkapp.ui.theme.LightBlueText
+import com.example.meshworkapp.viewmodels.AnnouncementsViewModel
 
 @Composable
 fun OrganizationNameAndLogoComposable(
@@ -77,7 +77,6 @@ fun UserInfoCard(
 ) {
     Card(
         shape = RoundedCornerShape(20.dp),
-        backgroundColor = Color.Transparent,
         elevation = 8.dp,
         modifier = modifier
             .fillMaxWidth()
@@ -90,7 +89,6 @@ fun UserInfoCard(
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier
                 .padding()
-                .background(CardBackground())
         ) {
             Image(
                 painter = userInfo.profilePhoto,
@@ -110,27 +108,31 @@ fun UserInfoCard(
                     text = userInfo.name,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color.White
+                    color = DarkBlueText
                 )
                 Text(
                     text = userInfo.id,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.SemiBold,
                     textAlign = TextAlign.End,
-                    color = Color.White
+                    color = DarkBlueText
                 )
             }
         }
     }
 }
-
+//
 @Composable
 fun AnnouncementList(
-    announcementMessages: List<AnnouncementDataClass>
+    announcementMessages: AnnouncementsViewModel
 ) {
 
+    if(announcementMessages.announcements.value == null)
+        return
+    val announcementsList = announcementMessages.announcements.value!!.announcementsList
+
     LazyColumn(modifier = Modifier.fillMaxSize()) {
-        items(items = announcementMessages, itemContent = { announcement ->
+        items(items = announcementsList , itemContent = { announcement ->
             Card(
                 shape = RoundedCornerShape(20.dp),
                 elevation = 8.dp,
@@ -173,10 +175,10 @@ fun AnnouncementList(
     }
 
 }
-
-@Preview(showBackground = true)
-@Composable
-fun UserInfoCardPreview() {
-//UserInfoCard(userInfo = )
-
-}
+//
+//@Preview(showBackground = true)
+//@Composable
+//fun UserInfoCardPreview() {
+////UserInfoCard(userInfo = )
+//
+//}
