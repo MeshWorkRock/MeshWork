@@ -24,8 +24,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.meshworkapp.R
-import com.example.meshworkapp.composables.GradientBackGround
+import com.example.meshworkapp.composables.LoginBackground
 import com.example.meshworkapp.dataclassfiles.FacultyDataClass
+import com.example.meshworkapp.studentmodule.StudentDataClass
 import com.example.meshworkapp.studentmodule.StudentSharedViewModel
 import com.example.meshworkapp.ui.theme.DarkBlueText
 import com.example.meshworkapp.viewmodels.FacultySharedViewModel
@@ -231,24 +232,47 @@ fun LoginScreen(
 
 }
 
-//fun loginFaculty(
-//    id: String,
-//    password: String,
-//    onSubmit: () -> Unit,
-//    facultySharedViewModel: FacultySharedViewModel
-//) {
-//
-//    val firebaseFirestore = FirebaseFirestore.getInstance()
-//    firebaseFirestore.collection("faculty").whereEqualTo("id", id)
-//        .whereEqualTo("password", password).get().addOnSuccessListener {
-//            if (it.size() != 0) {
-//                val documentSnapshot = it.documents[0]
-//                val user = FacultyDataClass(
-//                    id = documentSnapshot.getString("id"),
-//                    email = documentSnapshot.getString("email"),
-//                    name = documentSnapshot.getString("name"),
-//                    classes = documentSnapshot.get("classes") as HashMap<String, String>
-//                )
+fun loginScreen(
+    id: String,
+    password: String,
+    user: String,
+    onSubmit: () -> Unit,
+    facultySharedViewModel: FacultySharedViewModel,
+    studentSharedViewModel: StudentSharedViewModel,
+) {
+
+    val firebaseFirestore = FirebaseFirestore.getInstance()
+    firebaseFirestore.collection(user).whereEqualTo("id", id)
+        .whereEqualTo("password", password).get().addOnSuccessListener {
+            if (it.size() != 0) {
+                val documentSnapshot = it.documents[0]
+                if (user == "faculty") {
+                    val user = FacultyDataClass(
+                        id = documentSnapshot.getString("id"),
+                        email = documentSnapshot.getString("email"),
+                        name = documentSnapshot.getString("name"),
+                        classes = documentSnapshot.get("classes") as HashMap<String, String>,
+                    )
+                    facultySharedViewModel.addFacultyUser(user)
+                } else {
+                    val user = StudentDataClass(
+                        name = documentSnapshot.getString("name"),
+                        id = documentSnapshot.getString("id"),
+                        studentProfile = R.drawable.dummy_profile_pic,
+                        course = documentSnapshot.getString("course")
+                    )
+
+                    studentSharedViewModel.addStudentUser(user)
+                }
+
+                onSubmit()
+            }
+        }.addOnFailureListener {
+            Log.e("Auth", "Invalid User id password")
+        }
+}
+
+//fun StudentDataClass(name: String?, id: String?, studentProfile: Int): StudentDataClass {
 //
 //                facultySharedViewModel.addFacultyUser(user)
 //                onSubmit()
@@ -256,4 +280,3 @@ fun LoginScreen(
 //        }.addOnFailureListener {
 //            Log.e("Auth", "Invalid User id password")
 //        }
-}

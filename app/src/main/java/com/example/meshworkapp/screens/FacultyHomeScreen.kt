@@ -20,17 +20,17 @@ import com.example.meshworkapp.R
 import com.example.meshworkapp.UserInfoDataClass
 import com.example.meshworkapp.common.OrganizationNameAndLogoComposable
 import com.example.meshworkapp.common.UserInfoCard
-import com.example.meshworkapp.composables.GradientBackGround
 import com.example.meshworkapp.dataclassfiles.AssignedClassDataClass
 import com.example.meshworkapp.viewmodels.CurrentCourseSharedViewModel
 import com.example.meshworkapp.composables.HomeBackGround
 import com.example.meshworkapp.viewmodels.FacultySharedViewModel
 
 @Composable
-fun HomeScreen(
-        navHostController: NavHostController,
-        assignedClassesList: List<AssignedClassDataClass>,
-        facultySharedViewModel: FacultySharedViewModel
+fun FacultyHomeScreen(
+    navHostController: NavHostController,
+    assignedClassesList: List<AssignedClassDataClass>,
+    facultySharedViewModel: FacultySharedViewModel,
+    currentCourseSharedViewModel: CurrentCourseSharedViewModel
 ) {
     val userInfo = UserInfoDataClass(
         name = facultySharedViewModel.facultyUser?.name!!,
@@ -38,7 +38,6 @@ fun HomeScreen(
         profilePhoto = painterResource(id = R.drawable.profile_image_dummy)
     )
     Box {
-        GradientBackGround()
         Column(
             modifier = Modifier
                 .fillMaxSize()

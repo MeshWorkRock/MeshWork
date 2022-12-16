@@ -82,10 +82,10 @@ fun ClassCardComposable(
 @Preview(showBackground = true)
 @Composable
 fun ClassCardPreview() {
-    ClassCardComposable(
-        className = "22MCD-1",
-        subjectName = "Digital Electronics and computing",
-        modifier = Modifier.size(180.dp),
-        navHostController = NavHostController(LocalContext.current)
-    )
+//    ClassCardComposable(
+//        className = "22MCD-1",
+//        subjectName = "Digital Electronics and computing",
+//        modifier = Modifier.size(180.dp),
+//        navHostController = NavHostController(LocalContext.current)
+//    )
 }

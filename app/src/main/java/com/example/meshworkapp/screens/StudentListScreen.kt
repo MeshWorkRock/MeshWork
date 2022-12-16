@@ -14,19 +14,16 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.meshworkapp.R
 import com.example.meshworkapp.StudentListTopBar
 import com.example.meshworkapp.StudentSearchBarComposable
 import com.example.meshworkapp.StudentViewModel
-import com.example.meshworkapp.composables.GradientBackGround
-import com.example.meshworkapp.StudentsDataClass
-import com.example.meshworkapp.composables.HomeBackGround
 import com.example.meshworkapp.composables.StudentListBackground
 import com.example.meshworkapp.composables.StudentListComposable
 import com.example.meshworkapp.studentmodule.StudentDataClass
 import com.example.meshworkapp.viewmodels.CurrentCourseSharedViewModel
 import com.example.meshworkapp.viewmodels.FacultySharedViewModel
 import com.google.firebase.firestore.FirebaseFirestore
-import com.example.meshworkapp.navigationgraphs.fetchStudentsList
 
 @Composable
 fun StudentListScreen(

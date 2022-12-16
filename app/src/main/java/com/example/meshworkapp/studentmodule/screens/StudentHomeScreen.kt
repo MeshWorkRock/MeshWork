@@ -22,7 +22,6 @@ import com.example.meshworkapp.common.UserInfoCard
 import com.example.meshworkapp.common.dataclass.AnnouncementDataClass
 import com.example.meshworkapp.composables.HomeBackGround
 import com.example.meshworkapp.ui.theme.DarkBlueText
-import com.example.meshworkapp.composables.GradientBackGround
 import com.example.meshworkapp.studentmodule.dataclass.AnnouncementsViewModelDataClass
 import com.example.meshworkapp.viewmodels.AnnouncementsViewModel
 import com.google.firebase.firestore.FirebaseFirestore
