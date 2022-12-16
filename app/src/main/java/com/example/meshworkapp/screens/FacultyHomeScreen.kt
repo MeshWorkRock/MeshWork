@@ -48,16 +48,16 @@ fun FacultyHomeScreen(
             OrganizationNameAndLogoComposable(
                 name = "Chandigarh University",
                 logo = painterResource(id = R.drawable.cu_logo),
-                modifier = Modifier.padding(top = 30.dp, bottom = 20.dp, start = 30.dp, end = 30.dp)
+                modifier = Modifier.padding(top = 30.dp, bottom = 20.dp, start = 15.dp, end = 15.dp)
             )
             Spacer(modifier = Modifier.height(10.dp))
             UserInfoCard(userInfo = userInfo,
-                modifier = Modifier.padding(start = 30.dp,
+                modifier = Modifier.padding(start = 15.dp,
                     bottom = 20.dp,
-                    end = 30.dp,
+                    end = 15.dp,
                     top = 10.dp))
             Spacer(modifier = Modifier.height(0.dp))
-            AssignedClassesComposable(modifier = Modifier.padding(start = 30.dp))
+            AssignedClassesComposable(modifier = Modifier.padding(start = 20.dp))
             Spacer(modifier = Modifier.height(0.dp))
             ClassesGridComposable(
                 assignedClasses = assignedClassesList,
@@ -144,8 +144,8 @@ fun ClassesGridComposable(
     LazyVerticalGrid(
         cells = GridCells.Fixed(1),
         contentPadding = PaddingValues(
-            start = 20.dp,
-            end = 20.dp,
+            start = 10.dp,
+            end = 10.dp,
             bottom = 50.dp
         ),
         content = {

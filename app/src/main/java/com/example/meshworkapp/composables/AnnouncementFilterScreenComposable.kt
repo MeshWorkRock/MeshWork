@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -107,6 +108,127 @@ fun AnnouncementFilterScreenComposable(navHostController: NavHostController) {
         }
     }
 }
+@Composable
+fun BatchFilterOption(batchList: List<String>) {
+    Card(
+        shape = RoundedCornerShape(20.dp),
+        backgroundColor = Color.White,
+        elevation = 8.dp,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 16.dp)
+            .clickable(onClick = {
+//                AnnouncementFilterSelectorScreenComposable(batchList = batchList)
+            })
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+        )
+        {
+            Text(
+                text = "Batch",
+                Modifier.padding(start = 14.dp, top = 10.dp, end = 10.dp, bottom = 10.dp),
+                fontSize = 30.sp,
+                fontWeight = FontWeight.ExtraBold,
+                color = Color.White
+            )
+        }
+    }
+}
+
+//Course Filter
+@Composable
+fun CourseFilterOption() {
+    Card(
+        shape = RoundedCornerShape(20.dp),
+        backgroundColor = Color.White,
+        elevation = 8.dp,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 16.dp)
+            .clickable(onClick = {}),
+
+        ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+        )
+        {
+            Text(
+                text = "Course",
+                Modifier
+                    .padding(start = 14.dp, top = 10.dp, end = 10.dp, bottom = 10.dp),
+                fontSize = 30.sp,
+                fontWeight = FontWeight.ExtraBold,
+                color = Color.White
+            )
+        }
+    }
+}
+
+
+//Section Filter
+@Composable
+fun SectionFilterOption() {
+    Card(
+        shape = RoundedCornerShape(20.dp),
+        backgroundColor = Color.White,
+        elevation = 8.dp,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 16.dp)
+            .clickable(onClick = {})
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+        )
+        {
+            Text(
+                text = "Section",
+                Modifier
+                    .padding(start = 14.dp, top = 10.dp, end = 10.dp, bottom = 10.dp),
+                fontSize = 30.sp,
+                fontWeight = FontWeight.ExtraBold,
+                color = Color.White
+            )
+        }
+    }
+}
+
+//Group Filter
+@Composable
+fun GroupFilterOption() {
+    Card(
+        shape = RoundedCornerShape(20.dp),
+        backgroundColor = Color.White,
+        elevation = 8.dp,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 16.dp)
+            .clickable(onClick = {}),
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+        )
+        {
+            Text(
+                text = "Group",
+                Modifier
+                    .padding(start = 14.dp, top = 10.dp, end = 10.dp, bottom = 10.dp),
+                fontSize = 30.sp,
+                fontWeight = FontWeight.ExtraBold,
+
+            )
+        }
+    }
+}
 
 //Code of Batch Selection Block
 @Composable
@@ -126,6 +248,7 @@ fun BatchSelectorBlockComposable(batchList: List<String>) {
                 .padding(start = 10.dp),
             fontSize = 30.sp,
             fontWeight = FontWeight.ExtraBold,
+            color = Color.White
         )
         BatchFilterBlockComposable(modifier = Modifier.weight(1f), batchList)
     }
@@ -148,8 +271,9 @@ fun CourseSelectorBlockComposable(courseList: List<String>) {
                 .padding(start = 10.dp),
             fontSize = 30.sp,
             fontWeight = FontWeight.ExtraBold,
+            color = Color.White
         )
-        BatchFilterBlockComposable(modifier = Modifier.weight(1f), courseList)
+        val courseValue = BatchFilterBlockComposable(modifier = Modifier.weight(1f), courseList)
     }
 }
 
@@ -169,8 +293,9 @@ fun SectionSelectorBlockComposable(sectionlist: List<String>) {
                 .padding(start = 10.dp),
             fontSize = 30.sp,
             fontWeight = FontWeight.ExtraBold,
+            color = Color.White
         )
-        BatchFilterBlockComposable(modifier = Modifier.weight(1f), sectionlist)
+        val section = BatchFilterBlockComposable(modifier = Modifier.weight(1f), sectionlist)
     }
 }
 
@@ -190,13 +315,14 @@ fun GroupSelectorBlockComposable(grouplist: List<String>) {
                 .padding(start = 10.dp),
             fontSize = 30.sp,
             fontWeight = FontWeight.ExtraBold,
+            color = Color.White
         )
-        BatchFilterBlockComposable(modifier = Modifier.weight(1f), grouplist)
+        val group = BatchFilterBlockComposable(modifier = Modifier.weight(1f), grouplist)
     }
 }
 
 @Composable
-fun BatchFilterBlockComposable(modifier: Modifier, list: List<String>) {
+fun BatchFilterBlockComposable(modifier: Modifier, list: List<String>): String {
     // Declaring a boolean value to store
     // the expanded state of the Text Field
     var mExpanded by remember { mutableStateOf(false) }
@@ -229,8 +355,12 @@ fun BatchFilterBlockComposable(modifier: Modifier, list: List<String>) {
                 },
             trailingIcon = {
                 Icon(icon, "contentDescription",
-                    Modifier.clickable { mExpanded = !mExpanded })
-            }
+                    Modifier.clickable { mExpanded = !mExpanded }, tint = Color.White)
+            },
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = Color.White,
+                unfocusedBorderColor = Color.White,
+            ),textStyle = TextStyle(color = LightBlueAnimation, fontWeight = FontWeight.SemiBold, fontSize = 20.sp),
         )
 
         // Create a drop-down menu with list of cities,
@@ -251,6 +381,8 @@ fun BatchFilterBlockComposable(modifier: Modifier, list: List<String>) {
             }
         }
     }
+
+    return mSelectedText
 }
 
 fun navigateToCreateAnnouncementScreen(navHostController: NavHostController) {

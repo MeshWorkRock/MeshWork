@@ -1,6 +1,5 @@
 package com.example.meshworkapp.common
 
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -17,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -27,9 +25,9 @@ import androidx.compose.ui.unit.sp
 import com.example.meshworkapp.R
 import com.example.meshworkapp.UserInfoDataClass
 import com.example.meshworkapp.common.dataclass.AnnouncementDataClass
+import com.example.meshworkapp.composables.CardBackground
 import com.example.meshworkapp.ui.theme.DarkBlueText
 import com.example.meshworkapp.ui.theme.LightBlueText
-import com.example.meshworkapp.viewmodels.AnnouncementsViewModel
 
 @Composable
 fun OrganizationNameAndLogoComposable(
@@ -37,35 +35,37 @@ fun OrganizationNameAndLogoComposable(
     logo: Painter? = null,
     modifier: Modifier
 ) {
-    Row {
-        Column(
-            horizontalAlignment = Alignment.Start,
-            modifier = modifier
+    Column() {
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier
+                .padding(top = 30.dp, end = 15.dp, start = 15.dp)
                 .fillMaxWidth()
-                .weight(7f)
         ) {
 
             Text(
                 text = "MeshWork",
                 fontSize = 30.sp,
                 fontWeight = FontWeight.ExtraBold,
-                color = Color.White
+                color = Color.White,
+                modifier = Modifier.weight(7f)
             )
-            Text(
-                text = name,
-                fontWeight = FontWeight.Bold,
-                fontSize = 28.sp,
-                textAlign = TextAlign.Start,
-                color = Color.White
-            )
+            Image(
+                painter = painterResource(id = R.drawable.settings),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(30.dp)
+                    .padding(end = 15.dp)
+                    .weight(1f), alignment = Alignment.TopStart)
         }
-        Image(
-            painter = painterResource(id = R.drawable.settings),
-            contentDescription = null,
-            modifier = Modifier
-                .size(60.dp)
-                .padding(top = 30.dp, end = 20.dp)
-                .weight(1f), alignment = Alignment.TopStart)
+        Text(
+            text = name,
+            fontWeight = FontWeight.Bold,
+            fontSize = 28.sp,
+            textAlign = TextAlign.Start,
+            color = Color.White,
+            modifier = Modifier.padding( end = 15.dp, start = 15.dp)
+        )
 
     }
 }
@@ -76,61 +76,61 @@ fun UserInfoCard(
     modifier: Modifier = Modifier
 ) {
     Card(
-        modifier = modifier
-            .fillMaxWidth(),
-//            .padding(12.dp)
-//            .background(Color.Transparent),
-        backgroundColor = Color.White,
+        shape = RoundedCornerShape(20.dp),
+        backgroundColor = Color.Transparent,
         elevation = 8.dp,
-        shape = RoundedCornerShape(20.dp)
+        modifier = modifier
+            .fillMaxWidth()
+//            .padding(12.dp)
+            .background(Color.Transparent),
+
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Start,
+            horizontalArrangement = Arrangement.Center,
             modifier = Modifier
-                .padding(vertical = 10.dp)
-//                .background(CardBackground())
+                .padding()
+                .background(CardBackground())
         ) {
             Image(
                 painter = userInfo.profilePhoto,
                 contentDescription = "Profile Image",
                 modifier = Modifier
                     .clip(CircleShape)
-                    .size(80.dp)
-                    .padding(6.dp)
+                    .size(100.dp)
+//                    .padding(6.dp)
+                    .padding(start = 25.dp, end = 6.dp, top = 6.dp, bottom = 6.dp)
             )
             Column(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.Start,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth().padding(vertical = 24.dp)
             ) {
                 Text(
                     text = userInfo.name,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
-                    color = DarkBlueText
+                    color = Color.White
                 )
                 Text(
                     text = userInfo.id,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.SemiBold,
                     textAlign = TextAlign.End,
-                    color = DarkBlueText
+                    color = Color.White
                 )
             }
         }
     }
 }
+
 @Composable
 fun AnnouncementList(
-    announcementMessages: AnnouncementsViewModel
+    announcementMessages: List<AnnouncementDataClass>
 ) {
-    Toast.makeText(LocalContext.current, "Ann", Toast.LENGTH_SHORT).show()
-    if(announcementMessages.announcements.value == null)
-        return
-    val announcementsList = announcementMessages.announcements.value!!.announcementsList
+
     LazyColumn(modifier = Modifier.fillMaxSize()) {
-        items(items = announcementsList, itemContent = { announcement ->
+        items(items = announcementMessages, itemContent = { announcement ->
             Card(
                 shape = RoundedCornerShape(20.dp),
                 elevation = 8.dp,
@@ -174,11 +174,9 @@ fun AnnouncementList(
 
 }
 
-//@Preview(showBackground = true)
-//@Composable
-//fun UserInfoCardPreview() {
-//    val data =
-//
-//    UserInfoCard()
-//
-//}
+@Preview(showBackground = true)
+@Composable
+fun UserInfoCardPreview() {
+//UserInfoCard(userInfo = )
+
+}

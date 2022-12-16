@@ -30,7 +30,6 @@ fun ClassCardComposable(
     subjectName: String,
     modifier: Modifier = Modifier,
     navHostController: NavHostController,
-    currentCourseSharedViewModel: CurrentCourseSharedViewModel
 ) {
     Card(
         modifier = Modifier
@@ -51,28 +50,28 @@ fun ClassCardComposable(
 //            horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxSize()
-//                .background(CardBackground())
-                .padding(start = 5.dp)
+                .background(CardBackground())
+                .padding(start = 20.dp)
         ) {
 
             Text(
                 text = subjectName,
-                color = DarkBlueText,
-                fontSize = 15.sp,
+                color = Color.White,
+                fontSize = 22.sp,
                 fontWeight = FontWeight.SemiBold,
                 textAlign = TextAlign.Start,
                 modifier = Modifier
-//                    .padding(bottom = 15.dp)
+                    .padding(bottom = 5.dp, top = 10.dp)
                     .fillMaxWidth()
             )
             Text(
                 text = className,
-                color = DarkBlueText,
-                fontSize = 20.sp,
+                color = Color.White,
+                fontSize = 22.sp,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Start,
                 modifier = Modifier
-                    .padding(4.dp)
+                    .padding(bottom = 10.dp)
                     .fillMaxWidth()
             )
         }
