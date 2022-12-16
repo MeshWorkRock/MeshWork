@@ -21,7 +21,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.meshworkapp.common.dataclass.ChatListDataClass
 import com.example.meshworkapp.common.viewmodel.ChatListViewModel
-import com.example.meshworkapp.composables.CardBackground
 import com.example.meshworkapp.ui.theme.DarkBlueText
 
 
@@ -74,8 +73,8 @@ fun ChatListCardComposable(
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-                .fillMaxWidth()
-                .background(CardBackground()),
+                .fillMaxWidth(),
+//                .background(CardBackground()),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Row {
@@ -101,7 +100,7 @@ fun StudentNameAndLastTextComposable(chat : ChatListDataClass) {
         Text(
             text = chat.name,
             style = MaterialTheme.typography.h6,
-            color = Color.White,
+            color = DarkBlueText,
             modifier = Modifier
 //                .padding(horizontal = 20.dp, vertical = 5.dp)
                 .wrapContentWidth(Alignment.Start)
@@ -109,7 +108,7 @@ fun StudentNameAndLastTextComposable(chat : ChatListDataClass) {
         Text(
             text = chat.lastText,
             style = MaterialTheme.typography.body2,
-            color = Color.White,
+            color = DarkBlueText,
             modifier = Modifier
 //                .padding(horizontal = 20.dp, vertical = 5.dp)
                 .wrapContentWidth(Alignment.Start)
@@ -137,7 +136,7 @@ fun StudentLastTime(chat: ChatListDataClass) {
 
     Text(
         text = chat.lastTime,
-        color = Color.White
+        color = DarkBlueText
 
         )
 

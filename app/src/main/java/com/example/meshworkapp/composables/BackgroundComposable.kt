@@ -132,19 +132,19 @@ fun CreateAnnouncementBackground() {
     }
 }
 
-@Composable
-fun CardBackground() : Brush {
-
-    val cardBackground : Brush = Brush.horizontalGradient(
-        colors = listOf(
-            GradientLow,
-            GradientHigh
-        )
-    )
-
-    return cardBackground
-
-}
+//@Composable
+//fun CardBackground() : Brush {
+//
+//    val cardBackground : Brush = Brush.horizontalGradient(
+//        colors = listOf(
+//            GradientLow,
+//            GradientHigh
+//        )
+//    )
+//
+//    return cardBackground
+//
+//}
 
 
 

@@ -43,13 +43,13 @@ fun ClassCardComposable(
 //            horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxSize()
-                .background(CardBackground())
+//                .background(CardBackground())
                 .padding(start = 5.dp)
         ) {
 
             Text(
                 text = subjectName,
-                color = Color.White,
+                color = DarkBlueText,
                 fontSize = 15.sp,
                 fontWeight = FontWeight.SemiBold,
                 textAlign = TextAlign.Start,
@@ -59,7 +59,7 @@ fun ClassCardComposable(
             )
             Text(
                 text = className,
-                color = Color.White,
+                color = DarkBlueText,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Start,
@@ -77,7 +77,7 @@ fun ClassCardPreview() {
     ClassCardComposable(
         className = "22MCD-1",
         subjectName = "Digital Electronics and computing",
-//        modifier = Modifier.size(180.dp),
+        modifier = Modifier.size(180.dp),
         navHostController = NavHostController(LocalContext.current)
     )
 }

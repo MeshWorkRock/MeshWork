@@ -25,7 +25,6 @@ import androidx.compose.ui.unit.sp
 import com.example.meshworkapp.R
 import com.example.meshworkapp.UserInfoDataClass
 import com.example.meshworkapp.common.dataclass.AnnouncementDataClass
-import com.example.meshworkapp.composables.CardBackground
 import com.example.meshworkapp.ui.theme.DarkBlueText
 import com.example.meshworkapp.ui.theme.LightBlueText
 
@@ -75,10 +74,10 @@ fun UserInfoCard(
 ) {
     Card(
         modifier = modifier
-            .fillMaxWidth()
+            .fillMaxWidth(),
 //            .padding(12.dp)
-            .background(Color.Transparent),
-        backgroundColor = Color.Transparent,
+//            .background(Color.Transparent),
+        backgroundColor = Color.White,
         elevation = 8.dp,
         shape = RoundedCornerShape(20.dp)
     ) {
@@ -87,7 +86,7 @@ fun UserInfoCard(
             horizontalArrangement = Arrangement.Start,
             modifier = Modifier
                 .padding(vertical = 10.dp)
-                .background(CardBackground())
+//                .background(CardBackground())
         ) {
             Image(
                 painter = userInfo.profilePhoto,
@@ -106,14 +105,14 @@ fun UserInfoCard(
                     text = userInfo.name,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color.White
+                    color = DarkBlueText
                 )
                 Text(
                     text = userInfo.id,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.SemiBold,
                     textAlign = TextAlign.End,
-                    color = Color.White
+                    color = DarkBlueText
                 )
             }
         }

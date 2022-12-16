@@ -87,8 +87,8 @@ fun StudentListCardComposable(
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-                .fillMaxWidth()
-                .background(CardBackground()),
+                .fillMaxWidth(),
+//                .background(CardBackground()),
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             Row() {
@@ -137,7 +137,7 @@ fun StudentNameAndUIDComposable(student: StudentsDataClass) {
         Text(
             text = student.studentName,
             style = MaterialTheme.typography.h6,
-            color = Color.White,
+            color = DarkBlueText,
             modifier = Modifier
 //                .padding(horizontal = 20.dp, vertical = 5.dp)
                 .wrapContentWidth(Alignment.Start)
@@ -145,7 +145,7 @@ fun StudentNameAndUIDComposable(student: StudentsDataClass) {
         Text(
             text = student.studentUID,
             style = MaterialTheme.typography.body2,
-            color = Color.White,
+            color = DarkBlueText,
             modifier = Modifier
 //                .padding(horizontal = 20.dp, vertical = 5.dp)
                 .wrapContentWidth(Alignment.Start)
