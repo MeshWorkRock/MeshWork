@@ -29,9 +29,9 @@ import com.example.meshworkapp.ui.theme.DarkBlueText
 
 @Composable
 fun CreateAnnouncementScreen() {
-    val batchList = listOf("2022", "2021", "2020")
-    val courseList = listOf("BSC", "MCA")
-    val sectionList = listOf("1", "2", "3", "4")
+    val batchList = listOf("2022")
+    val courseList = listOf("MCA")
+    val sectionList = listOf("2")
     val groupList = listOf("A")
 
 
@@ -87,7 +87,7 @@ fun CreateAnnouncementInfoScreen(batch: String, course: String, section: String)
                 text = "Batch : $batch",
                 fontSize = 18.sp,
                 textAlign = TextAlign.Start,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.SemiBold,
             )
             Text(
                 text = "Course: $course",

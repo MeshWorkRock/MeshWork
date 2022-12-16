@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -29,22 +30,111 @@ import androidx.compose.ui.unit.toSize
 import androidx.navigation.NavHostController
 import com.example.meshworkapp.dataclassfiles.ListItemDataClass
 import com.example.meshworkapp.navigationgraphs.HubNavigationScreens
+import com.example.meshworkapp.ui.theme.LightBlueAnimation
 import kotlinx.coroutines.launch
+
+
+//@Composable
+//fun AnnouncementFilterScreenComposable(navHostController: NavHostController) {
+//
+//    val batchList = listOf("2022", "2021", "2020", "2019")
+//    val courseList = listOf("BCA", "MCA", "BSC")
+//    val sectionlist = listOf("1", "2", "3", "4", "5", "6", "7")
+//    val grouplist = listOf("A", "B")
+//
+//    var updatedBatchList = listOf<ListItemDataClass>()
+//    val updatedCourseList = listOf("BCA", "MCA", "BSC")
+//    val updatedSectionlist = listOf("1", "2", "3", "4", "5", "6", "7")
+//    val updatedGrouplist = listOf("A", "B")
+//
+//    Box {
+//        CreateAnnouncementBackground()
+//        Column(
+//            modifier = Modifier
+//                .fillMaxSize()
+//                .padding(horizontal = 15.dp)
+//        ) {
+//
+//            Column(horizontalAlignment = Alignment.Start) {
+//                Text(
+//                    text = "Create ",
+//                    fontSize = 30.sp,
+//                    modifier = Modifier.padding(top = 35.dp, start = 10.dp),
+//                    fontWeight = FontWeight.ExtraBold,
+//                    color = Color.White
+//                )
+//                Text(
+//                    text = "Announcement",
+//                    fontSize = 30.sp,
+//                    modifier = Modifier.padding(bottom = 20.dp, start = 10.dp),
+//                    fontWeight = FontWeight.ExtraBold,
+//                    color = Color.White
+//                )
+//            }
+//            BatchFilterOption(batchList)
+//            CourseFilterOption()
+//            SectionFilterOption()
+//            GroupFilterOption()
+//
+//
+//            Spacer(modifier = Modifier.height(20.dp))
+//            Row(
+//                horizontalArrangement = Arrangement.SpaceBetween,
+//                modifier = Modifier
+//                    .padding(horizontal = 20.dp, vertical = 20.dp)
+//                    .fillMaxWidth()
+//            ) {
+//                Button(onClick = {
+//                    navHostController.popBackStack()
+//                    Modifier.background(Color.White)
+//                },
+//                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
+//                    shape = RoundedCornerShape(20.dp)) {
+//                    Text(
+//                        text = "Cancel",
+//                        fontSize = 20.sp,
+//                        textAlign = TextAlign.Center,
+//                        modifier = Modifier
+//                            .height(30.dp)
+//                            .width(100.dp),
+//                        color = Color.Black
+//                    )
+//                }
+//
+//                Button(onClick = {
+//                    navigateToCreateAnnouncementScreen(navHostController)
+//                },
+//                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
+//                    shape = RoundedCornerShape(20.dp)) {
+//                    Text(
+//                        text = "Create", fontSize = 20.sp,
+//                        textAlign = TextAlign.Center,
+//                        modifier = Modifier
+//                            .height(30.dp)
+//                            .width(100.dp),
+//                        color = Color.Black
+//                    )
+//                }
+//            }
+//
+//
+////            AnnouncementFilterBottomScreenComposable(batchList = batchList)
+////            AnnouncementFilterBottomScreenComposable(batchList = courseList)
+////            AnnouncementFilterBottomScreenComposable(batchList = sectionlist)
+////            AnnouncementFilterBottomScreenComposable(batchList = grouplist)
+//
+//
+//        }
+//    }
+//}
 
 
 @Composable
 fun AnnouncementFilterScreenComposable(navHostController: NavHostController) {
-
-    val batchList = listOf("2022", "2021", "2020", "2019")
+    val batchList = listOf("2018", "2019", "2020", "2021", "2022")
     val courseList = listOf("BCA", "MCA", "BSC")
     val sectionlist = listOf("1", "2", "3", "4", "5", "6", "7")
     val grouplist = listOf("A", "B")
-
-    var updatedBatchList = listOf<ListItemDataClass>()
-    val updatedCourseList = listOf("BCA", "MCA", "BSC")
-    val updatedSectionlist = listOf("1", "2", "3", "4", "5", "6", "7")
-    val updatedGrouplist = listOf("A", "B")
-
     Box {
         CreateAnnouncementBackground()
         Column(
@@ -69,13 +159,12 @@ fun AnnouncementFilterScreenComposable(navHostController: NavHostController) {
                     color = Color.White
                 )
             }
-            BatchFilterOption(batchList)
-            CourseFilterOption()
-            SectionFilterOption()
-            GroupFilterOption()
 
+            BatchSelectorBlockComposable(batchList)
+            CourseSelectorBlockComposable(courseList)
+            SectionSelectorBlockComposable(sectionlist)
+            GroupSelectorBlockComposable(grouplist)
 
-            Spacer(modifier = Modifier.height(20.dp))
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier
@@ -114,18 +203,9 @@ fun AnnouncementFilterScreenComposable(navHostController: NavHostController) {
                     )
                 }
             }
-
-
-//            AnnouncementFilterBottomScreenComposable(batchList = batchList)
-//            AnnouncementFilterBottomScreenComposable(batchList = courseList)
-//            AnnouncementFilterBottomScreenComposable(batchList = sectionlist)
-//            AnnouncementFilterBottomScreenComposable(batchList = grouplist)
-
-
         }
     }
 }
-
 @Composable
 fun BatchFilterOption(batchList: List<String>) {
     Card(
@@ -150,6 +230,7 @@ fun BatchFilterOption(batchList: List<String>) {
                 Modifier.padding(start = 14.dp, top = 10.dp, end = 10.dp, bottom = 10.dp),
                 fontSize = 30.sp,
                 fontWeight = FontWeight.ExtraBold,
+                color = Color.White
             )
         }
     }
@@ -180,6 +261,7 @@ fun CourseFilterOption() {
                     .padding(start = 14.dp, top = 10.dp, end = 10.dp, bottom = 10.dp),
                 fontSize = 30.sp,
                 fontWeight = FontWeight.ExtraBold,
+                color = Color.White
             )
         }
     }
@@ -210,6 +292,7 @@ fun SectionFilterOption() {
                     .padding(start = 14.dp, top = 10.dp, end = 10.dp, bottom = 10.dp),
                 fontSize = 30.sp,
                 fontWeight = FontWeight.ExtraBold,
+                color = Color.White
             )
         }
     }
@@ -239,6 +322,7 @@ fun GroupFilterOption() {
                     .padding(start = 14.dp, top = 10.dp, end = 10.dp, bottom = 10.dp),
                 fontSize = 30.sp,
                 fontWeight = FontWeight.ExtraBold,
+
             )
         }
     }
@@ -247,12 +331,25 @@ fun GroupFilterOption() {
 //Code of Batch Selection Block
 @Composable
 fun BatchSelectorBlockComposable(batchList: List<String>) {
-//
-//    var selectedItems = listOf("")
-//    var showBottomScreen by remember {
-//         mutableStateOf(false)
-//     }
-
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 10.dp),
+        horizontalArrangement = Arrangement.Center
+    )
+    {
+        Text(
+            text = "Batch",
+            Modifier
+                .weight(1f)
+                .align(alignment = Alignment.CenterVertically)
+                .padding(start = 10.dp),
+            fontSize = 30.sp,
+            fontWeight = FontWeight.ExtraBold,
+            color = Color.White
+        )
+        BatchFilterBlockComposable(modifier = Modifier.weight(1f), batchList)
+    }
 }
 
 
@@ -272,6 +369,7 @@ fun CourseSelectorBlockComposable(courseList: List<String>) {
                 .padding(start = 10.dp),
             fontSize = 30.sp,
             fontWeight = FontWeight.ExtraBold,
+            color = Color.White
         )
         val courseValue = BatchFilterBlockComposable(modifier = Modifier.weight(1f), courseList)
     }
@@ -293,6 +391,7 @@ fun SectionSelectorBlockComposable(sectionlist: List<String>) {
                 .padding(start = 10.dp),
             fontSize = 30.sp,
             fontWeight = FontWeight.ExtraBold,
+            color = Color.White
         )
         val section = BatchFilterBlockComposable(modifier = Modifier.weight(1f), sectionlist)
     }
@@ -314,6 +413,7 @@ fun GroupSelectorBlockComposable(grouplist: List<String>) {
                 .padding(start = 10.dp),
             fontSize = 30.sp,
             fontWeight = FontWeight.ExtraBold,
+            color = Color.White
         )
         val group = BatchFilterBlockComposable(modifier = Modifier.weight(1f), grouplist)
     }
@@ -353,8 +453,12 @@ fun BatchFilterBlockComposable(modifier: Modifier, list: List<String>): String {
                 },
             trailingIcon = {
                 Icon(icon, "contentDescription",
-                    Modifier.clickable { mExpanded = !mExpanded })
-            }
+                    Modifier.clickable { mExpanded = !mExpanded }, tint = Color.White)
+            },
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = Color.White,
+                unfocusedBorderColor = Color.White,
+            ),textStyle = TextStyle(color = LightBlueAnimation, fontWeight = FontWeight.SemiBold, fontSize = 20.sp),
         )
 
         // Create a drop-down menu with list of cities,
