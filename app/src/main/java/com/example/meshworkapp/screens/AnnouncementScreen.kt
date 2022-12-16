@@ -21,6 +21,8 @@ import com.example.meshworkapp.common.AnnouncementList
 import com.example.meshworkapp.common.dataclass.AnnouncementDataClass
 import com.example.meshworkapp.composables.GradientBackGround
 import com.example.meshworkapp.navigationgraphs.FacultyHubNavigationScreens
+import com.example.meshworkapp.composables.AnnouncementBackground
+import com.example.meshworkapp.navigationgraphs.HubNavigationScreens
 
 
 //Announcement Screen Code
@@ -139,7 +141,7 @@ fun AnnouncementListWithActionBarComposable(
         }
     }) {
         Box {
-            GradientBackGround()
+            AnnouncementBackground()
             Column {
                 AnnouncementTopBar()
                 AnnouncementSearchBarComposable()

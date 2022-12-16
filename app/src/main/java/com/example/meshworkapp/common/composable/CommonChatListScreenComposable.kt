@@ -1,6 +1,7 @@
 package com.example.meshworkapp.common.composable
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -14,6 +15,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -41,7 +43,7 @@ fun ChatListComposable(
     chatList = chatList?.distinct()
 //    Toast.makeText(LocalContext.current, "list count = ${studentList?.size}", Toast.LENGTH_SHORT).show()
     LazyColumn(
-        modifier = Modifier.padding(bottom = 48.dp)
+        modifier = Modifier.padding(10.dp)
     ) {
         if (!chatList.isNullOrEmpty()) {
             items(items = chatList) { chat ->
@@ -72,6 +74,7 @@ fun ChatListCardComposable(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth(),
+//                .background(CardBackground()),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Row {
@@ -133,6 +136,7 @@ fun StudentLastTime(chat: ChatListDataClass) {
 
     Text(
         text = chat.lastTime,
+        color = DarkBlueText
 
         )
 

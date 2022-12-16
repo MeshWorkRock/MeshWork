@@ -16,7 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.meshworkapp.R
-import com.example.meshworkapp.composables.GradientBackGround
+import com.example.meshworkapp.composables.HomeBackGround
 import com.example.meshworkapp.ui.theme.DarkBlueText
 import com.example.meshworkapp.viewmodels.FacultySharedViewModel
 import com.google.firebase.firestore.FirebaseFirestore
@@ -24,7 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 @Composable
 fun CreateAnnouncementScreen(facultySharedViewModel: FacultySharedViewModel) {
     Box {
-        GradientBackGround()
+        HomeBackGround()
         Column(horizontalAlignment = Alignment.Start) {
             Text(
                 text = "Create ",

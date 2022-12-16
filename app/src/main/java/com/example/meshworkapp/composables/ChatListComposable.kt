@@ -74,7 +74,7 @@ import com.example.meshworkapp.ui.theme.DarkBlueText
 //            horizontalArrangement = Arrangement.SpaceBetween
 //        ) {
 //            Row {
-//                StudentProfileImageComposable(chat)
+//                StudentPr+ofileImageComposable(chat)
 //                StudentNameAndLastTextComposable(chat)
 //            }
 //            Row(

@@ -23,14 +23,14 @@ import com.example.meshworkapp.common.UserInfoCard
 import com.example.meshworkapp.composables.GradientBackGround
 import com.example.meshworkapp.dataclassfiles.AssignedClassDataClass
 import com.example.meshworkapp.viewmodels.CurrentCourseSharedViewModel
+import com.example.meshworkapp.composables.HomeBackGround
 import com.example.meshworkapp.viewmodels.FacultySharedViewModel
 
 @Composable
-fun FacultyHomeScreen(
-    navHostController: NavHostController,
-    assignedClassesList: List<AssignedClassDataClass>,
-    facultySharedViewModel: FacultySharedViewModel,
-    currentCourseSharedViewModel: CurrentCourseSharedViewModel
+fun HomeScreen(
+        navHostController: NavHostController,
+        assignedClassesList: List<AssignedClassDataClass>,
+        facultySharedViewModel: FacultySharedViewModel
 ) {
     val userInfo = UserInfoDataClass(
         name = facultySharedViewModel.facultyUser?.name!!,
@@ -86,6 +86,53 @@ fun AssignedClassesComposable(
     )
 }
 
+//@Composable
+//fun UserInfoCard(
+//    userInfo: UserInfoDataClass,
+//    modifier: Modifier = Modifier
+//) {
+//    Card(
+//        modifier = modifier
+//            .fillMaxWidth(),
+//        backgroundColor =Color.White,
+//        elevation = 8.dp,
+//        shape = RoundedCornerShape(20.dp)
+//    ) {
+//        Row(
+//            verticalAlignment = Alignment.CenterVertically,
+//            horizontalArrangement = Arrangement.Start,
+//            modifier = Modifier.padding(5.dp)
+//        ) {
+//            Image(
+//                painter = userInfo.profilePhoto,
+//                contentDescription = "Profile Image",
+//                modifier = Modifier
+//                    .clip(CircleShape)
+//                    .size(80.dp)
+//                    .padding(6.dp)
+//            )
+//            Column(
+//                verticalArrangement = Arrangement.Center,
+//                horizontalAlignment = Alignment.Start,
+//                modifier = Modifier.fillMaxWidth()
+//            ) {
+//                Text(
+//                    text = userInfo.name,
+//                        fontSize = 20.sp,
+//                    fontWeight = FontWeight.Bold,
+//                    color = LightBlueText
+//                )
+//                Text(
+//                    text = userInfo.id,
+//                    fontSize = 20.sp,
+//                    fontWeight = FontWeight.SemiBold,
+//                    textAlign = TextAlign.End,
+//                    color = LightBlueText
+//                )
+//            }
+//        }
+//    }
+//}
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -96,7 +143,7 @@ fun ClassesGridComposable(
     currentCourseSharedViewModel: CurrentCourseSharedViewModel
 ){
     LazyVerticalGrid(
-        cells = GridCells.Fixed(2),
+        cells = GridCells.Fixed(1),
         contentPadding = PaddingValues(
             start = 20.dp,
             end = 20.dp,

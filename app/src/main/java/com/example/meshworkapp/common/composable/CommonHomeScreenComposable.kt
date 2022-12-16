@@ -2,6 +2,7 @@ package com.example.meshworkapp.common
 
 import android.widget.Toast
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -20,6 +21,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.meshworkapp.R
@@ -76,14 +78,18 @@ fun UserInfoCard(
     Card(
         modifier = modifier
             .fillMaxWidth(),
-        backgroundColor =Color.White,
+//            .padding(12.dp)
+//            .background(Color.Transparent),
+        backgroundColor = Color.White,
         elevation = 8.dp,
         shape = RoundedCornerShape(20.dp)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start,
-            modifier = Modifier.padding(5.dp)
+            modifier = Modifier
+                .padding(vertical = 10.dp)
+//                .background(CardBackground())
         ) {
             Image(
                 painter = userInfo.profilePhoto,
@@ -102,14 +108,14 @@ fun UserInfoCard(
                     text = userInfo.name,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
-                    color = LightBlueText
+                    color = DarkBlueText
                 )
                 Text(
                     text = userInfo.id,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.SemiBold,
                     textAlign = TextAlign.End,
-                    color = LightBlueText
+                    color = DarkBlueText
                 )
             }
         }
@@ -167,3 +173,12 @@ fun AnnouncementList(
     }
 
 }
+
+//@Preview(showBackground = true)
+//@Composable
+//fun UserInfoCardPreview() {
+//    val data =
+//
+//    UserInfoCard()
+//
+//}

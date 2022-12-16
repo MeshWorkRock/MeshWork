@@ -1,6 +1,7 @@
 package com.example.meshworkapp.composables
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -20,6 +21,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -27,6 +30,8 @@ import com.example.meshworkapp.StudentViewModel
 import com.example.meshworkapp.R
 import com.example.meshworkapp.studentmodule.StudentDataClass
 import com.example.meshworkapp.ui.theme.DarkBlueText
+import com.example.meshworkapp.ui.theme.GradientHigh
+import com.example.meshworkapp.ui.theme.GradientLow
 import com.example.meshworkapp.ui.theme.LightBlueText
 import com.example.meshworkapp.viewmodels.CurrentCourseSharedViewModel
 
@@ -51,7 +56,7 @@ fun StudentListComposable(
     studentList = studentList?.distinct()
 //    Toast.makeText(LocalContext.current, "list count = ${studentList?.size}", Toast.LENGTH_SHORT).show()
     LazyColumn(
-        modifier = Modifier.padding(bottom = 48.dp)
+        modifier = Modifier.padding(10.dp)
     ) {
         if (!studentList.isNullOrEmpty()) {
             items(items = studentList) { student ->
@@ -85,7 +90,8 @@ fun StudentListCardComposable(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
+//                .background(CardBackground()),
+            horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             Row() {
                 StudentProfileImageComposable(student)
@@ -118,7 +124,7 @@ fun StudentDesignationBadgeComposable(student : StudentDataClass, studentDesigna
                 .size(30.dp),
             painter = painterResource(id = R.drawable.cr_badge_star),
             contentDescription = "Star Icon",
-            tint = LightBlueText
+            tint = Color.White
         )
 
     }

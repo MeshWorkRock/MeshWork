@@ -2,9 +2,12 @@ package com.example.meshworkapp.studentmodule
 
 import android.util.Log
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -17,6 +20,8 @@ import com.example.meshworkapp.common.AnnouncementList
 import com.example.meshworkapp.common.OrganizationNameAndLogoComposable
 import com.example.meshworkapp.common.UserInfoCard
 import com.example.meshworkapp.common.dataclass.AnnouncementDataClass
+import com.example.meshworkapp.composables.HomeBackGround
+import com.example.meshworkapp.ui.theme.DarkBlueText
 import com.example.meshworkapp.composables.GradientBackGround
 import com.example.meshworkapp.studentmodule.dataclass.AnnouncementsViewModelDataClass
 import com.example.meshworkapp.viewmodels.AnnouncementsViewModel
@@ -44,7 +49,7 @@ fun StudentHomeScreen(
         profilePhoto = painterResource(id = R.drawable.profile_image_dummy)
     )
     Box {
-        GradientBackGround()
+        HomeBackGround()
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -65,8 +70,14 @@ fun StudentHomeScreen(
                     top = 10.dp))
 
             Spacer(modifier = Modifier.height(5.dp))
-            
-            Text(text = "Announcements")
+
+            Text(
+                text = "Announcements",
+                color = Color.White,
+                style = MaterialTheme.typography.h5,
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+            )
 
             Spacer(modifier = Modifier.height(5.dp))
             
