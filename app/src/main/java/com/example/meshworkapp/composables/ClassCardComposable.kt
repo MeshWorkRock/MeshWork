@@ -44,27 +44,27 @@ fun ClassCardComposable(
             modifier = Modifier
                 .fillMaxSize()
                 .background(CardBackground())
-                .padding(start = 5.dp)
+                .padding(start = 20.dp)
         ) {
 
             Text(
                 text = subjectName,
                 color = Color.White,
-                fontSize = 15.sp,
+                fontSize = 22.sp,
                 fontWeight = FontWeight.SemiBold,
                 textAlign = TextAlign.Start,
                 modifier = Modifier
-//                    .padding(bottom = 15.dp)
+                    .padding(bottom = 5.dp, top = 10.dp)
                     .fillMaxWidth()
             )
             Text(
                 text = className,
                 color = Color.White,
-                fontSize = 20.sp,
+                fontSize = 22.sp,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Start,
                 modifier = Modifier
-                    .padding(4.dp)
+                    .padding(bottom = 10.dp)
                     .fillMaxWidth()
             )
         }
