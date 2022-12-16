@@ -1,5 +1,6 @@
 package com.example.meshworkapp.common
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -15,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -25,6 +27,7 @@ import com.example.meshworkapp.UserInfoDataClass
 import com.example.meshworkapp.common.dataclass.AnnouncementDataClass
 import com.example.meshworkapp.ui.theme.DarkBlueText
 import com.example.meshworkapp.ui.theme.LightBlueText
+import com.example.meshworkapp.viewmodels.AnnouncementsViewModel
 
 @Composable
 fun OrganizationNameAndLogoComposable(
@@ -114,11 +117,14 @@ fun UserInfoCard(
 }
 @Composable
 fun AnnouncementList(
-    announcementMessages: List<AnnouncementDataClass>
+    announcementMessages: AnnouncementsViewModel
 ) {
-
+    Toast.makeText(LocalContext.current, "Ann", Toast.LENGTH_SHORT).show()
+    if(announcementMessages.announcements.value == null)
+        return
+    val announcementsList = announcementMessages.announcements.value!!.announcementsList
     LazyColumn(modifier = Modifier.fillMaxSize()) {
-        items(items = announcementMessages, itemContent = { announcement ->
+        items(items = announcementsList, itemContent = { announcement ->
             Card(
                 shape = RoundedCornerShape(20.dp),
                 elevation = 8.dp,

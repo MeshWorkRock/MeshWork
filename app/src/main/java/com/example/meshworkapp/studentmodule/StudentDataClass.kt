@@ -4,7 +4,10 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class StudentDataClass(
+data class StudentDataClass     (
     val id: String?,
     val name: String?,
+    val course: String?,
+    val studentProfile: Int?,
+    val studentDesignation: String? = null
 ): Parcelable

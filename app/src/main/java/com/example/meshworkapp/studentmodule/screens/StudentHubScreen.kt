@@ -1,4 +1,4 @@
-package com.example.meshworkapp.screens
+package com.example.meshworkapp.studentmodule.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.RowScope
@@ -13,35 +13,33 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.meshworkapp.dataclassfiles.FacultyDataClass
-import com.example.meshworkapp.navigationgraphs.HubNavigationScreens
-import com.example.meshworkapp.navigationgraphs.HubNavGraph
-import com.example.meshworkapp.viewmodels.FacultySharedViewModel
+import com.example.meshworkapp.studentmodule.StudentSharedViewModel
+import com.example.meshworkapp.studentmodule.navigationgraphs.StudentHubNavGraph
+import com.example.meshworkapp.studentmodule.navigationgraphs.StudentHubNavigationScreens
 import com.example.meshworkapp.ui.theme.DarkBlueText
 
 @Composable
-fun HubScreen(
+fun StudentHubScreen(
     navHostController: NavHostController = rememberNavController(),
-    facultySharedViewModel: FacultySharedViewModel
+    studentSharedViewModel: StudentSharedViewModel
 ) {
     Scaffold(
         bottomBar = {
-            BottomNavigationBarComposable(navHostController = navHostController)
+            StudentBottomNavigationBarComposable(navHostController = navHostController)
         },
     ) {
-        HubNavGraph(navHostController = navHostController, facultySharedViewModel = facultySharedViewModel)
+        StudentHubNavGraph(navHostController = navHostController, studentSharedViewModel = studentSharedViewModel)
     }
 }
 
 @Composable
-fun BottomNavigationBarComposable(
+fun StudentBottomNavigationBarComposable(
     navHostController: NavHostController
 ) {
     val bottomNavigationItems = listOf(
-        HubNavigationScreens.Chats,
-        HubNavigationScreens.Home,
-        HubNavigationScreens.Announcements,
-        HubNavigationScreens.TimeTable,
+        StudentHubNavigationScreens.Chats,
+        StudentHubNavigationScreens.Home,
+        StudentHubNavigationScreens.TimeTable,
     )
 
     val backStackEntry by navHostController.currentBackStackEntryAsState()
@@ -66,7 +64,7 @@ fun BottomNavigationBarComposable(
 
 @Composable
 fun RowScope.AddItem(
-    item: HubNavigationScreens,
+    item: StudentHubNavigationScreens,
     currentDestination: NavDestination?,
     navHostController: NavHostController
 ) {

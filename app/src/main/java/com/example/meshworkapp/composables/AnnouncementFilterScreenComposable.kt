@@ -3,7 +3,6 @@ package com.example.meshworkapp.composables
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -28,7 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
 import androidx.navigation.NavHostController
-import com.example.meshworkapp.navigationgraphs.HubNavigationScreens
+import com.example.meshworkapp.navigationgraphs.FacultyHubNavigationScreens
 
 
 @Composable
@@ -255,7 +254,7 @@ fun BatchFilterBlockComposable(modifier: Modifier, list: List<String>) {
 }
 
 fun navigateToCreateAnnouncementScreen(navHostController: NavHostController) {
-    navHostController.navigate(HubNavigationScreens.CreatAndPostAnnouncement.route)
+    navHostController.navigate(FacultyHubNavigationScreens.CreatAndPostAnnouncement.route)
 }
 
 @Preview(showBackground = true)

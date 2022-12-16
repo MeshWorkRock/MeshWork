@@ -1,6 +1,5 @@
 package com.example.meshworkapp.composables
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -10,20 +9,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.meshworkapp.ui.theme.DarkBlueAnimation
-import com.example.meshworkapp.ui.theme.LightBlueAnimation
 import androidx.navigation.NavHostController
 import com.example.meshworkapp.dataclassfiles.AssignedClassDataClass
-import com.example.meshworkapp.navigationgraphs.HubNavigationScreens
+import com.example.meshworkapp.navigationgraphs.FacultyHubNavigationScreens
 import com.example.meshworkapp.ui.theme.DarkBlueText
 import com.example.meshworkapp.viewmodels.CurrentCourseSharedViewModel
-import com.example.meshworkapp.viewmodels.FacultySharedViewModel
 
 @Composable
 fun ClassCardComposable(
@@ -42,7 +37,7 @@ fun ClassCardComposable(
                     subject = subjectName,
                     studentsList = null
                 ))
-                navHostController.navigate(HubNavigationScreens.StudentsList.route)
+                navHostController.navigate(FacultyHubNavigationScreens.StudentsList.route)
             },
         backgroundColor = Color.White ,
         elevation = 10.dp,

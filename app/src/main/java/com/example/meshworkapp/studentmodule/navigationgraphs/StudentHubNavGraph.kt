@@ -1,7 +1,6 @@
-package com.example.meshworkapp.navigationgraphs
+package com.example.meshworkapp.studentmodule.navigationgraphs
 
-import android.util.Log
-import android.widget.Toast
+import com.example.meshworkapp.navigationgraphs.TopLevelGraph
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Home
@@ -9,249 +8,122 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.meshworkapp.*
 import com.example.meshworkapp.R
 import com.example.meshworkapp.common.dataclass.AnnouncementDataClass
 import com.example.meshworkapp.common.dataclass.ChatListDataClass
 import com.example.meshworkapp.composables.AnnouncementFilterScreenComposable
 import com.example.meshworkapp.dataclassfiles.AssignedClassDataClass
+import com.example.meshworkapp.dataclassfiles.TimeTableDataClass
 import com.example.meshworkapp.screens.*
-import com.example.meshworkapp.viewmodels.CurrentCourseSharedViewModel
+import com.example.meshworkapp.studentmodule.StudentChatListScreen
+import com.example.meshworkapp.studentmodule.StudentHomeScreen
+import com.example.meshworkapp.studentmodule.StudentSharedViewModel
+import com.example.meshworkapp.viewmodels.AnnouncementsViewModel
 import com.example.meshworkapp.viewmodels.FacultySharedViewModel
-import com.google.firebase.firestore.FirebaseFirestore
 
 @Composable
-fun HubNavGraph(
+fun StudentHubNavGraph(
     navHostController: NavHostController,
-    facultySharedViewModel: FacultySharedViewModel
+    studentSharedViewModel: StudentSharedViewModel,
 ) {
 
-    val currentCourseSharedViewModel: CurrentCourseSharedViewModel = viewModel()
-
+//    val currentCourseSharedViewModel: CurrentCourseSharedViewModel = viewModel()
+    val announcementsViewModel: AnnouncementsViewModel = viewModel()
     NavHost(
         navController = navHostController,
-        route = TopLevelGraph.hubGraph,
-        startDestination = HubNavigationScreens.Home.route
+        route = TopLevelGraph.facultyHubGraph,
+        startDestination = StudentHubNavigationScreens.Home.route
     ) {
         composable(
-            route = HubNavigationScreens.Home.route
+            route = StudentHubNavigationScreens.Home.route
         ) {
-            HomeScreen(
-                navHostController = navHostController,
-                assignedClassesList = fetchAssignedCLassesList(facultySharedViewModel = facultySharedViewModel),
-                facultySharedViewModel = facultySharedViewModel,
-                currentCourseSharedViewModel = currentCourseSharedViewModel
+            StudentHomeScreen(
+                studentSharedViewModel = studentSharedViewModel,
+                announcementsViewModel = announcementsViewModel
             )
         }
         composable(
-            route = HubNavigationScreens.StudentsList.route
+            route = StudentHubNavigationScreens.Chats.route
         ) {
-            StudentListScreen(
-                facultySharedViewModel = facultySharedViewModel,
-                currentCourseSharedViewModel = currentCourseSharedViewModel
-            )
+            StudentChatListScreen(chatDataList = fetchChatsList())
         }
         composable(
-            route = HubNavigationScreens.Chats.route
-        ) {
-            ChatListScreen(chatDataList = fetchChatsList())
-        }
-        composable(
-            route = HubNavigationScreens.TimeTable.route
+            route = StudentHubNavigationScreens.TimeTable.route
         ) {
             TimeTableScreen(timeTableList = fetchTimeTableList())
-        }
-        composable(
-            route = HubNavigationScreens.Announcements.route
-        ) {
-            AnnouncementScreen(announcementMessages = fetchAnnouncementsList(), navHostController = navHostController)
-        }
-        composable(
-            route = HubNavigationScreens.MakeAnnouncement.route
-        ) {
-            AnnouncementFilterScreenComposable(navHostController = navHostController)                    //TODO Chane file name
-        }
-        composable(
-            route = HubNavigationScreens.CreatAndPostAnnouncement.route
-        ) {
-            CreateAnnouncementScreen()                    //TODO Chane file name
         }
     }
 }
 
-sealed class HubNavigationScreens(
+sealed class StudentHubNavigationScreens(
     val route: String,
     val label: String,
-    val icon: ImageVector
+    val icon: ImageVector,
 ) {
-    object Home : HubNavigationScreens(
-        route = "home_screen",
+    object Home : StudentHubNavigationScreens(
+        route = "student_home_screen",
         label = "Home",
         icon = Icons.Default.Home
     )
 
-    object TimeTable : HubNavigationScreens(
-        route = "time_table_screen",
+    object TimeTable : StudentHubNavigationScreens(
+        route = "student_time_table_screen",
         label = "Time Table",
         icon = Icons.Default.Menu
     )
 
-    object StudentsList : HubNavigationScreens(
-        route = "StudentsList_screen",
-        label = "Students List",
-        icon = Icons.Default.Email
-    )
-
-    object Chats : HubNavigationScreens(
-        route = "chats_screen",
+    object Chats : StudentHubNavigationScreens(
+        route = "student_chats_screen",
         label = "Chat",
         icon = Icons.Default.Email
     )
-
-    object Announcements : HubNavigationScreens(
-        route = "announcements_screen",
-        label = "Announcements",
-        icon = Icons.Default.Person
-    )
-    object MakeAnnouncement : HubNavigationScreens(
-        route = "make_announcements_screen",
-        label = "Make Announcement",
-        icon = Icons.Default.Person
-    )
-    object CreatAndPostAnnouncement : HubNavigationScreens(
-        route = "create_and_announcement_screen",
-        label = "Create Announcement",
-        icon = Icons.Default.Person
+    object Contacts : StudentHubNavigationScreens(
+        route = "contacts_screen",
+        label = "Contacts",
+        icon = Icons.Default.Email
     )
 }
-
-//fun fetchStudentsList(
-//    facultySharedViewModel: FacultySharedViewModel,
-//    currentCourseSharedViewModel: CurrentCourseSharedViewModel,
-//): List<StudentsDataClass> {
-//
-//    //    Toast.makeText(LocalContext.current, "list count = ${studentList.size}", Toast.LENGTH_SHORT).show()
-//    val studentsList = ArrayList<StudentsDataClass>()
-//    val firebaseFirestore = FirebaseFirestore.getInstance()
-//    firebaseFirestore.collection("students").whereEqualTo(
-//        "course",
-//        currentCourseSharedViewModel.currentCourse?.className
-//    ).get().addOnSuccessListener {
-//        it.forEach{doc->
-//            studentsList.add(StudentsDataClass(
-//                studentName = doc.getString("name"),
-//                studentUID = doc.getString("name"),
-//                studentProfile = R.drawable.dummy_profile_pic,
-//                studentDesignation = null
-//            ))
-//        }
-//    }
-//        Log.e("List", "${studentsList.size}")
-//
-//
-//    /*return listOf(
-//        StudentsDataClass(
-//            studentName = "Pankaj Singh",
-//            studentUID = "22MCC20049",
-//            studentProfile = R.drawable.dummy_profile_pic,
-//            studentDesignation = "CR"
-//        ),
-//        StudentsDataClass(
-//            studentName = "Sahil Vishwakarma",
-//            studentUID = "22MCC20030",
-//            studentProfile = R.drawable.dummy_profile_pic,
-//            studentDesignation = null
-//        ),
-//        StudentsDataClass(
-//            studentName = "Amandeep Singh",
-//            studentUID = "22MCC20050",
-//            studentProfile = R.drawable.dummy_profile_pic,
-//            studentDesignation = null
-//        ),
-//        StudentsDataClass(
-//            studentName = "Mrinal Sahni",
-//            studentUID = "22MCC20059",
-//            studentProfile = R.drawable.dummy_profile_pic,
-//            studentDesignation = null
-//        ),
-//        StudentsDataClass(
-//            studentName = "Mercy",
-//            studentUID = "22MCC20090",
-//            studentProfile = R.drawable.dummy_profile_pic,
-//            studentDesignation = null
-//        ),
-//        StudentsDataClass(
-//            studentName = "Tejas",
-//            studentUID = "22MCC20088",
-//            studentProfile = R.drawable.dummy_profile_pic,
-//            studentDesignation = "CR"
-//        ),
-//        StudentsDataClass(
-//            studentName = "Tejveer",
-//            studentUID = "22MCC20072",
-//            studentProfile = R.drawable.dummy_profile_pic,
-//            studentDesignation = null
-//        ),
-//        StudentsDataClass(
-//            studentName = "Isha Nagpal",
-//            studentUID = "22MCC20066",
-//            studentProfile = R.drawable.dummy_profile_pic,
-//            studentDesignation = null
-//        )
-//    )*/
-//}
 
 fun fetchChatsList(): List<ChatListDataClass> {
 
 
     return listOf(
         ChatListDataClass(
-            studentName = "Pankaj Singh",
+            name = "Pankaj Singh",
             lastText = "Hello",
-            studentProfile = R.drawable.dummy_profile_pic,
+            profile = R.drawable.dummy_profile_pic,
             lastTime = "11:00 PM"
         ),
         ChatListDataClass(
-            studentName = "Aman Singh",
+            name = "Aman Singh",
             lastText = "Hello",
-            studentProfile = R.drawable.dummy_profile_pic,
+            profile = R.drawable.dummy_profile_pic,
             lastTime = "10:00 PM"
         ),
         ChatListDataClass(
-            studentName = "Sahil Vishwakarma",
+            name = "Sahil Vishwakarma",
             lastText = "Hello",
-            studentProfile = R.drawable.dummy_profile_pic,
+            profile = R.drawable.dummy_profile_pic,
             lastTime = "12:00 PM"
         ),
         ChatListDataClass(
-            studentName = "Iqra Khan",
+            name = "Iqra Khan",
             lastText = "Hello",
-            studentProfile = R.drawable.dummy_profile_pic,
+            profile = R.drawable.dummy_profile_pic,
             lastTime = "09:00 PM"
         ),
         ChatListDataClass(
-            studentName = "Mrinal Sahni",
+            name = "Mrinal Sahni",
             lastText = "Hello",
-            studentProfile = R.drawable.dummy_profile_pic,
+            profile = R.drawable.dummy_profile_pic,
             lastTime = "05:00 PM"
         ),
     )
 
-}
-
-fun fetchAssignedCLassesList(facultySharedViewModel: FacultySharedViewModel): List<AssignedClassDataClass> {
-
-    var classesList = ArrayList<AssignedClassDataClass>()
-
-    for ((key, value) in facultySharedViewModel.facultyUser?.classes!!){
-        classesList.add(AssignedClassDataClass(className = key, subject = value, studentsList = null))
-    }
-    return classesList.toList()
 }
 
 fun fetchAnnouncementsList(): List<AnnouncementDataClass> {

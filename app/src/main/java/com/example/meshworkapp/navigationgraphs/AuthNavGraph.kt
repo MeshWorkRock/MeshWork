@@ -1,20 +1,18 @@
 package com.example.meshworkapp.navigationgraphs
 
-import android.util.Log
-import android.widget.Toast
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.example.meshworkapp.screens.LoginScreenFacultyComposable
+import com.example.meshworkapp.screens.LoginScreen
 import com.example.meshworkapp.UserSelectionComposable
+import com.example.meshworkapp.studentmodule.StudentSharedViewModel
 import com.example.meshworkapp.viewmodels.FacultySharedViewModel
 
 fun NavGraphBuilder.authNavGraph(
     navHostController: NavHostController,
-    facultySharedViewModel: FacultySharedViewModel
+    facultySharedViewModel: FacultySharedViewModel,
+    studentSharedViewModel: StudentSharedViewModel
 ) {
 
     navigation(
@@ -24,20 +22,32 @@ fun NavGraphBuilder.authNavGraph(
         composable(route = AuthScreensGraph.UserSelect.route) {
             UserSelectionComposable(
                 navController = navHostController,
-                onClick = {
-                    navHostController.navigate(AuthScreensGraph.Login.route)
+                onClickFaculty = {
+                    navHostController.navigate(AuthScreensGraph.LoginFaculty.route)
+                },
+                onClickStudent = {
+                    navHostController.navigate(AuthScreensGraph.LoginStudent.route)
                 }
             )
         }
-        composable(route = AuthScreensGraph.Login.route){
-
-            Log.e("Flag", "AuthNavGraph")
-            LoginScreenFacultyComposable(
-                name = "Faculty",
+        composable(route = AuthScreensGraph.LoginFaculty.route){
+            LoginScreen(
+                user = "faculty",
                 onSubmit = {
-                    navHostController.navigate(TopLevelGraph.hubGraph)
+                    navHostController.navigate(TopLevelGraph.facultyHubGraph)
                 },
-                facultySharedViewModel = facultySharedViewModel
+                facultySharedViewModel = facultySharedViewModel,
+                studentSharedViewModel = studentSharedViewModel
+            )
+        }
+        composable(route = AuthScreensGraph.LoginStudent.route){
+            LoginScreen(
+                user = "students",
+                onSubmit = {
+                    navHostController.navigate(TopLevelGraph.studentHubGraph)
+                },
+                facultySharedViewModel = facultySharedViewModel,
+                studentSharedViewModel = studentSharedViewModel
             )
         }
     }
@@ -47,5 +57,6 @@ sealed class AuthScreensGraph(
     val route: String
 ) {
     object UserSelect: AuthScreensGraph("user_select")
-    object Login    : AuthScreensGraph("login")
+    object LoginFaculty    : AuthScreensGraph("login_faculty")
+    object LoginStudent    : AuthScreensGraph("login_student")
 }

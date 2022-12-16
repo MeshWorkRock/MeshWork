@@ -9,16 +9,12 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.example.meshworkapp.AssignedClassDataClass
 import com.example.meshworkapp.composables.ClassCardComposable
 import com.example.meshworkapp.R
 import com.example.meshworkapp.UserInfoDataClass
@@ -26,15 +22,11 @@ import com.example.meshworkapp.common.OrganizationNameAndLogoComposable
 import com.example.meshworkapp.common.UserInfoCard
 import com.example.meshworkapp.composables.GradientBackGround
 import com.example.meshworkapp.dataclassfiles.AssignedClassDataClass
-import com.example.meshworkapp.navigationgraphs.fetchAssignedCLassesList
-import com.example.meshworkapp.ui.theme.DarkBlueText
-import com.example.meshworkapp.ui.theme.LightBlueAnimation
-import com.example.meshworkapp.ui.theme.LightBlueText
 import com.example.meshworkapp.viewmodels.CurrentCourseSharedViewModel
 import com.example.meshworkapp.viewmodels.FacultySharedViewModel
 
 @Composable
-fun HomeScreen(
+fun FacultyHomeScreen(
     navHostController: NavHostController,
     assignedClassesList: List<AssignedClassDataClass>,
     facultySharedViewModel: FacultySharedViewModel,

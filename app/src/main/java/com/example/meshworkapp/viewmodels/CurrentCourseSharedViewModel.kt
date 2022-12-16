@@ -6,8 +6,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.meshworkapp.StudentsDataClass
 import com.example.meshworkapp.dataclassfiles.AssignedClassDataClass
+import com.example.meshworkapp.studentmodule.StudentDataClass
 import kotlinx.android.parcel.Parcelize
 
 
@@ -18,7 +18,7 @@ class CurrentCourseSharedViewModel: ViewModel() {
     fun addCurrentCourse(course: AssignedClassDataClass){
         currentCourse.postValue(course)
     }
-    fun setCurrentCourseStudentList(list: List<StudentsDataClass>){
+    fun setCurrentCourseStudentList(list: List<StudentDataClass>){
         currentCourse.value?.studentsList = list
     }
 }

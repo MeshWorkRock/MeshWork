@@ -1,13 +1,9 @@
 package com.example.meshworkapp
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -20,14 +16,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.example.meshworkapp.Screen
 import com.example.meshworkapp.composables.GradientBackGround
 import com.example.meshworkapp.ui.theme.DarkBlueText
 
 @Composable
 fun UserSelectionComposable(
     navController: NavHostController,
-    onClick: () -> Unit
+    onClickFaculty: () -> Unit,
+    onClickStudent: () -> Unit
 ) {
 
 
@@ -59,7 +55,7 @@ fun UserSelectionComposable(
             ) {
 
                 Button(
-                    onClick = { navController.navigate(Screen.LoginScreenStudent.route) },
+                    onClick = { onClickStudent() },
                     modifier = Modifier
                         .wrapContentSize(),
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
@@ -77,7 +73,7 @@ fun UserSelectionComposable(
                 }
 
                 Button(
-                    onClick = { onClick() },
+                    onClick = { onClickFaculty() },
                     modifier = Modifier
                         .wrapContentSize(),
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
@@ -103,7 +99,11 @@ fun UserSelectionComposable(
 @Composable
 fun UserSelectionComposablePreview() {
 
-    UserSelectionComposable(navController = NavHostController(LocalContext.current), onClick = {})
+    UserSelectionComposable(
+        navController = NavHostController(LocalContext.current),
+        onClickFaculty = {},
+        onClickStudent = {}
+    )
 
 }
 

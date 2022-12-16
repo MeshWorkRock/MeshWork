@@ -24,8 +24,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.meshworkapp.StudentViewModel
-import com.example.meshworkapp.StudentsDataClass
 import com.example.meshworkapp.R
+import com.example.meshworkapp.studentmodule.StudentDataClass
 import com.example.meshworkapp.ui.theme.DarkBlueText
 import com.example.meshworkapp.ui.theme.LightBlueText
 import com.example.meshworkapp.viewmodels.CurrentCourseSharedViewModel
@@ -35,7 +35,7 @@ import com.example.meshworkapp.viewmodels.CurrentCourseSharedViewModel
 fun StudentListComposable(
     searchViewModel: StudentViewModel,
     currentCourseSharedViewModel: CurrentCourseSharedViewModel
-//    studentDataList: List<StudentsDataClass>
+//    studentDataList: List<StudentDataClass>
 //    onClick: () -> Unit
 ) {
 
@@ -70,7 +70,7 @@ fun StudentListComposable(
 // student UID composable, student designation badge composable
 @Composable
 fun StudentListCardComposable(
-    student: StudentsDataClass,
+    student: StudentDataClass,
     studentDesignationBadge: String?,
 //    onClick: () -> Unit
 ) {
@@ -110,7 +110,7 @@ fun StudentListCardComposable(
 
 // It show student designation in student list
 @Composable
-fun StudentDesignationBadgeComposable(student : StudentsDataClass, studentDesignationBadge: String) {
+fun StudentDesignationBadgeComposable(student : StudentDataClass, studentDesignationBadge: String) {
     if (student.studentDesignation == studentDesignationBadge) {
 
         Icon(
@@ -126,12 +126,12 @@ fun StudentDesignationBadgeComposable(student : StudentsDataClass, studentDesign
 
 // It will show student Name and Student UID in student list
 @Composable
-fun StudentNameAndUIDComposable(student: StudentsDataClass) {
+fun StudentNameAndUIDComposable(student: StudentDataClass) {
     Column(
         modifier = Modifier.padding(top = 5.dp)
     ) {
         Text(
-            text = student.studentName!!,
+            text = student.name!!,
             style = MaterialTheme.typography.h6,
             color = DarkBlueText,
             modifier = Modifier
@@ -139,7 +139,7 @@ fun StudentNameAndUIDComposable(student: StudentsDataClass) {
                 .wrapContentWidth(Alignment.Start)
         )
         Text(
-            text = student.studentUID!!,
+            text = student.id!!,
             style = MaterialTheme.typography.body2,
             color = DarkBlueText,
             modifier = Modifier
@@ -151,7 +151,7 @@ fun StudentNameAndUIDComposable(student: StudentsDataClass) {
 
 // It will show Student Profile Picture in student list
 @Composable
-fun StudentProfileImageComposable(student : StudentsDataClass) {
+fun StudentProfileImageComposable(student : StudentDataClass) {
     Image(
         painter = painterResource(id = student.studentProfile!!),
         contentDescription = null,
@@ -166,11 +166,12 @@ fun StudentProfileImageComposable(student : StudentsDataClass) {
 @Preview(showBackground = true)
 @Composable
 fun StudentsListScreenPreview(){
-    val s = StudentsDataClass(
-        studentName = "Pankaj Singh",
-        studentUID = "22MCC20049",
+    val s = StudentDataClass(
+        name = "Pankaj Singh",
+        id = "22MCC20049",
         studentProfile = R.drawable.dummy_profile_pic,
-        studentDesignation = "CR"
+        studentDesignation = "CR",
+        course = "22MCD1"
     )
     StudentListCardComposable(student = s, studentDesignationBadge = "CR")
 }

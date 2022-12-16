@@ -3,21 +3,22 @@ package com.example.meshworkapp
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.meshworkapp.studentmodule.StudentDataClass
 
 class StudentViewModel() : ViewModel() {
 
     //    Don't Declare anything between these three variables
-    private var _liveMutableStudentsList = MutableLiveData<List<StudentsDataClass>>()
-    val liveStudentsList: LiveData<List<StudentsDataClass>>
+    private var _liveMutableStudentsList = MutableLiveData<List<StudentDataClass>>()
+    val liveStudentsList: LiveData<List<StudentDataClass>>
         get() = this._liveMutableStudentsList
 
     //    Only Declare Variables from here on
-    private var studentList = ArrayList<StudentsDataClass>()
+    private var studentList = ArrayList<StudentDataClass>()
 
-    fun loadStudents(studentDataList: List<StudentsDataClass>?) {
+    fun loadStudents(studentDataList: List<StudentDataClass>?) {
 
         initializeStudentList(studentDataList)
-        this._liveMutableStudentsList = MutableLiveData<List<StudentsDataClass>>()
+        this._liveMutableStudentsList = MutableLiveData<List<StudentDataClass>>()
         if(_liveMutableStudentsList.value == null)
             this._liveMutableStudentsList.postValue(studentList)
     }
@@ -26,11 +27,11 @@ class StudentViewModel() : ViewModel() {
         query: String
     ) {
 //        Log.i("queryn7", ":1")
-        val filteredList = ArrayList<StudentsDataClass>()
+        val filteredList = ArrayList<StudentDataClass>()
         studentList.forEach { student ->
-            if (student.studentName.lowercase()
-                    .contains(query.lowercase()) || student.studentUID.lowercase()
-                    .contains(query.lowercase())
+            if (student.name?.lowercase()
+                    !!.contains(query.lowercase()) || student.id?.lowercase()
+                    !!.contains(query.lowercase())
             ) {
                 filteredList.add(student)
             }
@@ -39,53 +40,53 @@ class StudentViewModel() : ViewModel() {
         this._liveMutableStudentsList.postValue(filteredList)
     }
 
-    private fun initializeStudentList(studentDataList: List<StudentsDataClass>?) {
+    private fun initializeStudentList(studentDataList: List<StudentDataClass>?) {
 
         val data = studentDataList
 //        val data = listOf(
-//            StudentsDataClass(
+//            StudentDataClass(
 //                studentName = "Pankaj Singh",
 //                studentUID = "22MCC20049",
 //                studentProfile = R.drawable.dummy_profile_pic,
 //                studentDesignation = "CR"
 //            ),
-//            StudentsDataClass(
+//            StudentDataClass(
 //                studentName = "Sahil Vishwakarma",
 //                studentUID = "22MCC20030",
 //                studentProfile = R.drawable.dummy_profile_pic,
 //                studentDesignation = null
 //            ),
-//            StudentsDataClass(
+//            StudentDataClass(
 //                studentName = "Amandeep Singh",
 //                studentUID = "22MCC20050",
 //                studentProfile = R.drawable.dummy_profile_pic,
 //                studentDesignation = null
 //            ),
-//            StudentsDataClass(
+//            StudentDataClass(
 //                studentName = "Mrinal Sahni",
 //                studentUID = "22MCC20059",
 //                studentProfile = R.drawable.dummy_profile_pic,
 //                studentDesignation = null
 //            ),
-//            StudentsDataClass(
+//            StudentDataClass(
 //                studentName = "Mercy",
 //                studentUID = "22MCC20090",
 //                studentProfile = R.drawable.dummy_profile_pic,
 //                studentDesignation = null
 //            ),
-//            StudentsDataClass(
+//            StudentDataClass(
 //                studentName = "Tejas",
 //                studentUID = "22MCC20088",
 //                studentProfile = R.drawable.dummy_profile_pic,
 //                studentDesignation = "CR"
 //            ),
-//            StudentsDataClass(
+//            StudentDataClass(
 //                studentName = "Tejveer",
 //                studentUID = "22MCC20072",
 //                studentProfile = R.drawable.dummy_profile_pic,
 //                studentDesignation = null
 //            ),
-//            StudentsDataClass(
+//            StudentDataClass(
 //                studentName = "Isha Nagpal",
 //                studentUID = "22MCC20066",
 //                studentProfile = R.drawable.dummy_profile_pic,
@@ -97,7 +98,7 @@ class StudentViewModel() : ViewModel() {
             studentList.add(it)
         }
 
-        studentList.sortBy { it.studentUID }
+        studentList.sortBy { it.id }
         var i = 0
         while (i < studentList.size) {
             if (studentList[i].studentDesignation == "CR") {

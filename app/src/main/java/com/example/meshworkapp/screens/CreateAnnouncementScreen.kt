@@ -18,9 +18,11 @@ import androidx.compose.ui.unit.sp
 import com.example.meshworkapp.R
 import com.example.meshworkapp.composables.GradientBackGround
 import com.example.meshworkapp.ui.theme.DarkBlueText
+import com.example.meshworkapp.viewmodels.FacultySharedViewModel
+import com.google.firebase.firestore.FirebaseFirestore
 
 @Composable
-fun CreateAnnouncementScreen() {
+fun CreateAnnouncementScreen(facultySharedViewModel: FacultySharedViewModel) {
     Box {
         GradientBackGround()
         Column(horizontalAlignment = Alignment.Start) {
@@ -40,7 +42,7 @@ fun CreateAnnouncementScreen() {
             )
 
             CreateAnnouncementInfoScreen()
-            AnnouncementDataEnterScreen()
+            AnnouncementDataEnterScreen(facultySharedViewModel = facultySharedViewModel)
         }
 
     }
@@ -85,14 +87,14 @@ fun CreateAnnouncementInfoScreen() {
 }
 
 @Composable
-fun AnnouncementDataEnterScreen() {
-    var value by remember { mutableStateOf("") }
+fun AnnouncementDataEnterScreen(facultySharedViewModel: FacultySharedViewModel) {
+    var message by remember { mutableStateOf("") }
 
     Box {
         Column() {
             TextField(
-                value = value,
-                onValueChange = { value = it },
+                value = message,
+                onValueChange = { message = it },
                 placeholder = {
                     Column {
                         Text("Title",
@@ -120,7 +122,16 @@ fun AnnouncementDataEnterScreen() {
             .align(Alignment.BottomEnd)
             .padding(15.dp)
             .background(color = DarkBlueText)) {
-            Button(onClick = {}, modifier = Modifier.background(color = DarkBlueText)) {
+            Button(
+                onClick = {
+                    sendAnnouncement(
+                        title = "this Title",
+                        message = message,
+                        facultySharedViewModel = facultySharedViewModel
+                    )
+                },
+                modifier = Modifier.background(color = DarkBlueText)
+            ) {
                 Image(
                     painter = painterResource(id = R.drawable.paper_plane),
                     contentDescription = "Icon",
@@ -133,8 +144,31 @@ fun AnnouncementDataEnterScreen() {
 
 }
 
+fun sendAnnouncement(
+//    coursesList: List<String>,
+    title: String,
+    message: String,
+    facultySharedViewModel: FacultySharedViewModel,
+) {
+    val firebaseFirestore = FirebaseFirestore.getInstance()
+
+    val data = hashMapOf(
+        "title" to title,
+        "message" to message,
+        "sender" to facultySharedViewModel.facultyUser?.name
+    )
+
+    firebaseFirestore
+        .collection("courses/22_mcd/announcements/1_b/announcements")
+        .document().set(data)
+//    coursesList.forEach { course ->
+//
+//    }
+
+}
+
 @Preview(showBackground = true)
 @Composable
 fun SamplePreviewFunction() {
-    CreateAnnouncementScreen()
+    CreateAnnouncementScreen(facultySharedViewModel = FacultySharedViewModel())
 }
