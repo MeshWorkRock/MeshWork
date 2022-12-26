@@ -242,7 +242,7 @@ fun loginScreen(
 ) {
 
     val firebaseFirestore = FirebaseFirestore.getInstance()
-    firebaseFirestore.collection(user).whereEqualTo("id", id)
+    firebaseFirestore.collection(user).whereEqualTo("uid", id)
         .whereEqualTo("password", password).get().addOnSuccessListener {
             if (it.size() != 0) {
                 val documentSnapshot = it.documents[0]
@@ -257,7 +257,7 @@ fun loginScreen(
                 } else {
                     val user = StudentDataClass(
                         name = documentSnapshot.getString("name"),
-                        id = documentSnapshot.getString("id"),
+                        id = documentSnapshot.getString("uid"),
                         studentProfile = R.drawable.dummy_profile_pic,
                         course = documentSnapshot.getString("course")
                     )

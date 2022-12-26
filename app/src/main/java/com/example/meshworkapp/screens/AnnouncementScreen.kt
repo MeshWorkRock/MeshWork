@@ -197,55 +197,55 @@ fun AnnouncementListWithActionBarComposable(
 
 }
 
-//@Composable
-//fun AnnouncementList(
-//    announcementMessages: List<AnnouncementDataClass>
-//) {
-//
-//    LazyColumn(modifier = Modifier.fillMaxSize()) {
-//        items(items = announcementMessages, itemContent = { announcement ->
-//            Card(
-//                shape = RoundedCornerShape(20.dp),
-//                elevation = 8.dp,
-//                modifier = Modifier
-//                    .padding(10.dp)
-//            ) {
-//                Column(
-//                    modifier = Modifier
-//                        .padding(5.dp)
-//                        .fillMaxWidth()
-//                        .padding(5.dp)
-//                ) {
-//                    Row() {
-//                        Text(
-//                            text = announcement.Heading,
-//                            textAlign = TextAlign.Start,
-//                            modifier = Modifier.weight(1f),
-//                            style = MaterialTheme.typography.h6,
-//                            color = DarkBlueText
-//                        )
-//                        Text(
-//                            text = announcement.Date,
-//                            textAlign = TextAlign.End,
-//                            modifier = Modifier.weight(1f),
-//                            style = MaterialTheme.typography.body2,
-//                            color = DarkBlueText
-//                        )
-//                    }
-//                    Text(
-//                        text = announcement.announcementBody,
-//                        fontSize = 18.sp,
-//                        textAlign = TextAlign.Left,
-//                        color = DarkBlueText,
-//                        modifier = Modifier
-//                            .padding(top = 5.dp)
-//                    )
-//                }
-//            }
-//        })
-//    }
-//
-//}
+@Composable
+fun AnnouncementList(
+    announcementMessages: List<AnnouncementDataClass>
+) {
+
+    LazyColumn(modifier = Modifier.fillMaxSize()) {
+        items(items = announcementMessages, itemContent = { announcement ->
+            Card(
+                shape = RoundedCornerShape(20.dp),
+                elevation = 8.dp,
+                modifier = Modifier
+                    .padding(10.dp)
+            ) {
+                Column(
+                    modifier = Modifier
+                        .padding(5.dp)
+                        .fillMaxWidth()
+                        .padding(5.dp)
+                ) {
+                    Row() {
+                        Text(
+                            text = announcement.Heading,
+                            textAlign = TextAlign.Start,
+                            modifier = Modifier.weight(1f),
+                            style = MaterialTheme.typography.h6,
+                            color = DarkBlueText
+                        )
+                        Text(
+                            text = announcement.Date,
+                            textAlign = TextAlign.End,
+                            modifier = Modifier.weight(1f),
+                            style = MaterialTheme.typography.body2,
+                            color = DarkBlueText
+                        )
+                    }
+                    Text(
+                        text = announcement.announcementBody,
+                        fontSize = 18.sp,
+                        textAlign = TextAlign.Left,
+                        color = DarkBlueText,
+                        modifier = Modifier
+                            .padding(top = 5.dp)
+                    )
+                }
+            }
+        })
+    }
+
+}
 
 
 
