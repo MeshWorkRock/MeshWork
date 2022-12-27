@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.navigation.compose.rememberNavController
-import com.example.meshworkapp.navigationgraphs.RootNavGraph
+import com.example.meshworkapp.faculty.navigationgraphs.RootNavGraph
 import com.example.meshworkapp.ui.theme.MeshWorkAppTheme
 import com.google.firebase.firestore.FirebaseFirestore
 
