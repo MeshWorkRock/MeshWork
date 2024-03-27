@@ -1,0 +1,1 @@
+MeshWork is a platform made to solve the grievances of academic networks. It is an app that provides all the information regarding your academic institutions like announcements, contacts, chat, timetable, and Assignment details.
